@@ -20,15 +20,15 @@ import android.media.AudioManager;
     //https://code.tutsplus.com/tutorials/create-a-custom-keyboard-on-android--cms-22615
 public class HopliteKeyboard extends InputMethodService implements OnKeyboardActionListener{
     public final static int NO_ACCENT = 0;
-    public final static int ACUTE = 1;
-    public final static int CIRCUMFLEX = 2;
-    public final static int GRAVE = 3;
-    public final static int MACRON = 4;
-    public final static int ROUGH_BREATHING = 5;
-    public final static int SMOOTH_BREATHING =6;
-    public final static int IOTA_SUBSCRIPT = 7;
+    public final static int ACUTE               = 1;
+    public final static int CIRCUMFLEX          = 2;
+    public final static int GRAVE               = 3;
+    public final static int MACRON              = 4;
+    public final static int ROUGH_BREATHING     = 5;
+    public final static int SMOOTH_BREATHING    = 6;
+    public final static int IOTA_SUBSCRIPT      = 7;
     public final static int SURROUNDING_PARENTHESES = 8;
-    public final static int DIAERESIS = 9;
+    public final static int DIAERESIS           = 9;
 
     public final static int COMBINING_GRAVE             = 0x0300;
     public final static int COMBINING_ACUTE             = 0x0301;
@@ -49,7 +49,6 @@ public class HopliteKeyboard extends InputMethodService implements OnKeyboardAct
         keyboard = new Keyboard(this, R.xml.hoplitekeyboard);
         kv.setKeyboard(keyboard);
         kv.setOnKeyboardActionListener(this);
-        Log.d("ABC", "HEREREREREdddd333");
         return kv;
     }
 
@@ -61,7 +60,21 @@ public class HopliteKeyboard extends InputMethodService implements OnKeyboardAct
         switch (primaryCode) {
             case 38:
             case Keyboard.KEYCODE_DELETE:
-                ic.deleteSurroundingText(1, 0);
+                //cursor could be between character and combining accents...
+                int maxSubstringForAccent = 7;
+                String strBefore = ic.getTextBeforeCursor(maxSubstringForAccent, 0).toString();
+
+                int strBeforeLen = strBefore.length();
+                if (strBeforeLen < 1) {
+                    return;
+                }
+                int cc = numCombiningChars(strBefore);
+
+                String strAfter = ic.getTextAfterCursor(maxSubstringForAccent, 0).toString();
+                int ccAfter = numCombiningCharsAfter(strAfter);
+
+                //Log.e("abc", "to delete: " + cc + ", after: " + ccAfter);
+                ic.deleteSurroundingText(cc+1, ccAfter);
                 break;
             case 12://Keyboard.KEYCODE_SHIFT:
                 caps = !caps;
@@ -229,43 +242,84 @@ public class HopliteKeyboard extends InputMethodService implements OnKeyboardAct
         }
     }
 
+    public boolean isCombiningCharacter(char s)
+    {
+        //test this with a visible character: s == 0x03B2 ||
+        if (s == COMBINING_GRAVE ||
+                s == COMBINING_ACUTE ||
+                s == COMBINING_CIRCUMFLEX ||
+                s == COMBINING_MACRON ||
+                s == COMBINING_DIAERESIS ||
+                s == COMBINING_SMOOTH_BREATHING ||
+                s == COMBINING_ROUGH_BREATHING ||
+                s == COMBINING_IOTA_SUBSCRIPT)
+            return true;
+        else
+            return false;
+    }
+
+    public int numCombiningChars(String s)
+    {
+        int combiningChars = 0;
+        int sLen = s.length();
+        for (int i = sLen; i > 0; i--)
+        {
+            char c = s.charAt(i - 1);
+            if (isCombiningCharacter(c)) {
+                combiningChars++;
+            }
+            else
+            {
+                break;
+            }
+        }
+        return combiningChars;
+    }
+
+    public int numCombiningCharsAfter(String s)
+    {
+        int combiningChars = 0;
+        int sLen = s.length();
+        for (int i = 0; i < sLen; i++)
+        {
+            char c = s.charAt(i);
+            if (isCombiningCharacter(c)) {
+                combiningChars++;
+            }
+            else
+            {
+                break;
+            }
+        }
+        return combiningChars;
+    }
+
     public void localAccentLetter(InputConnection ic, int start, int acc)
     {
         GreekVerb gv1 = new GreekVerb();
 
         ExtractedText et = ic.getExtractedText(new ExtractedTextRequest(), 0);
+        if (et == null) {
+            return;
+        }
         int selectionStart = et.selectionStart;
         int selectionEnd = et.selectionEnd;
 
         int maxSubstringForAccent = 7;
-        String str2 = ic.getTextBeforeCursor(1, 0).toString();
-        String accentedLetter = "";
-        accentedLetter = gv1.addAccent(acc, str2);
+        String strBefore = ic.getTextBeforeCursor(maxSubstringForAccent, 0).toString();
 
-        String sub;
-
-
-/*
-        String accentedLetter = "";
-        int i;
-
-        for (i = 1; i < maxSubstringForAccent; i++)
-        {
-            if (start - i < 0)
-            {
-                break;
-            }
-            sub = str2.substring(start - i, start);
-            ic.commitText(sub, 0);
-            accentedLetter = "ά";//gv1.addAccent(acc, sub);
-            if (!accentedLetter.equals("")) {
-                break;
-            }
+        int strBeforeLen = strBefore.length();
+        if (strBeforeLen < 1) {
+            return;
         }
-        */
+        int cc = numCombiningChars(strBefore);
+
+        //Log.e("abc", "NUM: " + cc + ", " + (strBeforeLen - cc - 1) + ", " + (strBeforeLen) + ", " + strBefore.substring(strBeforeLen - cc - 1, strBeforeLen));
+        String accentedLetter = "";
+        accentedLetter = gv1.addAccent(acc, strBefore.substring(strBeforeLen - cc - 1, strBeforeLen));
+
         if (!accentedLetter.equals("")) {
-            //editable.replace(start - i, start, accentedLetter);
-            ic.setComposingRegion(selectionStart - 1, selectionEnd);
+            ic.setComposingRegion(selectionStart - (1+cc), selectionEnd);
             ic.setComposingText(accentedLetter, 1);
             ic.finishComposingText();
             //ic.commitText(accentedLetter, start);
