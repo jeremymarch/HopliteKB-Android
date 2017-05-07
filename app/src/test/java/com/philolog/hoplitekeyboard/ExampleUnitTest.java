@@ -1,4 +1,4 @@
-package philolog.com.hoplitekeyboard;
+package com.philolog.hoplitekeyboard;
 
 import org.junit.Test;
 

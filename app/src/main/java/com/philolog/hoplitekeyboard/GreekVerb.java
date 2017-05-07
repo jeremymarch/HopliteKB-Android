@@ -1,4 +1,4 @@
-package philolog.com.hoplitekeyboard;
+package com.philolog.hoplitekeyboard;
 
 /**
  * Created by jeremy on 5/6/17.

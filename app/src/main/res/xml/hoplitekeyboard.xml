@@ -13,8 +13,8 @@
         <Key android:codes="30"    android:keyLabel="~"   />
         <Key android:codes="33"    android:keyLabel="-"   />
         <Key android:codes="32"    android:keyLabel="i"   />
-        <Key android:codes="31"    android:keyLabel=","   />
-        <Key android:codes="32"    android:keyLabel="·"   android:keyEdgeFlags="right" />
+        <Key android:codes="40"    android:keyLabel=","   />
+        <Key android:codes="41"    android:keyLabel="·"   android:keyEdgeFlags="right" />
 
     </Row>
     <Row>
@@ -49,13 +49,13 @@
         <Key android:codes="13"    android:keyLabel="ν"  />
         <Key android:codes="12"    android:keyLabel="μ"  />
 
-        <Key android:codes="35" android:keyLabel="Del" android:keyWidth="17.0%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:codes="38" android:keyLabel="Del" android:keyWidth="17.0%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     <Row>
         <Key android:codes="12"    android:keyLabel="caps" android:keyEdgeFlags="left" android:horizontalGap="2%p" />
-        <Key android:codes="34" android:keyLabel="Space" android:keyWidth="30.0%p"  />
-        <Key android:codes="31"    android:keyLabel="."   />
-        <Key android:codes="31"    android:keyLabel=";"   />
-        <Key android:codes="34" android:keyLabel="Enter" android:keyWidth="30.0%p" android:keyEdgeFlags="right" />
+        <Key android:codes="39" android:keyLabel="Space" android:keyWidth="30.0%p"  />
+        <Key android:codes="36"    android:keyLabel="."   />
+        <Key android:codes="37"    android:keyLabel=";"   />
+        <Key android:codes="35" android:keyLabel="Enter" android:keyWidth="30.0%p" android:keyEdgeFlags="right" />
     </Row>
 </Keyboard>

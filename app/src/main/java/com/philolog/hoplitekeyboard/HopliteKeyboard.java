@@ -1,4 +1,4 @@
-package philolog.com.hoplitekeyboard;
+package com.philolog.hoplitekeyboard;
 
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
@@ -57,8 +57,9 @@ public class HopliteKeyboard extends InputMethodService implements OnKeyboardAct
     public void onKey(int primaryCode, int[] keyCodes) {
         InputConnection ic = getCurrentInputConnection();
         playClick(primaryCode);
-        Log.e("ABC", "HERERERERE222");
+
         switch (primaryCode) {
+            case 38:
             case Keyboard.KEYCODE_DELETE:
                 ic.deleteSurroundingText(1, 0);
                 break;
@@ -77,7 +78,7 @@ public class HopliteKeyboard extends InputMethodService implements OnKeyboardAct
                     code = Character.toUpperCase(code);
                 }
                 */
-                Log.e("ABC", "HERERERERE");
+
                 String s = "";
                 if (primaryCode == 1) {
                     s = "α";
@@ -129,6 +130,18 @@ public class HopliteKeyboard extends InputMethodService implements OnKeyboardAct
                     s = "ω";
                 } else if (primaryCode == 25) {
                     s = "ς";
+                } else if (primaryCode == 39) {
+                    s = " ";
+                } else if (primaryCode == 35) {
+                    s = "\n";
+                } else if (primaryCode == 36) {
+                    s = ".";
+                } else if (primaryCode == 37) {
+                    s = ";";
+                } else if (primaryCode == 40) {
+                    s = ",";
+                } else if (primaryCode == 41) {
+                    s = "·";
                 } else if (primaryCode == 26) { //parentheses
                     localAccentLetter(ic, 0, SURROUNDING_PARENTHESES);
                 } else if (primaryCode == 27) { //rough breathing
