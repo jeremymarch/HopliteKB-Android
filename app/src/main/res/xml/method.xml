@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<input-method xmlns:android="http://schemas.android.com/apk/res/android">
+<input-method xmlns:android="http://schemas.android.com/apk/res/android"
+    android:settingsActivity="com.philolog.hoplitekeyboard.HKSettings"
+    android:supportsSwitchingToNextInputMethod="true">
     <subtype
         android:label="Polytonic Greek"
         android:imeSubtypeLocale="el_GR"

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceCategory
+    android:title="Settings"
+    android:key="pref_key_storage_settings">
+
+        <ListPreference
+            android:key="UnicodeMode"
+            android:title="Unicode Mode"
+            android:entries="@array/unicodemodeentries"
+            android:entryValues="@array/unicodemodevalues"
+            android:defaultValue="0"/>
+
+</PreferenceCategory>
+
+</PreferenceScreen>
