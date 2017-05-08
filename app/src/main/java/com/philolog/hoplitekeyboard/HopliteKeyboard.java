@@ -64,7 +64,7 @@ public class HopliteKeyboard extends InputMethodService implements OnKeyboardAct
                                                           String key) {
                         // your stuff here
                         unicodeMode = Integer.parseInt(sharedPreferences.getString("UnicodeMode", "0"));
-                        Log.e("abc", "preferences changed to: " + unicodeMode);
+                        //Log.e("abc", "preferences changed to: " + unicodeMode);
                     }
                 };
         return kv;
@@ -199,64 +199,6 @@ public class HopliteKeyboard extends InputMethodService implements OnKeyboardAct
                     ic.commitText(s, 1);
                 }
 
-
-
-/*
-        // Get the EditText and its Editable
-        View focusCurrent = MainActivity.this.getWindow().getCurrentFocus();
-        if( focusCurrent==null || focusCurrent.getClass()!=EditTypeWriter.class )
-            return;
-        EditTypeWriter edittext = (EditTypeWriter) focusCurrent;
-        Editable editable = edittext.getText();
-        int start = edittext.getSelectionStart();
-
-        // this will prevent inserting a char between combining accents
-        String str2 = editable.toString();
-        start = fixCursorStart(start, str2, edittext);
-
-        vibrator.vibrate(KEYPRESS_VIBRATE);
-
-        if( primaryCode==CodeCancel ) {
-            //hideCustomKeyboard();
-
-        } /* else if( primaryCode==CodeDelete ) {
-                if( editable!=null && start>0 ) editable.delete(start - 1, start);
-            } else if( primaryCode==CodeClear ) {
-                if( editable!=null ) editable.clear();
-            } else if( primaryCode==CodeLeft ) {
-                if( start>0 ) edittext.setSelection(start - 1);
-            } else if( primaryCode==CodeRight ) {
-                if (start < edittext.length()) edittext.setSelection(start + 1);
-            } else if( primaryCode==CodeAllLeft ) {
-                edittext.setSelection(0);
-            } else if( primaryCode==CodeAllRight ) {
-                edittext.setSelection(edittext.length());
-            } else if( primaryCode==CodePrev ) {
-                View focusNew= edittext.focusSearch(View.FOCUS_BACKWARD);
-                if( focusNew!=null ) focusNew.requestFocus();
-            } else if( primaryCode==CodeNext ) {
-                View focusNew= edittext.focusSearch(View.FOCUS_FORWARD);
-                if( focusNew!=null ) focusNew.requestFocus();
-
-            }
-
-
-         else if( primaryCode == 33 ) { //MF
-            onMFPressed(editable, start);
-        } else if( primaryCode == 34 ) { //Enter
-            onEnterPressed();
-        } else if( primaryCode == 35 ) { //Delete
-            if( start > 0 )
-            {
-                int i = 0;
-                while (isCombiningCharacter(str2.charAt(start - i - 1)) && start - i - 1 > 0)
-                    i++;
-                editable.delete(start - i - 1, start);
-            }
-
-        } */ /* else {// Insert character
-                editable.insert(start, Character.toString((char) primaryCode));
-            } */
         }
     }
 
@@ -339,7 +281,7 @@ public class HopliteKeyboard extends InputMethodService implements OnKeyboardAct
 
         //Log.e("abc", "NUM: " + cc + ", " + (strBeforeLen - cc - 1) + ", " + (strBeforeLen) + ", " + strBefore.substring(strBeforeLen - cc - 1, strBeforeLen));
         String accentedLetter = "";
-        Log.e("abc", "unicode mode: " + unicodeMode);
+        //Log.e("abc", "unicode mode: " + unicodeMode);
         accentedLetter = gv1.addAccent(acc, strBefore.substring(strBeforeLen - cc - 1, strBeforeLen), unicodeMode);
 
         if (!accentedLetter.equals("")) {
@@ -348,7 +290,6 @@ public class HopliteKeyboard extends InputMethodService implements OnKeyboardAct
             ic.finishComposingText();
             //ic.commitText(accentedLetter, start);
         }
-
     }
 
         @Override
