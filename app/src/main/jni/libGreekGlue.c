@@ -15,7 +15,7 @@
 // If you want you can add other log definition for info, warning etc
 
 JNIEXPORT jstring JNICALL
-Java_com_philolog_hoplitekeyboard_GreekVerb_addAccent( JNIEnv* env, jobject thiz, jint accent, jstring *str) {
+Java_com_philolog_hoplitekeyboard_GreekVerb_addAccent( JNIEnv* env, jobject thiz, jint accent, jstring *str, jint unicodeMode) {
     char buffer[1024];
     UCS2 ucs2[1024];
     int ucs2Len = 0;
@@ -24,7 +24,7 @@ Java_com_philolog_hoplitekeyboard_GreekVerb_addAccent( JNIEnv* env, jobject thiz
     utf8_to_ucs2_string((const unsigned char *)letters, ucs2, &ucs2Len);
 
     if (ucs2[0] != COMBINING_ACUTE && ucs2[0] != COMBINING_MACRON && ucs2[0] != COMBINING_ROUGH_BREATHING && ucs2[0] != COMBINING_SMOOTH_BREATHING) {
-        accentSyllable(ucs2, 0, &ucs2Len, accent, true, PRECOMPOSED_MODE);
+        accentSyllable(ucs2, 0, &ucs2Len, accent, true, unicodeMode);
         ucs2_to_utf8_string(ucs2, ucs2Len, buffer);
     }
     else

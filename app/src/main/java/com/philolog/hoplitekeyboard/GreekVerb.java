@@ -6,7 +6,7 @@ package com.philolog.hoplitekeyboard;
 
 public class GreekVerb
 {
-    public native String addAccent(int accent, String str); //included here as a hack
+    public native String addAccent(int accent, String str, Integer unicodeMode); //included here as a hack
 
     static {
         //http://stackoverflow.com/questions/1007861/how-do-i-get-a-list-of-jni-libraries-which-are-loaded/1008631#1008631

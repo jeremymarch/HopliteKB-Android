@@ -1,9 +1,11 @@
 package com.philolog.hoplitekeyboard;
 
+import android.content.SharedPreferences;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
 import android.inputmethodservice.KeyboardView;
 import android.inputmethodservice.Keyboard;
+import android.preference.PreferenceManager;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
@@ -42,6 +44,7 @@ public class HopliteKeyboard extends InputMethodService implements OnKeyboardAct
     private Keyboard keyboard;
 
     private boolean caps = false;
+    private int unicodeMode = 0;
 
     @Override
     public View onCreateInputView() {
@@ -49,6 +52,21 @@ public class HopliteKeyboard extends InputMethodService implements OnKeyboardAct
         keyboard = new Keyboard(this, R.xml.hoplitekeyboard);
         kv.setKeyboard(keyboard);
         kv.setOnKeyboardActionListener(this);
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        unicodeMode = Integer.parseInt(sharedPref.getString("UnicodeMode", "0"));
+
+        //this doesn't seem to work
+        SharedPreferences.OnSharedPreferenceChangeListener spChanged = new
+                SharedPreferences.OnSharedPreferenceChangeListener() {
+                    @Override
+                    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
+                                                          String key) {
+                        // your stuff here
+                        unicodeMode = Integer.parseInt(sharedPreferences.getString("UnicodeMode", "0"));
+                        Log.e("abc", "preferences changed to: " + unicodeMode);
+                    }
+                };
         return kv;
     }
 
@@ -296,6 +314,11 @@ public class HopliteKeyboard extends InputMethodService implements OnKeyboardAct
 
     public void localAccentLetter(InputConnection ic, int start, int acc)
     {
+        //seems wasteful, but performs ok
+        //the only thing that lets this change on the fly
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        unicodeMode = Integer.parseInt(sharedPref.getString("UnicodeMode", "0"));
+
         GreekVerb gv1 = new GreekVerb();
 
         ExtractedText et = ic.getExtractedText(new ExtractedTextRequest(), 0);
@@ -316,7 +339,8 @@ public class HopliteKeyboard extends InputMethodService implements OnKeyboardAct
 
         //Log.e("abc", "NUM: " + cc + ", " + (strBeforeLen - cc - 1) + ", " + (strBeforeLen) + ", " + strBefore.substring(strBeforeLen - cc - 1, strBeforeLen));
         String accentedLetter = "";
-        accentedLetter = gv1.addAccent(acc, strBefore.substring(strBeforeLen - cc - 1, strBeforeLen));
+        Log.e("abc", "unicode mode: " + unicodeMode);
+        accentedLetter = gv1.addAccent(acc, strBefore.substring(strBeforeLen - cc - 1, strBeforeLen), unicodeMode);
 
         if (!accentedLetter.equals("")) {
             ic.setComposingRegion(selectionStart - (1+cc), selectionEnd);
