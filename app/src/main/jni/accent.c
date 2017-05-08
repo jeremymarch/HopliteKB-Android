@@ -838,6 +838,10 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, int letterCode, int accentB
 //there should be room for a least MAX_COMBINING more characters at the end of ucs2String, in case it needs to grow
 void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool toggleOff, int unicodeMode)
 {
+    if (unicodeMode != PRECOMPOSED_MODE && unicodeMode != PRECOMPOSED_WITH_PUA_MODE && unicodeMode != COMBINING_ONLY_MODE && unicodeMode != PRECOMPOSED_HC_MODE)
+    {
+        unicodeMode = PRECOMPOSED_MODE;
+    }
     unicode_mode = unicodeMode;
     
     if (*len < 1)

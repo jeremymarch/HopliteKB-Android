@@ -17,10 +17,16 @@ import android.media.AudioManager;
 
 /**
  * Created by jeremy on 2/15/17.
- */
+
+//examples:
+//https://github.com/blackcj/AndroidCustomKeyboard
+//http://www.blackcj.com/blog/2016/03/30/building-a-custom-android-keyboard/
+//http://stackoverflow.com/questions/18224520/how-to-set-different-background-of-keys-for-android-custom-keyboard
+
 //http://stackoverflow.com/questions/15825081/error-default-activity-not-found
-    //https://code.tutsplus.com/tutorials/create-a-custom-keyboard-on-android--cms-22615
-public class HopliteKeyboard extends InputMethodService implements OnKeyboardActionListener{
+ //https://code.tutsplus.com/tutorials/create-a-custom-keyboard-on-android--cms-22615
+*/
+ public class HopliteKeyboard extends InputMethodService implements OnKeyboardActionListener{
     public final static int NO_ACCENT = 0;
     public final static int ACUTE               = 1;
     public final static int CIRCUMFLEX          = 2;
@@ -44,7 +50,7 @@ public class HopliteKeyboard extends InputMethodService implements OnKeyboardAct
     private Keyboard keyboard;
 
     private boolean caps = false;
-    private int unicodeMode = 0;
+    private Integer unicodeMode = 0;
 
     @Override
     public View onCreateInputView() {
@@ -279,10 +285,10 @@ public class HopliteKeyboard extends InputMethodService implements OnKeyboardAct
         }
         int cc = numCombiningChars(strBefore);
 
-        //Log.e("abc", "NUM: " + cc + ", " + (strBeforeLen - cc - 1) + ", " + (strBeforeLen) + ", " + strBefore.substring(strBeforeLen - cc - 1, strBeforeLen));
+        Log.e("abc", "NUM: " + cc + ", " + (strBeforeLen - cc - 1) + ", " + (strBeforeLen) + ", " + strBefore.substring(strBeforeLen - cc - 1, strBeforeLen));
         String accentedLetter = "";
-        //Log.e("abc", "unicode mode: " + unicodeMode);
-        accentedLetter = gv1.addAccent(acc, strBefore.substring(strBeforeLen - cc - 1, strBeforeLen), unicodeMode);
+        Log.e("abc", "unicode mode: " + unicodeMode);
+        accentedLetter = gv1.addAccent(acc, unicodeMode, strBefore.substring(strBeforeLen - cc - 1, strBeforeLen));
 
         if (!accentedLetter.equals("")) {
             ic.setComposingRegion(selectionStart - (1+cc), selectionEnd);
