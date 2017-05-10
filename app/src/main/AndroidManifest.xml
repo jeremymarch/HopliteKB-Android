@@ -1,17 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.philolog.hoplitekeyboard"
-    android:versionCode="4"
-    android:versionName="1.0.3">
+    android:versionCode="6"
+    android:versionName="1.0.5">
 
-    <application android:allowBackup="true"
+    <application
         android:label="@string/app_name"
-        android:icon="@mipmap/ic_launcher">
-        <activity android:name=".HKSettings" android:label="Hoplite Keyboard Settings">
+        android:icon="@mipmap/hoplitekblogo"
+        android:theme="@style/AppTheme">
+        <activity android:name=".HKTestAppMainActivity"
+            android:label="Hoplite Keyboard Test App">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".HKSettings" android:label="Hoplite Keyboard Settings"/>
+
         <service android:name=".HopliteKeyboard"
             android:label="@string/app_name"
             android:permission="android.permission.BIND_INPUT_METHOD">

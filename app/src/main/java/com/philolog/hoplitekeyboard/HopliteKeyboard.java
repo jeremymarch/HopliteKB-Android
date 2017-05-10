@@ -46,15 +46,15 @@ import android.media.AudioManager;
     public final static int COMBINING_SMOOTH_BREATHING  = 0x0313;
     public final static int COMBINING_ROUGH_BREATHING   = 0x0314;
     public final static int COMBINING_IOTA_SUBSCRIPT    = 0x0345;
-    private KeyboardView kv;
+    private HopliteKeyboardView kv;
     private Keyboard keyboard;
 
     private boolean caps = false;
-    private Integer unicodeMode = 0;
+    private int unicodeMode = 0;
 
     @Override
     public View onCreateInputView() {
-        kv = (KeyboardView)getLayoutInflater().inflate(R.layout.keyboard, null);
+        kv = (HopliteKeyboardView)getLayoutInflater().inflate(R.layout.keyboard, null);
         keyboard = new Keyboard(this, R.xml.hoplitekeyboard);
         kv.setKeyboard(keyboard);
         kv.setOnKeyboardActionListener(this);
@@ -80,12 +80,36 @@ import android.media.AudioManager;
     public void onKey(int primaryCode, int[] keyCodes) {
         InputConnection ic = getCurrentInputConnection();
         playClick(primaryCode);
+        int maxSubstringForAccent = 7;
+
+        //make sure the cursor is not between a character and its combining accents
+        ExtractedText et = ic.getExtractedText(new ExtractedTextRequest(), 0);
+        if (et == null) {
+            return;
+        }
+        int selectionStart = et.selectionStart;
+        int selectionEnd = et.selectionEnd;
+
+        String strAfter1 = ic.getTextAfterCursor(maxSubstringForAccent, 0).toString();
+        int ccAfter1 = numCombiningCharsAfter(strAfter1);
+
+        if (ccAfter1 > 0) {
+            if (selectionStart == selectionEnd) {
+                selectionStart += ccAfter1;
+                selectionEnd += ccAfter1;
+            } else {
+                selectionEnd += ccAfter1;
+            }
+            Log.d("ABC", "HAD TO FIX CURSOR INSERTED BETWEEN CHARACTER AND ITS COMBINING DIACRITICS!");
+        }
+        ic.setSelection(selectionStart, selectionEnd);
+
 
         switch (primaryCode) {
             case 38:
             case Keyboard.KEYCODE_DELETE:
                 //cursor could be between character and combining accents...
-                int maxSubstringForAccent = 7;
+
                 String strBefore = ic.getTextBeforeCursor(maxSubstringForAccent, 0).toString();
 
                 int strBeforeLen = strBefore.length();
@@ -100,7 +124,7 @@ import android.media.AudioManager;
                 //Log.e("abc", "to delete: " + cc + ", after: " + ccAfter);
                 ic.deleteSurroundingText(cc+1, ccAfter);
                 break;
-            case 12://Keyboard.KEYCODE_SHIFT:
+            case 42://Keyboard.KEYCODE_SHIFT:
                 caps = !caps;
                 keyboard.setShifted(caps);
                 kv.invalidateAllKeys();
