@@ -126,6 +126,7 @@ import android.media.AudioManager;
                 break;
             case 42://Keyboard.KEYCODE_SHIFT:
                 caps = !caps;
+                kv.caps = !kv.caps;
                 keyboard.setShifted(caps);
                 kv.invalidateAllKeys();
                 break;

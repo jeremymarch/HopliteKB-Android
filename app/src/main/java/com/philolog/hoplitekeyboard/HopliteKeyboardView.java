@@ -35,6 +35,7 @@ import android.view.animation.Animation.AnimationListener;
 public class HopliteKeyboardView extends KeyboardView {
 
     public boolean mMFPressed = false;
+    public boolean caps = false;
 
     public HopliteKeyboardView(Context context, AttributeSet attrs)
     {
@@ -176,19 +177,19 @@ public class HopliteKeyboardView extends KeyboardView {
             if (key.label != null) {
                 if (key.codes[0] == 27) {
                     s = "῾";
-                    offset = 18;
+                    offset = 20;
                 }
                 else if (key.codes[0] == 28) {
                     s = "᾿";
-                    offset = 18;
+                    offset = 20;
                 }
                 else if (key.codes[0] == 29) {
                     s = "´";//"´";
-                    offset = 17;
+                    offset = 19;
                 }
                 else if (key.codes[0] == 34) {
                     s = "`";//"´";
-                    offset = 17;
+                    offset = 21;
                 }
                 else if (key.codes[0] == 30) {
                     s = key.label.toString();
@@ -208,6 +209,10 @@ public class HopliteKeyboardView extends KeyboardView {
                 }
                 else {
                     s = key.label.toString();
+                    if (caps == true && key.codes[0] > 0 && key.codes[0] < 25)
+                    {
+                        s = s.toUpperCase();
+                    }
                     offset = 9;
                 }
                 offset = (int) (offset * scale + 0.5f); //convert dp to px
