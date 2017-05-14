@@ -19,6 +19,8 @@ import android.media.AudioManager;
  * Created by jeremy on 2/15/17.
 
 //examples:
+ http://www.fampennings.nl/maarten/android/09keyboard/
+
 //https://github.com/blackcj/AndroidCustomKeyboard
 //http://www.blackcj.com/blog/2016/03/30/building-a-custom-android-keyboard/
 //http://stackoverflow.com/questions/18224520/how-to-set-different-background-of-keys-for-android-custom-keyboard
@@ -26,7 +28,7 @@ import android.media.AudioManager;
 //http://stackoverflow.com/questions/15825081/error-default-activity-not-found
  //https://code.tutsplus.com/tutorials/create-a-custom-keyboard-on-android--cms-22615
 */
- public class HopliteKeyboard extends InputMethodService implements OnKeyboardActionListener{
+ public class HopliteKeyboard extends InputMethodService implements OnKeyboardActionListener {
     public final static int NO_ACCENT = 0;
     public final static int ACUTE               = 1;
     public final static int CIRCUMFLEX          = 2;
@@ -46,8 +48,9 @@ import android.media.AudioManager;
     public final static int COMBINING_SMOOTH_BREATHING  = 0x0313;
     public final static int COMBINING_ROUGH_BREATHING   = 0x0314;
     public final static int COMBINING_IOTA_SUBSCRIPT    = 0x0345;
-    private HopliteKeyboardView kv;
-    private Keyboard keyboard;
+
+    public HopliteKeyboardView kv;
+    public Keyboard keyboard;
 
     private boolean caps = false;
     private int unicodeMode = 0;
@@ -57,6 +60,8 @@ import android.media.AudioManager;
         kv = (HopliteKeyboardView)getLayoutInflater().inflate(R.layout.keyboard, null);
         keyboard = new Keyboard(this, R.xml.hoplitekeyboard);
         kv.setKeyboard(keyboard);
+        //kv.setOnKeyboardActionListener(this);
+        //InputConnection ic = getCurrentInputConnection();
         kv.setOnKeyboardActionListener(this);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -135,11 +140,11 @@ import android.media.AudioManager;
                 break;
             default:
                 char code = (char) primaryCode;
-                /*
-                if (Character.isLetter(code) && caps) {
-                    code = Character.toUpperCase(code);
-                }
-                */
+
+                //if (Character.isLetter(code) && caps) {
+                //    code = Character.toUpperCase(code);
+               // }
+
 
                 String s = "";
                 if (primaryCode == 1) {
@@ -323,33 +328,33 @@ import android.media.AudioManager;
         }
     }
 
-        @Override
-        public void onPress(int primaryCode) {
-        }
+    @Override
+    public void onPress(int primaryCode) {
+    }
 
-        @Override
-        public void onRelease(int primaryCode) {
-        }
+    @Override
+    public void onRelease(int primaryCode) {
+    }
 
-        @Override
-        public void onText(CharSequence text) {
-        }
+    @Override
+    public void onText(CharSequence text) {
+    }
 
-        @Override
-        public void swipeDown() {
-        }
+    @Override
+    public void swipeDown() {
+    }
 
-        @Override
-        public void swipeLeft() {
-        }
+    @Override
+    public void swipeLeft() {
+    }
 
-        @Override
-        public void swipeRight() {
-        }
+    @Override
+    public void swipeRight() {
+    }
 
-        @Override
-        public void swipeUp() {
-        }
+    @Override
+    public void swipeUp() {
+    }
 
     private void playClick(int keyCode){
         AudioManager am = (AudioManager)getSystemService(AUDIO_SERVICE);

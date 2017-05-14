@@ -1,14 +1,26 @@
 package com.philolog.hoplitekeyboard;
 
+import android.app.Activity;
 import android.graphics.Typeface;
+import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.view.View;
+import android.view.MotionEvent;
+import android.util.Log;
+import android.view.WindowManager;
 
 public class HKTestAppMainActivity extends AppCompatActivity {
     public TextView mTextView, mCodePointTextView;
+    public HopliteKeyboardView mKeyboardView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +30,28 @@ public class HKTestAppMainActivity extends AppCompatActivity {
         mTextView = (TextView) findViewById(R.id.mTextView);
         mCodePointTextView = (TextView) findViewById(R.id.mCodePointTextView);
         mTextView.setTypeface(type);
+
+
+        Keyboard mKeyboard= new Keyboard(this,R.xml.hoplitekeyboard);
+        //draw custom keys:
+        // http://stackoverflow.com/questions/18224520/how-to-set-different-background-of-keys-for-android-custom-keyboard
+        // Lookup the KeyboardView
+        mKeyboardView = (HopliteKeyboardView)findViewById(R.id.keyboardview);
+        // Attach the keyboard to the view
+        mKeyboardView.setKeyboard( mKeyboard );
+        // Do not show the preview balloons
+        mKeyboardView.setPreviewEnabled(false);
+
+        mKeyboardView.setOnKeyboardActionListener(new HKLocalOnKeyboardActionListener((EditText)mTextView, mKeyboardView));
+
+        mTextView.setOnTouchListener(new View.OnTouchListener(){
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                // your code here....
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                openKeyboard(view, null);
+                return true;
+            }
+        });
 
         mTextView.addTextChangedListener(new TextWatcher() {
 
@@ -50,6 +84,26 @@ public class HKTestAppMainActivity extends AppCompatActivity {
                 mCodePointTextView.setText(res);
             }
         });
+    }
+
+    public void openKeyboard(View v, Runnable onComplete)
+    {
+        if (mKeyboardView.getVisibility() == View.GONE) {
+
+            Animation animation = AnimationUtils
+                    .loadAnimation(HKTestAppMainActivity.this,
+                            R.anim.slide_in_bottom);
+            animation.setRepeatCount(Animation.INFINITE);
+            animation.setRepeatMode(Animation.RESTART);
+            animation.setInterpolator(new LinearInterpolator());
+            mKeyboardView.showWithAnimation(animation, onComplete);
+
+            mKeyboardView.setVisibility(View.VISIBLE);
+            mKeyboardView.setEnabled(true);
+            if( v!=null) {
+                ((InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+        }
     }
 
     @Override

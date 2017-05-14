@@ -23,7 +23,7 @@ Java_com_philolog_hoplitekeyboard_GreekVerb_addAccent( JNIEnv* env, jobject thiz
     const char *letters = (*env)->GetStringUTFChars(env, str, NULL);
     utf8_to_ucs2_string((const unsigned char *)letters, ucs2, &ucs2Len);
 
-    if (ucs2[0] != COMBINING_ACUTE && ucs2[0] != COMBINING_MACRON && ucs2[0] != COMBINING_ROUGH_BREATHING && ucs2[0] != COMBINING_SMOOTH_BREATHING) {
+    if (ucs2[0] != COMBINING_GRAVE && ucs2[0] != COMBINING_ACUTE && ucs2[0] != COMBINING_MACRON && ucs2[0] != COMBINING_ROUGH_BREATHING && ucs2[0] != COMBINING_SMOOTH_BREATHING) {
         LOGE("ABC uni: %d", unicodeMode);
         accentSyllable(ucs2, 0, &ucs2Len, accent, true, unicodeMode);
         ucs2_to_utf8_string(ucs2, ucs2Len, buffer);
