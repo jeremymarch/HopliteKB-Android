@@ -87,9 +87,39 @@ public class HKMainMenu extends AppCompatActivity {
         });
     }
 
+    public void showAbout(View view) {
+        // Do something in response to button
+        Intent intent = new Intent(this, AboutActivity.class);
+        //EditText editText = (EditText) findViewById(R.id.edit_message);
+        //String message = "practice history";//editText.getText().toString();
+        //intent.putExtra(EXTRA_MESSAGE, message);
+        //intent.putExtra("GameID", 1); //1 is the practice game.
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        overridePendingTransition (0, 0);
+        startActivity(intent);
+    }
+
     public void showSettings(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, HKSettings.class);
+        //EditText editText = (EditText) findViewById(R.id.edit_message);
+        //String message = "practice history";//editText.getText().toString();
+        //intent.putExtra(EXTRA_MESSAGE, message);
+        //intent.putExtra("GameID", 1); //1 is the practice game.
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        overridePendingTransition (0, 0);
+        startActivity(intent);
+    }
+
+    public void showInstallation(View view) {
+        // Do something in response to button
+        Intent intent = new Intent(this, InstallationActivity.class);
         //EditText editText = (EditText) findViewById(R.id.edit_message);
         //String message = "practice history";//editText.getText().toString();
         //intent.putExtra(EXTRA_MESSAGE, message);

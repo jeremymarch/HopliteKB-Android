@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ff000000">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:textColor="#ffffffff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="USE: • Type the letter first, then add diacritics.
+• Diacritics can be added in any order.
+• Pressing the diacritic again will toggle it on or off.
+• Contrasting diacritics replace each other: accents, breathings.
+• Redundant diacritics replace each other: circumflex/macron. • Press caps lock to use the diaeresis key.  SETTINGS: • Precomposed will use precomposed unicode characters when possible, falling back to combining diacritics if a precomposed character doesn't exist. • Precomposed with PUA is like the above, but will also use precomposed characters from the Private Use Area when possible.  This is only supported by certain fonts and is not standard unicode. • Combining only uses only combining diacritics.  This is only supported by certain fonts." />
+</LinearLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ff000000">
+
+    <TextView
+        android:id="@+id/textView"
+        android:textColor="#ffffffff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="INSTALLATION
+
+To install keyboard on iOS device:
+1) Open the Settings app
+2) Select General -> Keyboard -> Keyboards
+3) Add New Keyboard...
+4) Select 'Hoplite Greek Keyboard'
+
+For best results, install a polytonic Greek font such as New Athena Unicode." />
+</LinearLayout>

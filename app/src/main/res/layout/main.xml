@@ -53,7 +53,8 @@
         android:text="About"
         android:paddingStart="6dp"
         android:paddingLeft="6dp"
-        android:gravity="center_vertical|start"/>
+        android:gravity="center_vertical|start"
+        android:onClick="showAbout"/>
 
     <Button
         android:id="@+id/buttonSettings"
@@ -82,7 +83,8 @@
         android:text="Installation"
         android:paddingStart="6dp"
         android:paddingLeft="6dp"
-        android:gravity="center_vertical|start"/>
+        android:gravity="center_vertical|start"
+        android:onClick="showInstallation"/>
 
     <Button
         android:id="@+id/buttonTesting"

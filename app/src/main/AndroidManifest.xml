@@ -16,9 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".AboutActivity" android:label="Hoplite Keyboard About"/>
         <activity android:name=".HKSettings" android:label="Hoplite Keyboard Settings"/>
-
+        <activity android:name=".InstallationActivity" android:label="Hoplite Keyboard Installation"/>
         <activity android:name=".HKTestAppMainActivity" android:label="Hoplite Keyboard Testing"/>
 
         <service android:name=".HopliteKeyboard"
