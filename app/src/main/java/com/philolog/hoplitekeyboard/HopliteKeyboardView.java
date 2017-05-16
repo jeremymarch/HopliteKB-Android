@@ -1,6 +1,7 @@
 package com.philolog.hoplitekeyboard;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,6 +9,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.animation.Animation;
 
@@ -223,6 +225,12 @@ public class HopliteKeyboardView extends KeyboardView {
                 key.icon.draw(canvas);
             }
         }
+    }
+
+    public int getUnicodeMode()
+    {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        return Integer.parseInt(sharedPref.getString("UnicodeMode", "0"));
     }
 
     public void showWithAnimation(Animation animation, final Runnable onComplete) {

@@ -1,6 +1,9 @@
 package com.philolog.hoplitekeyboard;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.inputmethodservice.KeyboardView;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
@@ -44,7 +47,6 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
     public HopliteKeyboardView kv;
 
     private boolean caps = false;
-    private int unicodeMode = 0;
 
     public HKLocalOnKeyboardActionListener(EditText et, HopliteKeyboardView kview)
     {
@@ -60,7 +62,7 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
         // this will prevent inserting a char between combining accents
         String str2 = editable.toString();
         start = fixCursorStart(start, str2, e);
-
+        String s = "";
         if( primaryCode == CodeCancel ) {
             //hideCustomKeyboard();
 
@@ -85,55 +87,69 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
 
             } */
         else if( primaryCode == 1 ) {
-            editable.insert(start, "α");
+            s = "α";
         }  else if( primaryCode == 2 ) {
-            editable.insert(start, "β");
+            s = "β";
         }  else if( primaryCode == 3 ) {
-            editable.insert(start, "γ");
+            s = "γ";
         }  else if( primaryCode == 4 ) {
-            editable.insert(start, "δ");
+            s = "δ";
         }  else if( primaryCode == 5 ) {
-            editable.insert(start, "ε");
+            s = "ε";
         }  else if( primaryCode == 6 ) {
-            editable.insert(start, "ζ");
+            s = "ζ";
         }  else if( primaryCode == 7 ) {
-            editable.insert(start, "η");
+            s = "η";
         }  else if( primaryCode == 8 ) {
-            editable.insert(start, "θ");
+            s = "θ";
         }  else if( primaryCode == 9 ) {
-            editable.insert(start, "ι");
+            s = "ι";
         }  else if( primaryCode == 10 ) {
-            editable.insert(start, "κ");
+            s = "κ";
         }  else if( primaryCode == 11) {
-            editable.insert(start, "λ");
+            s = "λ";
         }  else if( primaryCode == 12 ) {
-            editable.insert(start, "μ");
+            s = "μ";
         }  else if( primaryCode == 13 ) {
-            editable.insert(start, "ν");
+            s = "ν";
         }  else if( primaryCode == 14 ) {
-            editable.insert(start, "ξ");
+            s = "ξ";
         }  else if( primaryCode == 15 ) {
-            editable.insert(start, "ο");
+            s = "ο";
         }  else if( primaryCode == 16 ) {
-            editable.insert(start, "π");
+            s = "π";
         }  else if( primaryCode == 17 ) {
-            editable.insert(start, "ρ");
+            s = "ρ";
         }  else if( primaryCode == 18 ) {
-            editable.insert(start, "σ");
+            s = "σ";
         }  else if( primaryCode == 19 ) {
-            editable.insert(start, "τ");
+            s = "τ";
         }  else if( primaryCode == 20 ) {
-            editable.insert(start, "υ");
+            s = "υ";
         }  else if( primaryCode == 21 ) {
-            editable.insert(start, "φ");
+            s = "φ";
         }  else if( primaryCode == 22 ) {
-            editable.insert(start, "χ");
+            s = "χ";
         }  else if( primaryCode == 23 ) {
-            editable.insert(start, "ψ");
+            s = "ψ";
         }  else if( primaryCode == 24 ) {
-            editable.insert(start, "ω");
+            s = "ω";
         }  else if( primaryCode == 25 ) {
-            editable.insert(start, "ς");
+            s = "ς";
+
+        } else if (primaryCode == 39) {
+            s = " ";
+        } else if (primaryCode == 35) {
+            s =  "\n";
+        } else if (primaryCode == 36) {
+            s = ".";
+        } else if (primaryCode == 37) {
+            s = ";";
+        } else if (primaryCode == 40) {
+            s = ",";
+        } else if (primaryCode == 41) {
+            s = "·";
+
         } else if (primaryCode == 26) { //parentheses
             localAccentLetter(editable, start, SURROUNDING_PARENTHESES);
         } else if (primaryCode == 27) { //rough breathing
@@ -169,6 +185,13 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
         } /* else {// Insert character
                 editable.insert(start, Character.toString((char) primaryCode));
             } */
+        if (!s.equals("")) {
+            if (caps)
+            {
+                s = s.toUpperCase();
+            }
+            editable.insert(start, s);
+        }
     }
 
     @Override public void onPress(int arg0) {
@@ -194,27 +217,13 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
 
 
     public void localAccentLetter(Editable editable, int start, int acc) {
+        int unicodeMode = kv.getUnicodeMode();
         GreekVerb gv1 = new GreekVerb();
         int maxSubstringForAccent = 7;
         String str2 = editable.toString();
         String sub;
         String accentedLetter = "";
-        int i;
-        Log.e("ABC", "start: " + start);
-        /*
-        for (i = 1; i < maxSubstringForAccent; i++) {
-            if (start - i < 0) {
-                break;
-            }
-            sub = str2.substring(start - i, start);
-            int unicodeMode = 0;
-            Log.e("ABC", "Sub: " + sub);
-            accentedLetter = gv1.addAccent(acc, unicodeMode, sub);
-            if (!accentedLetter.equals("")) {
-                break;
-            }
-        }
-        */
+
         int cc = numCombiningChars(str2);
         sub = str2.substring(start - cc - 1, start);
         accentedLetter = gv1.addAccent(acc, unicodeMode, sub);

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ff000000"
+    android:orientation="vertical"
+    android:id="@+id/HKMenu">
+
+    <TextView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="6dp"
+        android:gravity="center_vertical|start"
+        android:paddingLeft="6dp"
+        android:paddingStart="6dp"
+        android:text="@string/app_name"
+        android:textColor="#ffffffff"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:layout_below="@+id/titleView"
+        android:id="@+id/mTextView"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="#ffffffff"
+        android:ems="20"
+        android:gravity="start"
+        android:inputType="textMultiLine"
+        android:padding="20dp"
+        android:paddingBottom="20dp"
+        android:paddingEnd="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        android:text=""
+        android:textAlignment="viewStart"
+        android:textSize="44sp" />
+
+    <Button
+        android:id="@+id/buttonAbout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:background="@color/MenuButtonBlue"
+        android:textColor="#ffffffff"
+        android:text="About"
+        android:paddingStart="6dp"
+        android:paddingLeft="6dp"
+        android:gravity="center_vertical|start"/>
+
+    <Button
+        android:id="@+id/buttonSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonAbout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:onClick="showSettings"
+        android:background="@color/MenuButtonBlue"
+        android:textColor="#ffffffff"
+        android:text="Settings"
+        android:paddingStart="6dp"
+        android:paddingLeft="6dp"
+        android:gravity="center_vertical|start"/>
+
+    <Button
+        android:id="@+id/buttonInstall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonSettings"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:background="@color/MenuButtonBlue"
+        android:textColor="#ffffffff"
+        android:text="Installation"
+        android:paddingStart="6dp"
+        android:paddingLeft="6dp"
+        android:gravity="center_vertical|start"/>
+
+    <Button
+        android:id="@+id/buttonTesting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonInstall"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:onClick="showTesting"
+        android:background="@color/MenuButtonBlue"
+        android:textColor="#ffffffff"
+        android:text="Testing"
+        android:paddingStart="6dp"
+        android:paddingLeft="6dp"
+        android:gravity="center_vertical|start"/>
+
+    <com.philolog.hoplitekeyboard.HopliteKeyboardView
+        android:id="@+id/keyboardview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:translationZ="999dp"
+        android:visibility="gone"
+        android:padding="1dp"
+        />
+
+
+
+
+</RelativeLayout>
