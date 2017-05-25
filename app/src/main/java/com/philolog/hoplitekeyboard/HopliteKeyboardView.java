@@ -61,74 +61,74 @@ public class HopliteKeyboardView extends KeyboardView {
         Context context = getContext();
         List<Keyboard.Key> keys = getKeyboard().getKeys();
 
-        Typeface tf =  Typeface.createFromAsset(context.getAssets(),"fonts/newathu5.ttf");
+        Typeface tf = Typeface.createFromAsset(context.getAssets(),"fonts/newathu5.ttf");
 
         for (Keyboard.Key key : keys) {
-            if (key.codes[0] == 35){
+            if (key.codes[0] == 35) {
                 Drawable dr;
                 if (key.pressed)
                 {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.enterbuttondown);
-                    dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
+                    dr = context.getResources().getDrawable(R.drawable.enterbuttondown);
+                    dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                     paint.setColor(context.getResources().getColor(R.color.ButtonBlue));
                 }
                 else {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.enterbutton);
-                    dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height - 4);
+                    dr = context.getResources().getDrawable(R.drawable.enterbutton);
+                    dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                     paint.setColor(Color.WHITE);
                 }
                 dr.draw(canvas);
             }
-            else if (key.codes[0] > 26 && key.codes[0] < 35){
+            else if (key.codes[0] > 26 && key.codes[0] < 35) {
                 Drawable dr;
                 if (key.pressed) {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.accentbuttondown);
+                    dr = context.getResources().getDrawable(R.drawable.accentbuttondown);
                     paint.setColor(Color.WHITE);
                 }
                 else
                 {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.accentbutton);
+                    dr = context.getResources().getDrawable(R.drawable.accentbutton);
                     paint.setColor(Color.BLACK);
                 }
-                dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
+                dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             }
             else if (key.codes[0] == 36 || key.codes[0] == 37 || key.codes[0] == 40 || key.codes[0] == 41){
                 Drawable dr;
                 if (key.pressed) {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.puncbuttondown);
+                    dr = context.getResources().getDrawable(R.drawable.puncbuttondown);
                     paint.setColor(Color.WHITE);
                 }
                 else
                 {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.puncbutton);
+                    dr = context.getResources().getDrawable(R.drawable.puncbutton);
                     paint.setColor(Color.WHITE);
                 }
-                dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
+                dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             }
             else if (key.codes[0] == 38 || key.codes[0] == 42){
                 Drawable dr;
                 if (key.pressed) {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.otherbuttondown);
+                    dr = context.getResources().getDrawable(R.drawable.otherbuttondown);
                     paint.setColor(Color.WHITE);
                 }
                 else
                 {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.otherbutton);
+                    dr = context.getResources().getDrawable(R.drawable.otherbutton);
                     paint.setColor(Color.WHITE);
                 }
-                dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
+                dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             }
             else {
                 Drawable dr;
                 if (key.pressed) {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.normalbuttondown);
+                    dr = context.getResources().getDrawable(R.drawable.normalbuttondown);
                     paint.setColor(Color.WHITE);
                 }
                 else {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.normalbutton);
+                    dr = context.getResources().getDrawable(R.drawable.normalbutton);
                     paint.setColor(Color.BLACK);
                 }
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
@@ -148,8 +148,8 @@ public class HopliteKeyboardView extends KeyboardView {
             }
             else if (key.codes[0] == 32)
             {
-                FONT_SIZE = 32.0f; //or 26.0?
-                paint.setTypeface(tf);
+                FONT_SIZE = 23.0f; //or 26.0?
+                //paint.setTypeface(tf);
             }
             else if (key.codes[0] == 33 && mMFPressed)
             {
@@ -199,11 +199,11 @@ public class HopliteKeyboardView extends KeyboardView {
                 }
                 else if (key.codes[0] == 31) {
                     s = "—";//key.label.toString();
-                    offset = 2;
+                    offset = 30;
                 }
                 else if (key.codes[0] == 32) {
                     s = "ι";//"ι";//"ͺ";
-                    offset = 16;
+                    offset = 12;
                 }
                 else if (key.codes[0] == 33 && mMFPressed) {
                     s = ",";

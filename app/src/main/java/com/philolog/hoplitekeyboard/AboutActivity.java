@@ -23,7 +23,7 @@ protected void onCreate(Bundle savedInstanceState) {
             "• Diacritics can be added in any order.<br>" +
             "• Pressing the diacritic again will toggle it on or off.<br>" +
             "• Contrasting diacritics replace each other: accents, breathings.<br>" +
-            "• Redundant diacritics replace each other: circumflex/macron." +
+            "• Redundant diacritics replace each other: circumflex/macron.<br>" +
             "• Press caps lock to use the diaeresis key.<br><br>" +
             "SETTINGS:<br>" +
             "• Precomposed will use precomposed unicode characters when possible, falling back to combining diacritics if a precomposed character doesn't exist.<br>" +
