@@ -49,11 +49,11 @@
         <Key android:codes="13"    android:keyLabel="ν"  />
         <Key android:codes="12"    android:keyLabel="μ"  />
 
-        <Key android:codes="38" android:keyLabel="Del" android:keyWidth="22.0%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:codes="38" android:keyLabel="Del" android:keyWidth="22.6%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     <Row android:rowEdgeFlags="bottom">
         <Key android:codes="42"    android:keyLabel="caps" android:keyEdgeFlags="left" android:keyWidth="14.0%p" />
-        <Key android:codes="39" android:keyLabel="space" android:keyWidth="32.0%p"  />
+        <Key android:codes="39" android:keyLabel="space"  android:keyWidth="32.0%p"  />
         <Key android:codes="36"    android:keyLabel="." />
         <Key android:codes="37"    android:keyLabel=";" />
         <Key android:codes="35" android:keyLabel="enter" android:keyWidth="32.0%p" android:keyEdgeFlags="right" />

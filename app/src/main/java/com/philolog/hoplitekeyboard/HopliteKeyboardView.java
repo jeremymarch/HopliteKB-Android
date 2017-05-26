@@ -12,6 +12,7 @@ import android.inputmethodservice.KeyboardView;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.animation.Animation;
+import android.support.v4.content.ContextCompat;
 
 import java.util.List;
 
@@ -68,12 +69,14 @@ public class HopliteKeyboardView extends KeyboardView {
                 Drawable dr;
                 if (key.pressed)
                 {
-                    dr = context.getResources().getDrawable(R.drawable.enterbuttondown);
+                    //https://stackoverflow.com/questions/29041027/android-getresources-getdrawable-deprecated-api-22
+                    dr = ContextCompat.getDrawable(context, R.drawable.enterbuttondown);
+                    //dr = context.getResources().getDrawable(R.drawable.enterbuttondown);
                     dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
-                    paint.setColor(context.getResources().getColor(R.color.ButtonBlue));
+                    paint.setColor(ContextCompat.getColor(context, R.color.ButtonBlue));
                 }
                 else {
-                    dr = context.getResources().getDrawable(R.drawable.enterbutton);
+                    dr = ContextCompat.getDrawable(context, R.drawable.enterbutton);
                     dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                     paint.setColor(Color.WHITE);
                 }
@@ -82,40 +85,43 @@ public class HopliteKeyboardView extends KeyboardView {
             else if (key.codes[0] > 26 && key.codes[0] < 35) {
                 Drawable dr;
                 if (key.pressed) {
-                    dr = context.getResources().getDrawable(R.drawable.accentbuttondown);
+                    dr = ContextCompat.getDrawable(context, R.drawable.accentbuttondown);
                     paint.setColor(Color.WHITE);
                 }
                 else
                 {
-                    dr = context.getResources().getDrawable(R.drawable.accentbutton);
+                    dr = ContextCompat.getDrawable(context, R.drawable.accentbutton);
                     paint.setColor(Color.BLACK);
                 }
-                dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+                dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             }
             else if (key.codes[0] == 36 || key.codes[0] == 37 || key.codes[0] == 40 || key.codes[0] == 41){
                 Drawable dr;
                 if (key.pressed) {
-                    dr = context.getResources().getDrawable(R.drawable.puncbuttondown);
+                    dr = ContextCompat.getDrawable(context, R.drawable.puncbuttondown);
                     paint.setColor(Color.WHITE);
                 }
                 else
                 {
-                    dr = context.getResources().getDrawable(R.drawable.puncbutton);
+                    dr = ContextCompat.getDrawable(context, R.drawable.puncbutton);
                     paint.setColor(Color.WHITE);
                 }
-                dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+                if (key.codes[0] == 40 || key.codes[0] == 41) //for top row punctuation
+                    dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
+                else
+                    dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             }
             else if (key.codes[0] == 38 || key.codes[0] == 42){
                 Drawable dr;
                 if (key.pressed) {
-                    dr = context.getResources().getDrawable(R.drawable.otherbuttondown);
+                    dr = ContextCompat.getDrawable(context, R.drawable.otherbuttondown);
                     paint.setColor(Color.WHITE);
                 }
                 else
                 {
-                    dr = context.getResources().getDrawable(R.drawable.otherbutton);
+                    dr = ContextCompat.getDrawable(context, R.drawable.otherbutton);
                     paint.setColor(Color.WHITE);
                 }
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
@@ -124,11 +130,11 @@ public class HopliteKeyboardView extends KeyboardView {
             else {
                 Drawable dr;
                 if (key.pressed) {
-                    dr = context.getResources().getDrawable(R.drawable.normalbuttondown);
+                    dr = ContextCompat.getDrawable(context, R.drawable.normalbuttondown);
                     paint.setColor(Color.WHITE);
                 }
                 else {
-                    dr = context.getResources().getDrawable(R.drawable.normalbutton);
+                    dr = ContextCompat.getDrawable(context, R.drawable.normalbutton);
                     paint.setColor(Color.BLACK);
                 }
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
@@ -166,6 +172,11 @@ public class HopliteKeyboardView extends KeyboardView {
                 paint.setTypeface(Typeface.DEFAULT);
             }
 
+            if (key.codes[0] == 39)
+            {
+                paint.setColor(Color.GRAY);
+            }
+
             final float scale = context.getResources().getDisplayMetrics().density;
             final int fontSizeInPx = (int) (FONT_SIZE * scale + 0.5f);
             paint.setTextSize(fontSizeInPx);//was 72px
@@ -175,7 +186,7 @@ public class HopliteKeyboardView extends KeyboardView {
             paint.setStyle(Paint.Style.FILL);
 
             String s;
-            int offset = 0;
+            int offset;
             if (key.label != null) {
                 if (key.codes[0] == 27) {
                     s = "῾";
@@ -197,13 +208,13 @@ public class HopliteKeyboardView extends KeyboardView {
                     s = key.label.toString();
                     offset = 2;
                 }
-                else if (key.codes[0] == 31) {
+                else if (key.codes[0] == 33) {
                     s = "—";//key.label.toString();
-                    offset = 30;
+                    offset = 4;
                 }
                 else if (key.codes[0] == 32) {
                     s = "ι";//"ι";//"ͺ";
-                    offset = 12;
+                    offset = 14;
                 }
                 else if (key.codes[0] == 33 && mMFPressed) {
                     s = ",";
@@ -211,7 +222,7 @@ public class HopliteKeyboardView extends KeyboardView {
                 }
                 else {
                     s = key.label.toString();
-                    if (caps == true && key.codes[0] > 0 && key.codes[0] < 25)
+                    if (caps && key.codes[0] > 0 && key.codes[0] < 25)
                     {
                         s = s.toUpperCase();
                     }
