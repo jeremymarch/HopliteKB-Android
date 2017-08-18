@@ -10,11 +10,17 @@ import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 
+import android.view.inputmethod.InputMethodManager;
+
 import android.util.Log;
 import android.view.View;
 import android.view.KeyEvent;
 import android.media.AudioManager;
+import android.content.Context;
 
+import android.os.IBinder;
+import android.app.Dialog;
+import android.view.Window;
 /**
  * Created by jeremy on 2/15/17.
 
@@ -81,6 +87,20 @@ import android.media.AudioManager;
         return kv;
     }
 
+    //needed to get token to switch to next keyboard.
+    private IBinder getToken() {
+        final Dialog dialog = getWindow();
+        if (dialog == null) {
+            return null;
+        }
+        final Window window = dialog.getWindow();
+        if (window == null) {
+            return null;
+        }
+        return window.getAttributes().token;
+    }
+
+
     @Override
     public void onKey(int primaryCode, int[] keyCodes) {
         InputConnection ic = getCurrentInputConnection();
@@ -134,6 +154,10 @@ import android.media.AudioManager;
                 kv.caps = !kv.caps;
                 keyboard.setShifted(caps);
                 kv.invalidateAllKeys();
+                break;
+            case 49:
+                InputMethodManager imeManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imeManager.switchToNextInputMethod(getToken(), false /* onlyCurrentIme */);
                 break;
             case Keyboard.KEYCODE_DONE:
                 ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));

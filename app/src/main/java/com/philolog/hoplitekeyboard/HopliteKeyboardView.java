@@ -116,12 +116,26 @@ public class HopliteKeyboardView extends KeyboardView {
             else if (key.codes[0] == 38 || key.codes[0] == 42){
                 Drawable dr;
                 if (key.pressed) {
-                    dr = ContextCompat.getDrawable(context, R.drawable.otherbuttondown);
+                    dr = ContextCompat.getDrawable(context, R.drawable.normalbuttondown);
                     paint.setColor(Color.WHITE);
                 }
                 else
                 {
-                    dr = ContextCompat.getDrawable(context, R.drawable.otherbutton);
+                    dr = ContextCompat.getDrawable(context, R.drawable.normalbutton);
+                    paint.setColor(Color.WHITE);
+                }
+                dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+                dr.draw(canvas);
+            }
+            else if (key.codes[0] == 49){
+                Drawable dr;
+                if (key.pressed) {
+                    dr = ContextCompat.getDrawable(context, R.drawable.globewhite50);
+                    paint.setColor(Color.WHITE);
+                }
+                else
+                {
+                    dr = ContextCompat.getDrawable(context, R.drawable.globeblack50);
                     paint.setColor(Color.WHITE);
                 }
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
