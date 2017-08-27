@@ -96,7 +96,7 @@ public class HopliteKeyboardView extends KeyboardView {
                 dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             }
-            else if (key.codes[0] == 36 || key.codes[0] == 37 || key.codes[0] == 40 || key.codes[0] == 41){
+            else if (key.codes[0] == 36 || key.codes[0] == 37 || key.codes[0] == 40 || key.codes[0] == 41 || key.codes[0] == 75 || key.codes[0] == 76 || key.codes[0] == 77){
                 Drawable dr;
                 if (key.pressed) {
                     dr = ContextCompat.getDrawable(context, R.drawable.puncbuttondown);
@@ -107,7 +107,7 @@ public class HopliteKeyboardView extends KeyboardView {
                     dr = ContextCompat.getDrawable(context, R.drawable.puncbutton);
                     paint.setColor(Color.WHITE);
                 }
-                if (key.codes[0] == 40 || key.codes[0] == 41) //for top row punctuation
+                if (key.codes[0] == 40 || key.codes[0] == 41 || key.codes[0] == 75 || key.codes[0] == 76) //for top row punctuation
                     dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
                 else
                     dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
@@ -127,15 +127,15 @@ public class HopliteKeyboardView extends KeyboardView {
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             }
-            else if (key.codes[0] == 49){
+            else if (key.codes[0] == 49) {
                 Drawable dr;
                 if (key.pressed) {
-                    dr = ContextCompat.getDrawable(context, R.drawable.globewhite50);
+                    dr = ContextCompat.getDrawable(context, R.drawable.globebonw35new);
                     paint.setColor(Color.WHITE);
                 }
                 else
                 {
-                    dr = ContextCompat.getDrawable(context, R.drawable.globeblack50);
+                    dr = ContextCompat.getDrawable(context, R.drawable.globewonb35new);
                     paint.setColor(Color.WHITE);
                 }
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
@@ -236,10 +236,12 @@ public class HopliteKeyboardView extends KeyboardView {
                 }
                 else {
                     s = key.label.toString();
+                    /*
                     if (caps && key.codes[0] > 0 && key.codes[0] < 25)
                     {
                         s = s.toUpperCase();
                     }
+                    */
                     offset = 9;
                 }
                 offset = (int) (offset * scale + 0.5f); //convert dp to px

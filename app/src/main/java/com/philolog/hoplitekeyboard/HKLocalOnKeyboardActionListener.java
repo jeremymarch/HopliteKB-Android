@@ -1,6 +1,8 @@
 package com.philolog.hoplitekeyboard;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.SharedPreferences;
 import android.inputmethodservice.KeyboardView;
 import android.preference.PreferenceManager;
@@ -8,6 +10,7 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 import android.util.Log;
+import android.inputmethodservice.Keyboard;
 
 /**
  * Created by jeremy on 5/13/17.
@@ -33,6 +36,7 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
     public final static int SMOOTH_BREATHING =6;
     public final static int IOTA_SUBSCRIPT = 7;
     public final static int SURROUNDING_PARENTHESES = 8;
+    public final static int DIAERESIS = 9;
 
     public final static int COMBINING_GRAVE             = 0x0300;
     public final static int COMBINING_ACUTE             = 0x0301;
@@ -45,13 +49,16 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
 
     public EditText e;
     public HopliteKeyboardView kv;
+    public Context c;
 
     private boolean caps = false;
+    private String capsL = "l";
 
-    public HKLocalOnKeyboardActionListener(EditText et, HopliteKeyboardView kview)
+    public HKLocalOnKeyboardActionListener(EditText et, HopliteKeyboardView kview, Context co)
     {
         e = et;
         kv = kview;
+        c = co;
     }
 
     @Override public void onKey(int primaryCode, int[] keyCodes) {
@@ -137,7 +144,116 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
         }  else if( primaryCode == 25 ) {
             s = "ς";
 
-        } else if (primaryCode == 39) {
+        }
+
+
+        else if( primaryCode == 51 ) {
+            s = "Α";
+        }  else if( primaryCode == 52 ) {
+            s = "Β";
+        }  else if( primaryCode == 53 ) {
+            s = "Γ";
+        }  else if( primaryCode == 54 ) {
+            s = "Δ";
+        }  else if( primaryCode == 55 ) {
+            s = "Ε";
+        }  else if( primaryCode == 56 ) {
+            s = "Ζ";
+        }  else if( primaryCode == 57 ) {
+            s = "Η";
+        }  else if( primaryCode == 58 ) {
+            s = "Θ";
+        }  else if( primaryCode == 59 ) {
+            s = "Ι";
+        }  else if( primaryCode == 60 ) {
+            s = "Κ";
+        }  else if( primaryCode == 61) {
+            s = "Λ";
+        }  else if( primaryCode == 62 ) {
+            s = "Μ";
+        }  else if( primaryCode == 63 ) {
+            s = "Ν";
+        }  else if( primaryCode == 64 ) {
+            s = "Ξ";
+        }  else if( primaryCode == 65 ) {
+            s = "Ο";
+        }  else if( primaryCode == 66 ) {
+            s = "Π";
+        }  else if( primaryCode == 67 ) {
+            s = "Ρ";
+        }  else if( primaryCode == 68 ) {
+            s = "Σ";
+        }  else if( primaryCode == 69 ) {
+            s = "Τ";
+        }  else if( primaryCode == 70 ) {
+            s = "Υ";
+        }  else if( primaryCode == 71 ) {
+            s = "Φ";
+        }  else if( primaryCode == 72 ) {
+            s = "Χ";
+        }  else if( primaryCode == 73 ) {
+            s = "Ψ";
+        }  else if( primaryCode == 74 ) {
+            s = "Ω";
+        }
+
+
+
+        else if( primaryCode == 125 ) {
+            s = "Ϲ";
+        }  else if( primaryCode == 105 ) {
+            s = "ϲ";
+        }  else if( primaryCode == 117 ) {
+            s = "Ϙ";
+        }  else if( primaryCode == 119 ) {
+            s = "ϙ";
+        }  else if( primaryCode == 120 ) {
+            s = "Ϝ";
+        }  else if( primaryCode == 108 ) {
+            s = "ϝ";
+        }  else if( primaryCode == 109 ) {
+            s = "Ϛ";
+        }  else if( primaryCode == 115 ) {
+            s = "ϛ";
+        }  else if( primaryCode == 116 ) {
+            s = "ϐ";
+        }  else if( primaryCode == 101 ) {
+            s = "Ϟ";
+        }  else if( primaryCode == 118) {
+            s = "ϟ";
+        }  else if( primaryCode == 104 ) {
+            s = "Ϡ";
+        }  else if( primaryCode == 121 ) {
+            s = "ϡ";
+        }  else if( primaryCode == 103 ) {
+            s = "Ϻ";
+        }  else if( primaryCode == 107 ) {
+            s = "ϻ";
+        }  else if( primaryCode == 114 ) {
+            s = "Ͳ";
+        }  else if( primaryCode == 110 ) {
+            s = "ͳ";
+        }  else if( primaryCode == 111 ) {
+            s = "Ϗ";
+        }  else if( primaryCode == 106 ) {
+            s = "Ͷ";
+        }  else if( primaryCode == 122 ) {
+            s = "ͷ";
+        }  else if( primaryCode == 123 ) {
+            s = "Ͱ";
+        }  else if( primaryCode == 124 ) {
+            s = "ͱ";
+        }  else if( primaryCode == 102 ) {
+            s = "ͻ";
+        }  else if( primaryCode == 113 ) {
+            s = "ͼ";
+        } else if( primaryCode == 112 ) {
+            s = "ͽ";
+        }
+
+
+
+        else if (primaryCode == 39) {
             s = " ";
         } else if (primaryCode == 35) {
             s =  "\n";
@@ -150,7 +266,17 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
         } else if (primaryCode == 41) {
             s = "·";
 
-        } else if (primaryCode == 26) { //parentheses
+        } else if (primaryCode == 75) {
+            s = "(";
+
+        } else if (primaryCode == 76) {
+            s = ")";
+
+        }
+        else if (primaryCode == 77) {
+            s = "’";
+
+        }else if (primaryCode == 26) { //parentheses
             localAccentLetter(editable, start, SURROUNDING_PARENTHESES);
         } else if (primaryCode == 27) { //rough breathing
             localAccentLetter(editable, start, ROUGH_BREATHING);
@@ -166,13 +292,36 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
             localAccentLetter(editable, start, IOTA_SUBSCRIPT);
         } else if (primaryCode == 34) { //iota subscript
             localAccentLetter(editable, start, GRAVE);
+        } else if (primaryCode == 31) { //iota subscript
+            localAccentLetter(editable, start, DIAERESIS);
         } else if (primaryCode == 42) //Keyboard.KEYCODE_SHIFT:
         {
+            Keyboard keyboard;
+
+            if (capsL == "l") {
+                keyboard = new Keyboard(c, R.xml.hoplitekeyboardupper);
+                capsL = "u";
+            }
+            else if (capsL == "u")
+            {
+                keyboard = new Keyboard(c, R.xml.hoplitekeyboardmisc);
+                capsL = "m";
+            }
+            else
+            {
+                keyboard = new Keyboard(c, R.xml.hoplitekeyboard);
+                capsL = "l";
+            }
+            kv.setKeyboard(keyboard);
+            kv.setOnKeyboardActionListener(this);
+            kv.invalidateAllKeys();
+/*
             caps = !caps;
             kv.caps = !kv.caps;
             //keyboard.setShifted(caps);
             kv.getKeyboard().setShifted(caps);
             kv.invalidateAllKeys();
+            */
         }
         else if( primaryCode == 38 ) { //Delete
             if( start > 0 )
@@ -186,10 +335,12 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
                 editable.insert(start, Character.toString((char) primaryCode));
             } */
         if (!s.equals("")) {
+            /*
             if (caps)
             {
                 s = s.toUpperCase();
             }
+            */
             editable.insert(start, s);
         }
     }

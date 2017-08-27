@@ -42,7 +42,7 @@ public class HKTestAppMainActivity extends AppCompatActivity {
         // Do not show the preview balloons
         mKeyboardView.setPreviewEnabled(false);
 
-        mKeyboardView.setOnKeyboardActionListener(new HKLocalOnKeyboardActionListener((EditText)mTextView, mKeyboardView));
+        mKeyboardView.setOnKeyboardActionListener(new HKLocalOnKeyboardActionListener((EditText)mTextView, mKeyboardView, getBaseContext()));
 
         mTextView.setOnTouchListener(new View.OnTouchListener(){
             public boolean onTouch(View view, MotionEvent motionEvent) {
