@@ -276,7 +276,13 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
         else if (primaryCode == 77) {
             s = "’";
 
-        }else if (primaryCode == 26) { //parentheses
+        } else if (primaryCode == 78) {
+            s = "-";
+
+        } else if (primaryCode == 79) {
+            s = "—";
+
+        } else if (primaryCode == 26) { //parentheses
             localAccentLetter(editable, start, SURROUNDING_PARENTHESES);
         } else if (primaryCode == 27) { //rough breathing
             localAccentLetter(editable, start, ROUGH_BREATHING);
@@ -346,6 +352,8 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
     }
 
     @Override public void onPress(int arg0) {
+        //this removes the yellow preview when key is pressed.
+        kv.setPreviewEnabled(false);
     }
 
     @Override public void onRelease(int primaryCode) {

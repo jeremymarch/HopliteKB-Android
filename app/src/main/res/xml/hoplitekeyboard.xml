@@ -49,12 +49,12 @@
         <Key android:codes="13"    android:keyLabel="ν"  />
         <Key android:codes="12"    android:keyLabel="μ"  />
 
-        <Key android:codes="38" android:keyIcon="@drawable/delete" android:iconPreview="@drawable/delete" android:keyWidth="21.0%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:codes="38" android:keyLabel=" " android:keyWidth="21.0%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
 
 
     </Row>
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="42"     android:keyIcon="@drawable/ic_keyboard_capslock_white_3x" android:iconPreview="@drawable/ic_keyboard_capslock_white_3x" android:keyEdgeFlags="left"  />
+        <Key android:codes="42" android:keyLabel=" " android:keyEdgeFlags="left"  />
         <Key android:codes="49"  android:keyLabel=" "  />
 
         <Key android:codes="39" android:keyLabel="space"  android:keyWidth="32.0%p"  />

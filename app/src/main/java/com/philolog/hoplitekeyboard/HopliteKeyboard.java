@@ -71,6 +71,10 @@ import android.view.Window;
         //InputConnection ic = getCurrentInputConnection();
         kv.setOnKeyboardActionListener(this);
 
+
+        //this removes the yellow preview when key is pressed.
+        kv.setPreviewEnabled(false);
+
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         unicodeMode = Integer.parseInt(sharedPref.getString("UnicodeMode", "0"));
 
@@ -373,11 +377,13 @@ import android.view.Window;
         } else if (primaryCode == 76) {
             s = ")";
 
-        }
-        else if (primaryCode == 77) {
+        } else if (primaryCode == 77) {
             s = "’";
-
-        }
+        } else if (primaryCode == 78) {
+                    s = "-";
+        } else if (primaryCode == 79) {
+                    s = "—";
+                }
 
                 else if (primaryCode == 26) { //parentheses
                     localAccentLetter(ic, 0, SURROUNDING_PARENTHESES);
@@ -504,6 +510,7 @@ import android.view.Window;
 
     @Override
     public void onPress(int primaryCode) {
+
     }
 
     @Override

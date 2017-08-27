@@ -13,8 +13,8 @@
         <Key android:codes="30"    android:keyLabel="~"   />
         <Key android:codes="33"    android:keyLabel="-"   />
         <Key android:codes="32"    android:keyLabel="i"   />
-        <Key android:codes="40"    android:keyLabel=","   />
-        <Key android:codes="41"    android:keyLabel="·"   android:keyEdgeFlags="right" />
+        <Key android:codes="78"    android:keyLabel="-"   />
+        <Key android:codes="79"    android:keyLabel="—"   android:keyEdgeFlags="right" />
 
     </Row>
     <Row>
@@ -49,12 +49,12 @@
         <Key android:codes="113"    android:keyLabel="ͼ"  />
         <Key android:codes="112"    android:keyLabel="ͽ"  />
 
-        <Key android:codes="38" android:keyIcon="@drawable/delete" android:iconPreview="@drawable/delete" android:keyWidth="21.0%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:codes="38" android:keyLabel=" " android:keyWidth="21.0%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
 
 
     </Row>
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="42"     android:keyIcon="@drawable/ic_keyboard_capslock_white_3x" android:iconPreview="@drawable/ic_keyboard_capslock_white_3x" android:keyEdgeFlags="left"  />
+        <Key android:codes="42"  android:keyLabel=" " android:keyEdgeFlags="left"  />
         <Key android:codes="49"  android:keyLabel=" "  />
 
         <Key android:codes="39" android:keyLabel="space"  android:keyWidth="32.0%p"  />

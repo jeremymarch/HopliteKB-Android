@@ -16,21 +16,6 @@ import android.support.v4.content.ContextCompat;
 
 import java.util.List;
 
-import android.inputmethodservice.KeyboardView;
-
-import android.graphics.Canvas;
-import android.inputmethodservice.Keyboard.Key;
-import java.util.List;
-import android.util.Log;
-import android.graphics.drawable.Drawable;
-import android.content.Context;
-import android.util.AttributeSet;
-import android.graphics.Paint;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
 /**
  * Created by jeremy on 3/27/16.
  * http://stackoverflow.com/questions/18224520/how-to-set-different-background-of-keys-for-android-custom-keyboard
@@ -96,7 +81,7 @@ public class HopliteKeyboardView extends KeyboardView {
                 dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             }
-            else if (key.codes[0] == 36 || key.codes[0] == 37 || key.codes[0] == 40 || key.codes[0] == 41 || key.codes[0] == 75 || key.codes[0] == 76 || key.codes[0] == 77){
+            else if (key.codes[0] == 36 || key.codes[0] == 37 || key.codes[0] == 40 || key.codes[0] == 41 || key.codes[0] == 75 || key.codes[0] == 76 || key.codes[0] == 77 || key.codes[0] == 78 || key.codes[0] == 79){
                 Drawable dr;
                 if (key.pressed) {
                     dr = ContextCompat.getDrawable(context, R.drawable.puncbuttondown);
@@ -107,21 +92,21 @@ public class HopliteKeyboardView extends KeyboardView {
                     dr = ContextCompat.getDrawable(context, R.drawable.puncbutton);
                     paint.setColor(Color.WHITE);
                 }
-                if (key.codes[0] == 40 || key.codes[0] == 41 || key.codes[0] == 75 || key.codes[0] == 76) //for top row punctuation
+                if (key.codes[0] == 40 || key.codes[0] == 41 || key.codes[0] == 75 || key.codes[0] == 76 || key.codes[0] == 78 || key.codes[0] == 79) //for top row punctuation
                     dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
                 else
                     dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             }
-            else if (key.codes[0] == 38 || key.codes[0] == 42){
+            else if (key.codes[0] == 42){
                 Drawable dr;
                 if (key.pressed) {
-                    dr = ContextCompat.getDrawable(context, R.drawable.normalbuttondown);
+                    dr = ContextCompat.getDrawable(context, R.drawable.capswonb);
                     paint.setColor(Color.WHITE);
                 }
                 else
                 {
-                    dr = ContextCompat.getDrawable(context, R.drawable.normalbutton);
+                    dr = ContextCompat.getDrawable(context, R.drawable.capsbonw);
                     paint.setColor(Color.WHITE);
                 }
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
@@ -136,6 +121,20 @@ public class HopliteKeyboardView extends KeyboardView {
                 else
                 {
                     dr = ContextCompat.getDrawable(context, R.drawable.globewonb35new);
+                    paint.setColor(Color.WHITE);
+                }
+                dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+                dr.draw(canvas);
+            }
+            else if (key.codes[0] == 38) {
+                Drawable dr;
+                if (key.pressed) {
+                    dr = ContextCompat.getDrawable(context, R.drawable.deletebuttonwonb43);
+                    paint.setColor(Color.WHITE);
+                }
+                else
+                {
+                    dr = ContextCompat.getDrawable(context, R.drawable.deletebuttonbonw43);
                     paint.setColor(Color.WHITE);
                 }
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
