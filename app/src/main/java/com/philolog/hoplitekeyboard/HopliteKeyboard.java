@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
+import android.view.inputmethod.EditorInfo;
 
 import android.view.inputmethod.InputMethodManager;
 
@@ -360,7 +361,23 @@ import android.view.Window;
                 else if (primaryCode == 39) {
                     s = " ";
                 } else if (primaryCode == 35) {
-                    s = "\n";
+                    //s = "\n";
+                    final int options = this.getCurrentInputEditorInfo().imeOptions;
+                    final int actionId = options & EditorInfo.IME_MASK_ACTION;
+
+                    switch (actionId) {
+                        case EditorInfo.IME_ACTION_SEARCH:
+                            sendDefaultEditorAction(true);
+                            break;
+                        case EditorInfo.IME_ACTION_GO:
+                            sendDefaultEditorAction(true);
+                            break;
+                        case EditorInfo.IME_ACTION_SEND:
+                            sendDefaultEditorAction(true);
+                            break;
+                        default:
+                            ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
+                    }
                 } else if (primaryCode == 36) {
                     s = ".";
                 } else if (primaryCode == 37) {

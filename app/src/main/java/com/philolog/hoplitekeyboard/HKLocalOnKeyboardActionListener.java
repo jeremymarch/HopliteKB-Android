@@ -7,7 +7,9 @@ import android.content.SharedPreferences;
 import android.inputmethodservice.KeyboardView;
 import android.preference.PreferenceManager;
 import android.text.Editable;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.util.Log;
 import android.inputmethodservice.Keyboard;
@@ -143,11 +145,7 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
             s = "ω";
         }  else if( primaryCode == 25 ) {
             s = "ς";
-
-        }
-
-
-        else if( primaryCode == 51 ) {
+        } else if ( primaryCode == 51 ) {
             s = "Α";
         }  else if( primaryCode == 52 ) {
             s = "Β";
@@ -195,11 +193,7 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
             s = "Ψ";
         }  else if( primaryCode == 74 ) {
             s = "Ω";
-        }
-
-
-
-        else if( primaryCode == 125 ) {
+        } else if( primaryCode == 125 ) {
             s = "Ϲ";
         }  else if( primaryCode == 105 ) {
             s = "ϲ";
@@ -249,14 +243,28 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
             s = "ͼ";
         } else if( primaryCode == 112 ) {
             s = "ͽ";
-        }
-
-
-
-        else if (primaryCode == 39) {
+        } else if (primaryCode == 39) {
             s = " ";
         } else if (primaryCode == 35) {
-            s =  "\n";
+            s = "\n";
+            /*
+            final int options = this.getCurrentInputEditorInfo().imeOptions;
+            final int actionId = options & EditorInfo.IME_MASK_ACTION;
+
+            switch (actionId) {
+                case EditorInfo.IME_ACTION_SEARCH:
+                    sendDefaultEditorAction(true);
+                    break;
+                case EditorInfo.IME_ACTION_GO:
+                    sendDefaultEditorAction(true);
+                    break;
+                case EditorInfo.IME_ACTION_SEND:
+                    sendDefaultEditorAction(true);
+                    break;
+                default:
+                    ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
+            }
+            */
         } else if (primaryCode == 36) {
             s = ".";
         } else if (primaryCode == 37) {
@@ -265,23 +273,16 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
             s = ",";
         } else if (primaryCode == 41) {
             s = "·";
-
         } else if (primaryCode == 75) {
             s = "(";
-
         } else if (primaryCode == 76) {
             s = ")";
-
-        }
-        else if (primaryCode == 77) {
+        } else if (primaryCode == 77) {
             s = "’";
-
         } else if (primaryCode == 78) {
             s = "-";
-
         } else if (primaryCode == 79) {
             s = "—";
-
         } else if (primaryCode == 26) { //parentheses
             localAccentLetter(editable, start, SURROUNDING_PARENTHESES);
         } else if (primaryCode == 27) { //rough breathing
