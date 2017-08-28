@@ -11,6 +11,7 @@ import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.support.v4.content.ContextCompat;
 
@@ -101,43 +102,121 @@ public class HopliteKeyboardView extends KeyboardView {
             else if (key.codes[0] == 42){
                 Drawable dr;
                 if (key.pressed) {
-                    dr = ContextCompat.getDrawable(context, R.drawable.capswonb);
+                    dr = ContextCompat.getDrawable(context, R.drawable.normalbuttondown);
+                    paint.setColor(Color.WHITE);
+                }
+                else {
+                    dr = ContextCompat.getDrawable(context, R.drawable.greybutton);
+                    paint.setColor(Color.BLACK);
+                }
+                dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+                dr.draw(canvas);
+
+                if (key.pressed) {
+                    dr = ContextCompat.getDrawable(context, R.drawable.capslockd);
                     paint.setColor(Color.WHITE);
                 }
                 else
                 {
-                    dr = ContextCompat.getDrawable(context, R.drawable.capsbonw);
+                    dr = ContextCompat.getDrawable(context, R.drawable.capslock);
                     paint.setColor(Color.WHITE);
                 }
-                dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+                //Log.e("abc", key.width + " " + key.height);
+                double a = ((key.width < key.height) ? key.width : key.height) * 0.75;
+                if (key.width < key.height)
+                {
+                    double y = key.y + ((key.height - a) / 2);
+                    double x = key.x + ((key.width - a) / 2);
+                    dr.setBounds((int)x, (int) y, (int)(x + a), (int) (y + a));
+                }
+                else
+                {
+                    double y = key.y + ((key.height - a) / 2);
+                    double x = key.x + ((key.width - a) / 2);
+
+                    dr.setBounds((int)x, (int)y, (int)(x + a), (int)(y + a));
+                }
+
                 dr.draw(canvas);
             }
             else if (key.codes[0] == 49) {
                 Drawable dr;
                 if (key.pressed) {
-                    dr = ContextCompat.getDrawable(context, R.drawable.globebonw35new);
+                    dr = ContextCompat.getDrawable(context, R.drawable.normalbuttondown);
+                    paint.setColor(Color.WHITE);
+                }
+                else {
+                    dr = ContextCompat.getDrawable(context, R.drawable.greybutton);
+                    paint.setColor(Color.BLACK);
+                }
+                dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+                dr.draw(canvas);
+
+                if (key.pressed) {
+                    dr = ContextCompat.getDrawable(context, R.drawable.globeicon200d);
                     paint.setColor(Color.WHITE);
                 }
                 else
                 {
-                    dr = ContextCompat.getDrawable(context, R.drawable.globewonb35new);
+                    dr = ContextCompat.getDrawable(context, R.drawable.globeicon200);
                     paint.setColor(Color.WHITE);
                 }
-                dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+                //Log.e("abc", key.width + " " + key.height);
+                double a = ((key.width < key.height) ? key.width : key.height) * 0.55;
+                if (key.width < key.height)
+                {
+                    double y = key.y + ((key.height - a) / 2);
+                    double x = key.x + ((key.width - a) / 2);
+                    dr.setBounds((int)x, (int) y, (int)(x + a), (int) (y + a));
+                }
+                else
+                {
+                    double y = key.y + ((key.height - a) / 2);
+                    double x = key.x + ((key.width - a) / 2);
+
+                    dr.setBounds((int)x, (int)y, (int)(x + a), (int)(y + a));
+                }
+
                 dr.draw(canvas);
             }
             else if (key.codes[0] == 38) {
                 Drawable dr;
                 if (key.pressed) {
-                    dr = ContextCompat.getDrawable(context, R.drawable.deletebuttonwonb43);
+                    dr = ContextCompat.getDrawable(context, R.drawable.normalbuttondown);
+                    paint.setColor(Color.WHITE);
+                }
+                else {
+                    dr = ContextCompat.getDrawable(context, R.drawable.greybutton);
+                    paint.setColor(Color.BLACK);
+                }
+                dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+                dr.draw(canvas);
+
+                if (key.pressed) {
+                    dr = ContextCompat.getDrawable(context, R.drawable.deletenewd);
                     paint.setColor(Color.WHITE);
                 }
                 else
                 {
-                    dr = ContextCompat.getDrawable(context, R.drawable.deletebuttonbonw43);
+                    dr = ContextCompat.getDrawable(context, R.drawable.deletenew);
                     paint.setColor(Color.WHITE);
                 }
-                dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+                //Log.e("abc", key.width + " " + key.height);
+                double a = ((key.width < key.height) ? key.width : key.height) * 0.66;
+                if (key.width < key.height)
+                {
+                    double y = key.y + ((key.height - a) / 2);
+                    double x = key.x + ((key.width - a) / 2);
+                    dr.setBounds((int)x, (int) y, (int)(x + a), (int) (y + a));
+                }
+                else
+                {
+                    double y = key.y + ((key.height - a) / 2);
+                    double x = key.x + ((key.width - a) / 2);
+
+                    dr.setBounds((int)x, (int)y, (int)(x + a), (int)(y + a));
+                }
+
                 dr.draw(canvas);
             }
             else {
