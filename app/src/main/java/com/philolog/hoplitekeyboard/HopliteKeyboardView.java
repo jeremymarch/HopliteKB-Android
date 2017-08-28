@@ -11,7 +11,6 @@ import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.animation.Animation;
 import android.support.v4.content.ContextCompat;
 
@@ -113,12 +112,12 @@ public class HopliteKeyboardView extends KeyboardView {
                 dr.draw(canvas);
 
                 if (key.pressed) {
-                    dr = ContextCompat.getDrawable(context, R.drawable.capslockd);
+                    dr = ContextCompat.getDrawable(context, R.drawable.capslockicond);
                     paint.setColor(Color.WHITE);
                 }
                 else
                 {
-                    dr = ContextCompat.getDrawable(context, R.drawable.capslock);
+                    dr = ContextCompat.getDrawable(context, R.drawable.capslockicon);
                     paint.setColor(Color.WHITE);
                 }
                 //Log.e("abc", key.width + " " + key.height);
@@ -153,12 +152,12 @@ public class HopliteKeyboardView extends KeyboardView {
                 dr.draw(canvas);
 
                 if (key.pressed) {
-                    dr = ContextCompat.getDrawable(context, R.drawable.globeicon200d);
+                    dr = ContextCompat.getDrawable(context, R.drawable.globeicond);
                     paint.setColor(Color.WHITE);
                 }
                 else
                 {
-                    dr = ContextCompat.getDrawable(context, R.drawable.globeicon200);
+                    dr = ContextCompat.getDrawable(context, R.drawable.globeicon);
                     paint.setColor(Color.WHITE);
                 }
                 //Log.e("abc", key.width + " " + key.height);
@@ -193,12 +192,12 @@ public class HopliteKeyboardView extends KeyboardView {
                 dr.draw(canvas);
 
                 if (key.pressed) {
-                    dr = ContextCompat.getDrawable(context, R.drawable.deletenewd);
+                    dr = ContextCompat.getDrawable(context, R.drawable.deleteicond);
                     paint.setColor(Color.WHITE);
                 }
                 else
                 {
-                    dr = ContextCompat.getDrawable(context, R.drawable.deletenew);
+                    dr = ContextCompat.getDrawable(context, R.drawable.deleteicon);
                     paint.setColor(Color.WHITE);
                 }
                 //Log.e("abc", key.width + " " + key.height);
