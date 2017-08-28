@@ -380,6 +380,10 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
         GreekVerb gv1 = new GreekVerb();
         int maxSubstringForAccent = 7;
         String str2 = editable.toString();
+        if (str2.length() < 1)
+        {
+            return;
+        }
         String sub;
         String accentedLetter = "";
 
