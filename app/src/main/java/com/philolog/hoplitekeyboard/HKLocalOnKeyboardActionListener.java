@@ -194,7 +194,9 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
             s = "Ψ";
         }  else if( primaryCode == 74 ) {
             s = "Ω";
-        } else if( primaryCode == 125 ) {
+        }
+
+        else if( primaryCode == 125 ) {
             s = "Ϲ";
         }  else if( primaryCode == 105 ) {
             s = "ϲ";

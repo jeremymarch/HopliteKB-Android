@@ -61,6 +61,7 @@ import android.view.Window;
 
     private boolean caps = false;
     private String capsL = "l";
+    private String miscL = "n";
     private int unicodeMode = 0;
 
     @Override
@@ -156,33 +157,65 @@ import android.view.Window;
                 ic.deleteSurroundingText(cc+1, ccAfter);
                 break;
             case 42://Keyboard.KEYCODE_SHIFT:
-                /*
-                //caps = !caps;
-                //kv.caps = !kv.caps;
 
-                keyboard.setShifted(caps);
-                kv.invalidateAllKeys();
-*/
                 Keyboard keyboard;
 
                 if (capsL == "l") {
-                    keyboard = new Keyboard(getBaseContext(), R.xml.hoplitekeyboardupper);
+                    if (miscL == "n") {
+                        keyboard = new Keyboard(getBaseContext(), R.xml.hoplitekeyboardupper);
+                    }
+                    else
+                    {
+                        keyboard = new Keyboard(getBaseContext(), R.xml.hoplitekeyboardmiscupper);
+                    }
                     capsL = "u";
-                }
-                else if (capsL == "u")
-                {
-                    keyboard = new Keyboard(getBaseContext(), R.xml.hoplitekeyboardmisc);
-                    capsL = "m";
                 }
                 else
                 {
-                    keyboard = new Keyboard(getBaseContext(), R.xml.hoplitekeyboard);
+                    if (miscL == "n") {
+                        keyboard = new Keyboard(getBaseContext(), R.xml.hoplitekeyboard);
+                    }
+                    else
+                    {
+                        keyboard = new Keyboard(getBaseContext(), R.xml.hoplitekeyboardmisc);
+                    }
                     capsL = "l";
                 }
                 kv.setKeyboard(keyboard);
                 kv.setOnKeyboardActionListener(this);
                 kv.invalidateAllKeys();
+/*
+            caps = !caps;
+            kv.caps = !kv.caps;
+            //keyboard.setShifted(caps);
+            kv.getKeyboard().setShifted(caps);
+            kv.invalidateAllKeys();
+            */
 
+
+                break;
+            case 250:
+
+                if (miscL == "n") {
+                    //if (capsL == "l") {
+                    keyboard = new Keyboard(getBaseContext(), R.xml.hoplitekeyboardmisc);
+                    //} else {
+                    //   keyboard = new Keyboard(c, R.xml.hoplitekeyboardmiscupper);
+                    //}
+                    miscL = "m";
+                    capsL = "l";
+                } else {
+                    //if (capsL == "l") {
+                    keyboard = new Keyboard(getBaseContext(), R.xml.hoplitekeyboard);
+                    //} else {
+                    //    keyboard = new Keyboard(c, R.xml.hoplitekeyboardupper);
+                    //}
+                    miscL = "n";
+                    capsL = "l";
+                }
+                kv.setKeyboard(keyboard);
+                kv.setOnKeyboardActionListener(this);
+                kv.invalidateAllKeys();
                 break;
             case 49:
                 InputMethodManager imeManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -197,7 +230,6 @@ import android.view.Window;
                 //if (Character.isLetter(code) && caps) {
                 //    code = Character.toUpperCase(code);
                // }
-
 
                 String s = "";
                 if (primaryCode == 1) {
@@ -250,10 +282,7 @@ import android.view.Window;
                     s = "ω";
                 } else if (primaryCode == 25) {
                     s = "ς";
-                }
-
-
-                else if( primaryCode == 51 ) {
+                } else if( primaryCode == 51 ) {
                     s = "Α";
                 }  else if( primaryCode == 52 ) {
                     s = "Β";
@@ -303,8 +332,6 @@ import android.view.Window;
                     s = "Ω";
                 }
 
-
-
                 else if( primaryCode == 125 ) {
                     s = "Ϲ";
                 }  else if( primaryCode == 105 ) {
@@ -319,6 +346,10 @@ import android.view.Window;
                     s = "ϝ";
                 }  else if( primaryCode == 109 ) {
                     s = "Ϛ";
+                }  else if( primaryCode == 112 ) {
+                    s = "ͽ";
+                } else if( primaryCode == 113 ) {
+                    s = "ͼ";
                 }  else if( primaryCode == 115 ) {
                     s = "ϛ";
                 }  else if( primaryCode == 116 ) {
@@ -351,14 +382,11 @@ import android.view.Window;
                     s = "ͱ";
                 }  else if( primaryCode == 102 ) {
                     s = "ͻ";
-                }  else if( primaryCode == 113 ) {
+                } else if( primaryCode == 113 ) {
                     s = "ͼ";
                 } else if( primaryCode == 112 ) {
                     s = "ͽ";
-                }
-
-
-                else if (primaryCode == 39) {
+                } else if (primaryCode == 39) {
                     s = " ";
                 } else if (primaryCode == 35) {
                     //s = "\n";
@@ -386,20 +414,100 @@ import android.view.Window;
                     s = ",";
                 } else if (primaryCode == 41) {
                     s = "·";
-                }
-
-        else if (primaryCode == 75) {
-            s = "(";
-
-        } else if (primaryCode == 76) {
-            s = ")";
-
-        } else if (primaryCode == 77) {
-            s = "’";
-        } else if (primaryCode == 78) {
+                } else if (primaryCode == 75) {
+                    s = "(";
+                } else if (primaryCode == 76) {
+                    s = ")";
+                } else if (primaryCode == 77) {
+                    s = "’";
+                } else if (primaryCode == 78) {
                     s = "-";
-        } else if (primaryCode == 79) {
+                } else if (primaryCode == 79) {
                     s = "—";
+                } else if (primaryCode == 80) {
+                    s = "ʹ";
+                } else if (primaryCode == 81) {
+                    s = "͵";
+                } else if (primaryCode == 82) {
+                    s = "[";
+                } else if (primaryCode == 83) {
+                    s = "]";
+                } else if (primaryCode == 84) {
+                    s = "{";
+                } else if (primaryCode == 85) {
+                    s = "}";
+                } else if (primaryCode == 87) {
+                    s = "_";
+                } else if (primaryCode == 88) {
+                    s = "<";
+                } else if (primaryCode == 89) {
+                    s = ">";
+                } else if (primaryCode == 90) {
+                    s = "=";
+                } else if (primaryCode == 91) {
+                    s = "+";
+                } else if (primaryCode == 92) {
+                    s = "\"";
+                } else if (primaryCode == 93) {
+                    s = "'";
+                } else if (primaryCode == 94) {
+                    s = "/";
+                } else if (primaryCode == 95) {
+                    s = "\\";
+                } else if (primaryCode == 96) {
+                    s = "ϸ";
+                } else if (primaryCode == 97) {
+                    s = "Ϸ";
+                } else if (primaryCode == 98) {
+                    s = "*";
+                } else if (primaryCode == 99) {
+                    s = "#";
+                } else if (primaryCode == 43) {
+                    s = "ϵ";
+                } else if (primaryCode == 44) {
+                    s = "϶";
+                } else if (primaryCode == 200) {
+                    s = "1";
+                } else if (primaryCode == 201) {
+                    s = "2";
+                } else if (primaryCode == 202) {
+                    s = "3";
+                } else if (primaryCode == 203) {
+                    s = "4";
+                } else if (primaryCode == 204) {
+                    s = "5";
+                } else if (primaryCode == 205) {
+                    s = "6";
+                } else if (primaryCode == 206) {
+                    s = "7";
+                } else if (primaryCode == 207) {
+                    s = "8";
+                } else if (primaryCode == 208) {
+                    s = "9";
+                } else if (primaryCode == 209) {
+                    s = "0";
+                } else if (primaryCode == 210) {
+                    s = "×";
+                } else if (primaryCode == 211) {
+                    s = "‒";
+                } else if (primaryCode == 212) {
+                    s = "⏑";
+                } else if (primaryCode == 213) {
+                    s = "⏒";
+                } else if (primaryCode == 214) {
+                    s = "⏓";
+                } else if (primaryCode == 215) {
+                    s = "⏔";
+                } else if (primaryCode == 216) {
+                    s = "⏕";
+                } else if (primaryCode == 217) {
+                    s = "⏖";
+                } else if (primaryCode == 218) {
+                    s = "|";
+                } else if (primaryCode == 219) {
+                    s = "‖";
+                } else if (primaryCode == 86) {
+                    s = "̆";
                 }
 
                 else if (primaryCode == 26) { //parentheses
