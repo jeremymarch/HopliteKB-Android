@@ -4,18 +4,16 @@
     android:keyHeight="6.9%p"
     android:horizontalGap="3dp"
     android:verticalGap="3dp">
-
     <Row android:rowEdgeFlags="top">
         <Key android:codes="27"    android:keyLabel="("  android:keyEdgeFlags="left" />
         <Key android:codes="28"    android:keyLabel=")"   />
         <Key android:codes="29"    android:keyLabel="/"   />
         <Key android:codes="34"    android:keyLabel="\\"   />
-        <Key android:codes="30"    android:keyLabel="~"   />
         <Key android:codes="31"    android:keyLabel="¨"   />
+        <Key android:codes="86"    android:keyLabel="˘"   />
         <Key android:codes="32"    android:keyLabel="i"   />
-        <Key android:codes="75"    android:keyLabel="("   />
-        <Key android:codes="76"    android:keyLabel=")"   android:keyEdgeFlags="right" />
-
+        <Key android:codes="77"    android:keyLabel="’" />
+        <Key android:codes="79"    android:keyLabel="—"   android:keyEdgeFlags="right"/>
     </Row>
     <Row>
         <Key android:codes="25"    android:keyLabel="ς" android:keyEdgeFlags="left"  />
@@ -27,7 +25,6 @@
         <Key android:codes="59"    android:keyLabel="Ι"  />
         <Key android:codes="65"    android:keyLabel="Ο"  />
         <Key android:codes="66" android:keyLabel="Π" android:keyEdgeFlags="right" />
-
     </Row>
     <Row>
         <Key android:codes="51"    android:keyLabel="Α" android:keyTextColor="#ff000000" android:keyEdgeFlags="left" />
@@ -48,18 +45,14 @@
         <Key android:codes="52"    android:keyLabel="Β"  />
         <Key android:codes="63"    android:keyLabel="Ν"  />
         <Key android:codes="62"    android:keyLabel="Μ"  />
-
         <Key android:codes="38" android:keyLabel=" " android:keyWidth="21.0%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
-
-
     </Row>
     <Row android:rowEdgeFlags="bottom">
         <Key android:codes="42" android:keyLabel=" " android:keyEdgeFlags="left"  />
+        <Key android:codes="250"    android:keyLabel="123" />
         <Key android:codes="49"  android:keyLabel=" "  />
-
         <Key android:codes="39" android:keyLabel="space"  android:keyWidth="32.0%p"  />
-        <Key android:codes="36"    android:keyLabel="." />
-        <Key android:codes="77"    android:keyLabel="’" />
+        <Key android:codes="37"    android:keyLabel=";" />
         <Key android:codes="35" android:keyLabel="enter" android:keyWidth="21.0%p" android:keyEdgeFlags="right" />
     </Row>
 </Keyboard>

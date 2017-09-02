@@ -55,6 +55,7 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
 
     private boolean caps = false;
     private String capsL = "l";
+    private String miscL = "n"; //m for misc, n for normal
 
     public HKLocalOnKeyboardActionListener(EditText et, HopliteKeyboardView kview, Context co)
     {
@@ -283,6 +284,88 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
             s = "-";
         } else if (primaryCode == 79) {
             s = "—";
+        } else if (primaryCode == 80) {
+            s = "ʹ";
+        } else if (primaryCode == 81) {
+            s = "͵";
+        } else if (primaryCode == 82) {
+            s = "[";
+        } else if (primaryCode == 83) {
+            s = "]";
+        } else if (primaryCode == 84) {
+            s = "{";
+        } else if (primaryCode == 85) {
+            s = "}";
+        } else if (primaryCode == 87) {
+            s = "_";
+        } else if (primaryCode == 88) {
+            s = "<";
+        } else if (primaryCode == 89) {
+            s = ">";
+        } else if (primaryCode == 90) {
+            s = "=";
+        } else if (primaryCode == 91) {
+            s = "+";
+        } else if (primaryCode == 92) {
+            s = "\"";
+        } else if (primaryCode == 93) {
+            s = "'";
+        } else if (primaryCode == 94) {
+            s = "/";
+        } else if (primaryCode == 95) {
+            s = "\\";
+        } else if (primaryCode == 96) {
+            s = "ϸ";
+        } else if (primaryCode == 97) {
+            s = "Ϸ";
+        } else if (primaryCode == 98) {
+            s = "*";
+        } else if (primaryCode == 99) {
+            s = "#";
+        } else if (primaryCode == 43) {
+            s = "ϵ";
+        } else if (primaryCode == 44) {
+            s = "϶";
+        } else if (primaryCode == 200) {
+            s = "1";
+        } else if (primaryCode == 201) {
+            s = "2";
+        } else if (primaryCode == 202) {
+            s = "3";
+        } else if (primaryCode == 203) {
+            s = "4";
+        } else if (primaryCode == 204) {
+            s = "5";
+        } else if (primaryCode == 205) {
+            s = "6";
+        } else if (primaryCode == 206) {
+            s = "7";
+        } else if (primaryCode == 207) {
+            s = "8";
+        } else if (primaryCode == 208) {
+            s = "9";
+        } else if (primaryCode == 209) {
+            s = "0";
+        } else if (primaryCode == 210) {
+            s = "×";
+        } else if (primaryCode == 211) {
+            s = "‒";
+        } else if (primaryCode == 212) {
+            s = "⏑";
+        } else if (primaryCode == 213) {
+            s = "⏒";
+        } else if (primaryCode == 214) {
+            s = "⏓";
+        } else if (primaryCode == 215) {
+            s = "⏔";
+        } else if (primaryCode == 216) {
+            s = "⏕";
+        } else if (primaryCode == 217) {
+            s = "⏖";
+        } else if (primaryCode == 218) {
+            s = "|";
+        } else if (primaryCode == 219) {
+            s = "‖";
         } else if (primaryCode == 26) { //parentheses
             localAccentLetter(editable, start, SURROUNDING_PARENTHESES);
         } else if (primaryCode == 27) { //rough breathing
@@ -293,30 +376,39 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
             localAccentLetter(editable, start, ACUTE);
         } else if (primaryCode == 30) { //circumflex
             localAccentLetter(editable, start, CIRCUMFLEX);
-        } else if (primaryCode == 33) { //macron
-            localAccentLetter(editable, start, MACRON);
-        } else if (primaryCode == 32) { //iota subscript
-            localAccentLetter(editable, start, IOTA_SUBSCRIPT);
-        } else if (primaryCode == 34) { //iota subscript
-            localAccentLetter(editable, start, GRAVE);
         } else if (primaryCode == 31) { //iota subscript
             localAccentLetter(editable, start, DIAERESIS);
+        } else if (primaryCode == 32) { //iota subscript
+            localAccentLetter(editable, start, IOTA_SUBSCRIPT);
+        } else if (primaryCode == 33) { //macron
+            localAccentLetter(editable, start, MACRON);
+        }  else if (primaryCode == 34) { //iota subscript
+            localAccentLetter(editable, start, GRAVE);
+        } else if (primaryCode == 86) {
+            s = "̆";
         } else if (primaryCode == 42) //Keyboard.KEYCODE_SHIFT:
         {
             Keyboard keyboard;
 
             if (capsL == "l") {
-                keyboard = new Keyboard(c, R.xml.hoplitekeyboardupper);
+                if (miscL == "n") {
+                    keyboard = new Keyboard(c, R.xml.hoplitekeyboardupper);
+                }
+                else
+                {
+                    keyboard = new Keyboard(c, R.xml.hoplitekeyboardmiscupper);
+                }
                 capsL = "u";
-            }
-            else if (capsL == "u")
-            {
-                keyboard = new Keyboard(c, R.xml.hoplitekeyboardmisc);
-                capsL = "m";
             }
             else
             {
-                keyboard = new Keyboard(c, R.xml.hoplitekeyboard);
+                if (miscL == "n") {
+                    keyboard = new Keyboard(c, R.xml.hoplitekeyboard);
+                }
+                else
+                {
+                    keyboard = new Keyboard(c, R.xml.hoplitekeyboardmisc);
+                }
                 capsL = "l";
             }
             kv.setKeyboard(keyboard);
@@ -330,7 +422,30 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
             kv.invalidateAllKeys();
             */
         }
-        else if( primaryCode == 38 ) { //Delete
+        else if (primaryCode == 250) {
+            Keyboard keyboard;
+
+            if (miscL == "n") {
+                //if (capsL == "l") {
+                    keyboard = new Keyboard(c, R.xml.hoplitekeyboardmisc);
+                //} else {
+                 //   keyboard = new Keyboard(c, R.xml.hoplitekeyboardmiscupper);
+                //}
+                miscL = "m";
+                capsL = "l";
+            } else {
+                //if (capsL == "l") {
+                    keyboard = new Keyboard(c, R.xml.hoplitekeyboard);
+                //} else {
+                //    keyboard = new Keyboard(c, R.xml.hoplitekeyboardupper);
+                //}
+                miscL = "n";
+                capsL = "l";
+            }
+            kv.setKeyboard(keyboard);
+            kv.setOnKeyboardActionListener(this);
+            kv.invalidateAllKeys();
+        } else if( primaryCode == 38 ) { //Delete
             if( start > 0 )
             {
                 int i = 0;

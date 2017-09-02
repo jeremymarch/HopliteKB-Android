@@ -67,7 +67,7 @@ public class HopliteKeyboardView extends KeyboardView {
                 }
                 dr.draw(canvas);
             }
-            else if (key.codes[0] > 26 && key.codes[0] < 35) {
+            else if ((key.codes[0] > 26 && key.codes[0] < 35) || key.codes[0] == 86) {
                 Drawable dr;
                 if (key.pressed) {
                     dr = ContextCompat.getDrawable(context, R.drawable.accentbuttondown);
@@ -81,7 +81,7 @@ public class HopliteKeyboardView extends KeyboardView {
                 dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             }
-            else if (key.codes[0] == 36 || key.codes[0] == 37 || key.codes[0] == 40 || key.codes[0] == 41 || key.codes[0] == 75 || key.codes[0] == 76 || key.codes[0] == 77 || key.codes[0] == 78 || key.codes[0] == 79){
+            else if (key.codes[0] == 36 || key.codes[0] == 37 || key.codes[0] == 40 || key.codes[0] == 41 || key.codes[0] == 75 || key.codes[0] == 76 || key.codes[0] == 77 || key.codes[0] == 78 || key.codes[0] == 79 || key.codes[0] == 82 || key.codes[0] == 83 || key.codes[0] == 84 || key.codes[0] == 85 || key.codes[0] == 87 || key.codes[0] == 88 || key.codes[0] == 89  || key.codes[0] == 92 || key.codes[0] == 93  || key.codes[0] == 94 || key.codes[0] == 95  || key.codes[0] == 98 || key.codes[0] == 99 || key.codes[0] == 90 || key.codes[0] == 91){
                 Drawable dr;
                 if (key.pressed) {
                     dr = ContextCompat.getDrawable(context, R.drawable.puncbuttondown);
@@ -92,7 +92,7 @@ public class HopliteKeyboardView extends KeyboardView {
                     dr = ContextCompat.getDrawable(context, R.drawable.puncbutton);
                     paint.setColor(Color.WHITE);
                 }
-                if (key.codes[0] == 40 || key.codes[0] == 41 || key.codes[0] == 75 || key.codes[0] == 76 || key.codes[0] == 78 || key.codes[0] == 79) //for top row punctuation
+                if (key.codes[0] == 40 || key.codes[0] == 41 || key.codes[0] == 75 || key.codes[0] == 76 || key.codes[0] == 77 || key.codes[0] == 78 || key.codes[0] == 79) //for top row punctuation
                     dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
                 else
                     dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
@@ -216,6 +216,19 @@ public class HopliteKeyboardView extends KeyboardView {
                     dr.setBounds((int)x, (int)y, (int)(x + a), (int)(y + a));
                 }
 
+                dr.draw(canvas);
+            }
+            else if (key.codes[0] == 250) {
+                Drawable dr;
+                if (key.pressed) {
+                    dr = ContextCompat.getDrawable(context, R.drawable.normalbuttondown);
+                    paint.setColor(Color.WHITE);
+                }
+                else {
+                    dr = ContextCompat.getDrawable(context, R.drawable.greybutton);
+                    paint.setColor(Color.BLACK);
+                }
+                dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             }
             else {

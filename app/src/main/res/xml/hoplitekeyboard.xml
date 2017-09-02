@@ -4,12 +4,12 @@
     android:keyHeight="6.9%p"
     android:horizontalGap="3dp"
     android:verticalGap="3dp">
-
+<!--https://stackoverflow.com/questions/7752580/creating-a-softkeyboard-with-multiple-alternate-characters-per-key-->
     <Row android:rowEdgeFlags="top">
         <Key android:codes="27"    android:keyLabel="("  android:keyEdgeFlags="left" />
         <Key android:codes="28"    android:keyLabel=")"   />
         <Key android:codes="29"    android:keyLabel="/"   />
-        <Key android:codes="34"    android:keyLabel="\\"   />
+        <Key android:codes="34"    android:keyLabel="\\"  />
         <Key android:codes="30"    android:keyLabel="~"   />
         <Key android:codes="33"    android:keyLabel="-"   />
         <Key android:codes="32"    android:keyLabel="i"   />
@@ -55,11 +55,12 @@
     </Row>
     <Row android:rowEdgeFlags="bottom">
         <Key android:codes="42" android:keyLabel=" " android:keyEdgeFlags="left"  />
+        <Key android:codes="250"    android:keyLabel="123" />
         <Key android:codes="49"  android:keyLabel=" "  />
 
         <Key android:codes="39" android:keyLabel="space"  android:keyWidth="32.0%p"  />
         <Key android:codes="36"    android:keyLabel="." />
-        <Key android:codes="37"    android:keyLabel=";" />
+
         <Key android:codes="35" android:keyLabel="enter" android:keyWidth="21.0%p" android:keyEdgeFlags="right" />
     </Row>
 </Keyboard>
