@@ -39,6 +39,7 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
     public final static int IOTA_SUBSCRIPT = 7;
     public final static int SURROUNDING_PARENTHESES = 8;
     public final static int DIAERESIS = 9;
+    public final static int BREVE = 10;
 
     public final static int COMBINING_GRAVE             = 0x0300;
     public final static int COMBINING_ACUTE             = 0x0301;
@@ -48,6 +49,7 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
     public final static int COMBINING_SMOOTH_BREATHING  = 0x0313;
     public final static int COMBINING_ROUGH_BREATHING   = 0x0314;
     public final static int COMBINING_IOTA_SUBSCRIPT    = 0x0345;
+    public final static int COMBINING_BREVE             = 0x0306;
 
     public EditText e;
     public HopliteKeyboardView kv;
@@ -387,7 +389,8 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
         }  else if (primaryCode == 34) { //iota subscript
             localAccentLetter(editable, start, GRAVE);
         } else if (primaryCode == 86) {
-            s = "̆";
+            //s = "̆";
+            localAccentLetter(editable, start, BREVE);
         } else if (primaryCode == 42) //Keyboard.KEYCODE_SHIFT:
         {
             Keyboard keyboard;
@@ -589,7 +592,8 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
                 s == COMBINING_DIAERESIS ||
                 s == COMBINING_SMOOTH_BREATHING ||
                 s == COMBINING_ROUGH_BREATHING ||
-                s == COMBINING_IOTA_SUBSCRIPT)
+                s == COMBINING_IOTA_SUBSCRIPT ||
+                s == COMBINING_BREVE)
             return true;
         else
             return false;

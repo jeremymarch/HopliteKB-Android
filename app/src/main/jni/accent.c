@@ -16,9 +16,9 @@
 
 char unicode_mode = PRECOMPOSED_MODE; //set default
 
-#define NUM_COMBINING_ACCENTS 8
+#define NUM_COMBINING_ACCENTS 9
 //this is the order they will follow after the vowel
-unsigned short combiningAccents[NUM_COMBINING_ACCENTS] = { COMBINING_MACRON, COMBINING_DIAERESIS, COMBINING_ROUGH_BREATHING, COMBINING_SMOOTH_BREATHING, COMBINING_ACUTE, COMBINING_GRAVE, COMBINING_CIRCUMFLEX                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        , COMBINING_IOTA_SUBSCRIPT };
+unsigned short combiningAccents[NUM_COMBINING_ACCENTS] = { COMBINING_MACRON, COMBINING_BREVE, COMBINING_DIAERESIS, COMBINING_ROUGH_BREATHING, COMBINING_SMOOTH_BREATHING, COMBINING_ACUTE, COMBINING_GRAVE, COMBINING_CIRCUMFLEX, COMBINING_IOTA_SUBSCRIPT };
 
 //precomposed indices
 enum {
@@ -487,6 +487,7 @@ bool isCombiningDiacritic(UCS2 l)
         case COMBINING_SMOOTH_BREATHING:
         case COMBINING_ROUGH_BREATHING:
         case COMBINING_DIAERESIS:
+        case COMBINING_BREVE:
             return true;
     }
 
@@ -599,6 +600,12 @@ bool isLegalDiacriticForLetter(int letterCode, int accentToAdd)
                 return false;
             }
             break;
+        case BREVE:
+            if (letterCode != ALPHA && letterCode != IOTA && letterCode != UPSILON && letterCode != ALPHA_CAP && letterCode != IOTA_CAP && letterCode != UPSILON_CAP)
+            {
+                return false;
+            }
+            break;
         case IOTA_SUBSCRIPT:
             if (letterCode != ALPHA && letterCode != ETA && letterCode != OMEGA && letterCode != ALPHA_CAP && letterCode != ETA_CAP && letterCode != OMEGA_CAP)
             {
@@ -648,6 +655,15 @@ int updateDiacritics(int letterCode, int accentToAdd, int accentBitMask, bool to
             else
                 accentBitMask |= _MACRON;
             accentBitMask &= ~_CIRCUMFLEX;
+            accentBitMask &= ~_BREVE;
+            break;
+        case BREVE:
+            if (toggleOff && (accentBitMask & _BREVE) == _BREVE)
+                accentBitMask &= ~_BREVE;
+            else
+                accentBitMask |= _BREVE;
+            accentBitMask &= ~_CIRCUMFLEX;
+            accentBitMask &= ~_MACRON;
             break;
         case ROUGH_BREATHING:
             if (toggleOff && (accentBitMask & _ROUGH) == _ROUGH)
@@ -727,6 +743,11 @@ int analyzeLetter(UCS2 *ucs2String, int i, int len, int *letterCode, int *accent
                 letterLen++;
                 *accentBitMask |= _MACRON;
             }
+            else if (ucs2String[i + j] == COMBINING_BREVE)
+            {
+                letterLen++;
+                *accentBitMask |= _BREVE;
+            }
             else if (ucs2String[i + j] == COMBINING_IOTA_SUBSCRIPT)
             {
                 letterLen++;
@@ -762,12 +783,16 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, int letterCode, int accentB
 
     //fallback if macron + one more diacritic
     bool precomposingFallbackToComposing = false;
-    if ((unicode_mode == PRECOMPOSED_MODE && (accentBitMask & _MACRON) == _MACRON) || (unicodeMode == PRECOMPOSED_WITH_PUA_MODE &&  (accentBitMask & (_MACRON | _DIAERESIS)) == (_MACRON | _DIAERESIS)))
+    if ((unicode_mode == PRECOMPOSED_MODE && (accentBitMask & _MACRON) == _MACRON) || (unicodeMode == PRECOMPOSED_WITH_PUA_MODE && (accentBitMask & (_MACRON | _DIAERESIS)) == (_MACRON | _DIAERESIS)))
     {
         if ((accentBitMask & ~_MACRON) != 0)//if any other bits set besides macron
         {
             precomposingFallbackToComposing = true;
         }
+    }
+    else if ((accentBitMask & _BREVE) == _BREVE)
+    {
+        precomposingFallbackToComposing = true;
     }
     else if (unicodeMode == PRECOMPOSED_HC_MODE && (accentBitMask & _MACRON) == _MACRON)
     {
@@ -779,6 +804,8 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, int letterCode, int accentB
     if (unicode_mode == COMBINING_ONLY_MODE || precomposingFallbackToComposing)
     {
         if ((accentBitMask & _MACRON) == _MACRON)
+            (*newLetterLen)++;
+        if ((accentBitMask & _BREVE) == _BREVE)
             (*newLetterLen)++;
         if ((accentBitMask & _SMOOTH) == _SMOOTH)
             (*newLetterLen)++;
@@ -802,6 +829,11 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, int letterCode, int accentB
         for (int k = 0; k < NUM_COMBINING_ACCENTS; k++)
         {
             if (combiningAccents[k] == COMBINING_MACRON && (accentBitMask & _MACRON) == _MACRON)
+            {
+                ucs2String[i + numAccents] = combiningAccents[k];
+                numAccents++;
+            }
+            else if (combiningAccents[k] == COMBINING_BREVE && (accentBitMask & _BREVE) == _BREVE)
             {
                 ucs2String[i + numAccents] = combiningAccents[k];
                 numAccents++;

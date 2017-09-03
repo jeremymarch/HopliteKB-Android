@@ -17,6 +17,7 @@
 #define COMBINING_SMOOTH_BREATHING      0x0313
 #define COMBINING_ROUGH_BREATHING       0x0314
 #define COMBINING_IOTA_SUBSCRIPT        0x0345
+#define COMBINING_BREVE                 0x0306
 #define EM_DASH                         0x2014
 #define LEFT_PARENTHESIS                0x0028
 #define RIGHT_PARENTHESIS               0x0029

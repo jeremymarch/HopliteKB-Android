@@ -23,7 +23,8 @@ enum {
     SMOOTH_BREATHING,
     IOTA_SUBSCRIPT,
     SURROUNDING_PARENTHESES,
-    DIAERESIS
+    DIAERESIS,
+    BREVE
 };
 
 //diacriticMask bit flags
@@ -35,8 +36,8 @@ enum {
     _GRAVE      = 1 << 4,
     _CIRCUMFLEX = 1 << 5,
     _IOTA_SUB   = 1 << 6,
-    _DIAERESIS  = 1 << 7//,
-    //_BREVE      = 1 << 8
+    _DIAERESIS  = 1 << 7,
+    _BREVE      = 1 << 8
 };
 
 enum {

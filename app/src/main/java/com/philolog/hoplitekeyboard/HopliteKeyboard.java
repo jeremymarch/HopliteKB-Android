@@ -46,6 +46,7 @@ import android.view.Window;
     public final static int IOTA_SUBSCRIPT      = 7;
     public final static int SURROUNDING_PARENTHESES = 8;
     public final static int DIAERESIS           = 9;
+    public final static int BREVE               = 10;
 
     public final static int COMBINING_GRAVE             = 0x0300;
     public final static int COMBINING_ACUTE             = 0x0301;
@@ -55,6 +56,7 @@ import android.view.Window;
     public final static int COMBINING_SMOOTH_BREATHING  = 0x0313;
     public final static int COMBINING_ROUGH_BREATHING   = 0x0314;
     public final static int COMBINING_IOTA_SUBSCRIPT    = 0x0345;
+    public final static int COMBINING_BREVE             = 0x0306;
 
     public HopliteKeyboardView kv;
     public Keyboard keyboard;
@@ -507,7 +509,8 @@ import android.view.Window;
                 } else if (primaryCode == 219) {
                     s = "‖";
                 } else if (primaryCode == 86) {
-                    s = "̆";
+                    //s = "̆";
+                    localAccentLetter(ic, 0, BREVE);
                 }
 
                 else if (primaryCode == 26) { //parentheses
@@ -553,7 +556,8 @@ import android.view.Window;
                 s == COMBINING_DIAERESIS ||
                 s == COMBINING_SMOOTH_BREATHING ||
                 s == COMBINING_ROUGH_BREATHING ||
-                s == COMBINING_IOTA_SUBSCRIPT)
+                s == COMBINING_IOTA_SUBSCRIPT ||
+                s == COMBINING_BREVE)
             return true;
         else
             return false;
