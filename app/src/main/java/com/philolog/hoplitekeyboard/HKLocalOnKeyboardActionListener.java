@@ -501,18 +501,31 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
         GreekVerb gv1 = new GreekVerb();
         int maxSubstringForAccent = 7;
         String str2 = editable.toString();
+        /*
         if (str2.length() < 1)
         {
             return;
         }
+        */
         String sub;
         String accentedLetter = "";
-
         int cc = numCombiningChars(str2);
-        sub = str2.substring(start - cc - 1, start);
+        if (str2.length() < 1)
+        {
+            sub = "";
+        }
+        else {
+            sub = str2.substring(start - cc - 1, start);
+        }
         accentedLetter = gv1.addAccent(acc, unicodeMode, sub);
         if (!accentedLetter.equals("")) {
-            editable.replace(start - cc - 1, start, accentedLetter);
+            if (str2.length() < 1) {
+                editable.replace(start, start, accentedLetter);
+            }
+            else
+            {
+                editable.replace(start - cc - 1, start, accentedLetter);
+            }
         }
     }
 

@@ -15,6 +15,7 @@
 #define MAX_COMBINING 5 //macron, breathing, accent, iota subscript || diaeresis, macron, accent
 
 char unicode_mode = PRECOMPOSED_MODE; //set default
+bool addSpacingDiacriticIfNotLegal = true;
 
 #define NUM_COMBINING_ACCENTS 9
 //this is the order they will follow after the vowel
@@ -904,6 +905,42 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, int letterCode, int accentB
     }
 }
 
+UCS2 getSpacingDiacritic(int diacritic)
+{
+    switch (diacritic)
+    {
+        case ACUTE:
+            return 0x00B4;
+            break;
+        case GRAVE:
+            return 0x0060;
+            break;
+        case CIRCUMFLEX:
+            return 0x005E;
+            break;
+        case MACRON:
+            return 0x00AF;
+            break;
+        case BREVE:
+            return 0x02D8;
+            break;
+        case DIAERESIS:
+            return 0x00A8;
+            break;
+        case ROUGH_BREATHING:
+            return 0x02BD;
+            break;
+        case SMOOTH_BREATHING:
+            return 0x02BC;
+            break;
+        case IOTA_SUBSCRIPT:
+            return 0x037A;
+            break;
+        default:
+            return 0;
+    }
+}
+
 //there should be room for a least MAX_COMBINING more characters at the end of ucs2String, in case it needs to grow
 void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool toggleOff, int unicodeMode)
 {
@@ -913,8 +950,16 @@ void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool tog
     }
     unicode_mode = unicodeMode;
 
-    if (*len < 1)
+    if (*len < 1) {
+        if (addSpacingDiacriticIfNotLegal) {
+            UCS2 sd = getSpacingDiacritic(accentToAdd);
+            if (sd) {
+                ucs2String[i] = sd;
+                *len = 1;
+            }
+        }
         return;
+    }
 
     //1. handle consonants
     if (ucs2String[i] == GREEK_SMALL_LETTER_RHO && accentToAdd == ROUGH_BREATHING)
@@ -951,13 +996,28 @@ void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool tog
     int accentBitMask = 0;
 
     //this will be -1 on error
-    char letterLen = analyzeLetter(ucs2String, i, *len, &letterCode, &accentBitMask);
-    if (letterLen < 1)
+    int letterLen = analyzeLetter(ucs2String, i, *len, &letterCode, &accentBitMask);
+    if (letterLen < 1) {
+        if (addSpacingDiacriticIfNotLegal) {
+            UCS2 sd = getSpacingDiacritic(accentToAdd);
+            if (sd) {
+                ucs2String[i + 1] = sd;
+                *len += 1;
+            }
+        }
         return;
-
+    }
     //2.5: return if this diacritic isn't legal for the letter it's being added to
-    if (!isLegalDiacriticForLetter(letterCode, accentToAdd))
+    if (!isLegalDiacriticForLetter(letterCode, accentToAdd)) {
+        if (addSpacingDiacriticIfNotLegal) {
+            UCS2 sd = getSpacingDiacritic(accentToAdd);
+            if (sd) {
+                ucs2String[i + 1] = sd;
+                *len += 1;
+            }
+        }
         return;
+    }
 
     //3. this changes old letter analysis to the one we want
     accentBitMask = updateDiacritics(letterCode, accentToAdd, accentBitMask, toggleOff);
