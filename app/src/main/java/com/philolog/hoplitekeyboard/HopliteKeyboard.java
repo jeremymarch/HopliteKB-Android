@@ -618,17 +618,26 @@ import android.view.Window;
         int maxSubstringForAccent = 7;
         String strBefore = ic.getTextBeforeCursor(maxSubstringForAccent, 0).toString();
 
+        Log.d("abc", "here0");
         int strBeforeLen = strBefore.length();
         if (strBeforeLen < 1) {
-            return;
+            //return;
         }
+        Log.d("abc", "here1");
         int cc = numCombiningChars(strBefore);
-
-        Log.e("abc", "NUM: " + cc + ", " + (strBeforeLen - cc - 1) + ", " + (strBeforeLen) + ", " + strBefore.substring(strBeforeLen - cc - 1, strBeforeLen));
+        Log.d("abc", "here1.5");
+        //Log.e("abc", "NUM: " + cc + ", " + (strBeforeLen - cc - 1) + ", " + (strBeforeLen) + ", " + strBefore.substring(strBeforeLen - cc - 1, strBeforeLen));
         String accentedLetter = "";
-        Log.e("abc", "unicode mode: " + unicodeMode);
-        accentedLetter = gv1.addAccent(acc, unicodeMode, strBefore.substring(strBeforeLen - cc - 1, strBeforeLen));
-
+        //Log.e("abc", "unicode mode: " + unicodeMode);
+        Log.d("abc", "here2");
+        if (strBeforeLen < 1)
+        {
+            accentedLetter = gv1.addAccent(acc, unicodeMode, "");
+        }
+        else {
+            accentedLetter = gv1.addAccent(acc, unicodeMode, strBefore.substring(strBeforeLen - cc - 1, strBeforeLen));
+        }
+        Log.d("abc", "here3");
         if (!accentedLetter.equals("")) {
             ic.setComposingRegion(selectionStart - (1+cc), selectionEnd);
             ic.setComposingText(accentedLetter, 1);
