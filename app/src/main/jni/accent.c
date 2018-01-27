@@ -11,7 +11,7 @@
 #include "accent.h"
 
 #define ALLOW_PRIVATE_USE_AREA 1
-
+#define ALLOW_RHO_WITH_PSILI 1
 #define MAX_COMBINING 5 //macron, breathing, accent, iota subscript || diaeresis, macron, accent
 
 char unicode_mode = PRECOMPOSED_MODE; //set default
@@ -982,6 +982,28 @@ void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool tog
         ucs2String[i] = GREEK_CAPITAL_LETTER_RHO;
         return;
     }
+    else if (ucs2String[i] == GREEK_SMALL_LETTER_RHO_WITH_PSILI && accentToAdd == ROUGH_BREATHING)
+    {
+        ucs2String[i] = GREEK_SMALL_LETTER_RHO_WITH_DASIA;
+        return;
+    }
+#ifdef ALLOW_RHO_WITH_PSILI
+        else if (ucs2String[i] == GREEK_SMALL_LETTER_RHO && accentToAdd == SMOOTH_BREATHING)
+    {
+        ucs2String[i] = GREEK_SMALL_LETTER_RHO_WITH_PSILI;
+        return;
+    }
+    else if (ucs2String[i] == GREEK_SMALL_LETTER_RHO_WITH_PSILI && accentToAdd == SMOOTH_BREATHING)
+    {
+        ucs2String[i] = GREEK_SMALL_LETTER_RHO;
+        return;
+    }
+    else if (ucs2String[i] == GREEK_SMALL_LETTER_RHO_WITH_DASIA && accentToAdd == SMOOTH_BREATHING)
+    {
+        ucs2String[i] = GREEK_SMALL_LETTER_RHO_WITH_PSILI;
+        return;
+    }
+#endif
     else if (ucs2String[i] == GREEK_SMALL_LETTER_NU && accentToAdd == SURROUNDING_PARENTHESES)
     {
         rightShiftFromOffsetSteps(ucs2String, i, 2, len);

@@ -1,42 +1,54 @@
-apply plugin: 'com.android.model.application'
-model {
+apply plugin: 'com.android.application'
+
     android {
-        compileSdkVersion = 25
+        compileSdkVersion = 26
 
         //To see what is the latest: http://developer.android.com/tools/revisions/build-tools.html
-        buildToolsVersion = "25.0.3" //"22.0.1"
+        buildToolsVersion = "26.0.2" //"22.0.1"
 
-        defaultConfig.with {
+        defaultConfig {
             applicationId = "com.philolog.hoplitekeyboard"
-            minSdkVersion.apiLevel = 16
-            targetSdkVersion.apiLevel = 24
+            minSdkVersion 18
+            targetSdkVersion 26
+            ndk {
+                abiFilters "armeabi-v7a", "x86", "armeabi", "mips", "arm64-v8a", "x86_64", "mips64"
+            }
+            externalNativeBuild {
+                cmake {
+                    // cppFlags are configured according to your selection
+                    // of "Customize C++ Support", in this codelab's
+                    //    "Create a Sample App with the C++ Template",
+                    //    step 6
+                    cFlags "-std=c99 -O3"
+                }
+            }
         }
-    }
-    /*
+
+        /*
      * native build settings
-     */
+
     android.ndk {
         moduleName = "libGreek"
         CFlags.add("-O3")
         CFlags.add("-std=c99")
         ldLibs.add("log") //for debugging
-        /*
+
          * Other ndk flags configurable here are
          * cppFlags += "-fno-rtti"
          * cppFlags += "-fno-exceptions"
          * ldLibs    = ["android", "log"]
          * stl       = "system"
          */
-    }
-    android.buildTypes {
-        release {
-            minifyEnabled = false
-            proguardFiles.add(file('proguard-rules.txt'))
-        }
-        debug {
-            debuggable = true
-        }
-    }
+        //}
+        android.buildTypes {
+            release {
+                minifyEnabled = false
+                proguardFiles.add(file('proguard-rules.txt'))
+            }
+            debug {
+                debuggable = true
+            }
+        }/*
     android.productFlavors {
         // for detailed abiFilter descriptions, refer to "Supported ABIs" @
         // https://developer.android.com/ndk/guides/abis.html#sa
@@ -64,9 +76,19 @@ model {
         // To include all cpu architectures, leaves abiFilters empty
         create("all")
     }
-}
+*/
 
-dependencies {
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.android.support:appcompat-v7:25.3.1'
-}
+        dependencies {
+            compile 'com.android.support:support-v4:26.1.0'
+            compile 'com.android.support:appcompat-v7:26.1.0'
+        }
+
+// Specifies the location of the top level CMakeLists.txt
+// The path is relative to the hosting directory
+// of this build.gradle file
+        externalNativeBuild {
+            cmake {
+                path "CMakeLists.txt"
+            }
+        }
+    }
