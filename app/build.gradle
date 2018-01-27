@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
     android {
-        compileSdkVersion = 26
+        compileSdkVersion = 27
 
         //To see what is the latest: http://developer.android.com/tools/revisions/build-tools.html
-        buildToolsVersion = "26.0.2" //"22.0.1"
+        buildToolsVersion = "27.0.1" //"22.0.1"
 
         defaultConfig {
             applicationId = "com.philolog.hoplitekeyboard"
-            minSdkVersion 18
-            targetSdkVersion 26
+            minSdkVersion 16
+            targetSdkVersion 27
             ndk {
                 abiFilters "armeabi-v7a", "x86", "armeabi", "mips", "arm64-v8a", "x86_64", "mips64"
             }
@@ -20,6 +20,12 @@ apply plugin: 'com.android.application'
                     //    "Create a Sample App with the C++ Template",
                     //    step 6
                     cFlags "-std=c99 -O3"
+                }
+            }
+            flavorDimensions "abi"
+            productFlavors {
+                all {
+                    flavorDimension "abi"
                 }
             }
         }
@@ -48,7 +54,9 @@ apply plugin: 'com.android.application'
             debug {
                 debuggable = true
             }
-        }/*
+        }
+
+        /*
     android.productFlavors {
         // for detailed abiFilter descriptions, refer to "Supported ABIs" @
         // https://developer.android.com/ndk/guides/abis.html#sa
