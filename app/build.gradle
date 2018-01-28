@@ -4,7 +4,7 @@ apply plugin: 'com.android.application'
         compileSdkVersion = 27
 
         //To see what is the latest: http://developer.android.com/tools/revisions/build-tools.html
-        buildToolsVersion = "27.0.1" //"22.0.1"
+        buildToolsVersion = "27.0.3" //"22.0.1"
 
         defaultConfig {
             applicationId = "com.philolog.hoplitekeyboard"
@@ -87,8 +87,8 @@ apply plugin: 'com.android.application'
 */
 
         dependencies {
-            compile 'com.android.support:support-v4:26.1.0'
-            compile 'com.android.support:appcompat-v7:26.1.0'
+            compile 'com.android.support:support-v4:27.0.2'
+            compile 'com.android.support:appcompat-v7:27.0.2'
         }
 
 // Specifies the location of the top level CMakeLists.txt
