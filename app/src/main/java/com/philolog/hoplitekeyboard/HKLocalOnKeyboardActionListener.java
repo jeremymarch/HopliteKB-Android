@@ -370,6 +370,8 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
             s = "|";
         } else if (primaryCode == 219) {
             s = "‖";
+        } else if (primaryCode == 225) {
+            s = "!";
         } else if (primaryCode == 26) { //parentheses
             localAccentLetter(editable, start, SURROUNDING_PARENTHESES);
         } else if (primaryCode == 27) { //rough breathing

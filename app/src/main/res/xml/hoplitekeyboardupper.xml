@@ -11,12 +11,12 @@
         <Key android:codes="34"    android:keyLabel="\\"   />
         <Key android:codes="31"    android:keyLabel="¨"   />
         <Key android:codes="86"    android:keyLabel="˘"   />
-        <Key android:codes="32"    android:keyLabel="i"   />
+        <Key android:codes="32"    android:keyLabel="ι"   />
         <Key android:codes="77"    android:keyLabel="’" />
         <Key android:codes="79"    android:keyLabel="—"   android:keyEdgeFlags="right"/>
     </Row>
     <Row>
-        <Key android:codes="25"    android:keyLabel="ς" android:keyEdgeFlags="left"  />
+        <Key android:codes="225"    android:keyLabel="!" android:keyEdgeFlags="left"  />
         <Key android:codes="55"    android:keyLabel="Ε"  />
         <Key android:codes="67"    android:keyLabel="Ρ" />
         <Key android:codes="69"    android:keyLabel="Τ"  />

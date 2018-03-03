@@ -12,7 +12,7 @@
         <Key android:codes="34"    android:keyLabel="\\"  />
         <Key android:codes="30"    android:keyLabel="~"   />
         <Key android:codes="33"    android:keyLabel="-"   />
-        <Key android:codes="32"    android:keyLabel="i"   />
+        <Key android:codes="32"    android:keyLabel="ι"   />
         <Key android:codes="40"    android:keyLabel=","   />
         <Key android:codes="41"    android:keyLabel="·"   android:keyEdgeFlags="right" />
 

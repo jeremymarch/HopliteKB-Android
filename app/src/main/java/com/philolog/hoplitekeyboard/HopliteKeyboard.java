@@ -508,6 +508,8 @@ import android.view.Window;
                     s = "|";
                 } else if (primaryCode == 219) {
                     s = "‖";
+                } else if (primaryCode == 225) {
+                    s = "!";
                 } else if (primaryCode == 86) {
                     //s = "̆";
                     localAccentLetter(ic, 0, BREVE);

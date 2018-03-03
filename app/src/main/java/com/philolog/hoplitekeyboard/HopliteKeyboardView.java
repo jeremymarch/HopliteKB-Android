@@ -81,7 +81,7 @@ public class HopliteKeyboardView extends KeyboardView {
                 dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             }
-            else if (key.codes[0] == 36 || key.codes[0] == 37 || key.codes[0] == 40 || key.codes[0] == 41 || key.codes[0] == 75 || key.codes[0] == 76 || key.codes[0] == 77 || key.codes[0] == 78 || key.codes[0] == 79 || key.codes[0] == 82 || key.codes[0] == 83 || key.codes[0] == 84 || key.codes[0] == 85 || key.codes[0] == 87 || key.codes[0] == 88 || key.codes[0] == 89  || key.codes[0] == 92 || key.codes[0] == 93  || key.codes[0] == 94 || key.codes[0] == 95  || key.codes[0] == 98 || key.codes[0] == 99 || key.codes[0] == 90 || key.codes[0] == 91){
+            else if (key.codes[0] == 36 || key.codes[0] == 37 || key.codes[0] == 40 || key.codes[0] == 41 || key.codes[0] == 75 || key.codes[0] == 76 || key.codes[0] == 77 || key.codes[0] == 78 || key.codes[0] == 79 || key.codes[0] == 82 || key.codes[0] == 83 || key.codes[0] == 84 || key.codes[0] == 85 || key.codes[0] == 87 || key.codes[0] == 88 || key.codes[0] == 89  || key.codes[0] == 92 || key.codes[0] == 93  || key.codes[0] == 94 || key.codes[0] == 95  || key.codes[0] == 98 || key.codes[0] == 99 || key.codes[0] == 90 || key.codes[0] == 91 || key.codes[0] == 225){
                 Drawable dr;
                 if (key.pressed) {
                     dr = ContextCompat.getDrawable(context, R.drawable.puncbuttondown);
@@ -259,6 +259,7 @@ public class HopliteKeyboardView extends KeyboardView {
             else if (key.codes[0] == 32)
             {
                 FONT_SIZE = 23.0f; //or 26.0?
+                paint.setTypeface(Typeface.DEFAULT);
                 //paint.setTypeface(tf);
             }
             else if (key.codes[0] == 33 && mMFPressed)
@@ -269,6 +270,10 @@ public class HopliteKeyboardView extends KeyboardView {
             else if (key.codes[0] == 35)
             {
                 FONT_SIZE = 23.0f; //or 26.0?
+            }
+            else if (key.codes[0] == 31 || key.codes[0] == 86)
+            {
+                FONT_SIZE = 32.0f; //or 26.0?
             }
             else
             {
@@ -318,11 +323,19 @@ public class HopliteKeyboardView extends KeyboardView {
                 }
                 else if (key.codes[0] == 32) {
                     s = "ι";//"ι";//"ͺ";
-                    offset = 14;
+                    offset = 13;
                 }
                 else if (key.codes[0] == 33 && mMFPressed) {
                     s = ",";
                     offset = 5;
+                }
+                else if (key.codes[0] == 31) {
+                    s = "¨";
+                    offset = 14;
+                }
+                else if (key.codes[0] == 86) {
+                    s = "˘";
+                    offset = 18;
                 }
                 else {
                     s = key.label.toString();
