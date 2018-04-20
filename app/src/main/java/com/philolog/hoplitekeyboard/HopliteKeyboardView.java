@@ -1,3 +1,24 @@
+/*
+ * Created by Jeremy March on 5/15/17.
+ * Copyright © 2017 Jeremy March. All rights reserved.
+ *
+ *
+ *        This file is part of HoplitePolytonicKeyboardAndroid.
+ *
+ *        HoplitePolytonicKeyboardAndroid is free software: you can redistribute it and/or modify
+ *        it under the terms of the GNU General Public License as published by
+ *        the Free Software Foundation, either version 3 of the License, or
+ *        (at your option) any later version.
+ *
+ *        HoplitePolytonicKeyboardAndroid is distributed in the hope that it will be useful,
+ *        but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *        GNU General Public License for more details.
+ *
+ *        You should have received a copy of the GNU General Public License
+ *        along with HoplitePolytonicKeyboardAndroid.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.philolog.hoplitekeyboard;
 
 import android.content.Context;
@@ -17,7 +38,6 @@ import android.support.v4.content.ContextCompat;
 import java.util.List;
 
 /**
- * Created by jeremy on 3/27/16.
  * http://stackoverflow.com/questions/18224520/how-to-set-different-background-of-keys-for-android-custom-keyboard
  */
 public class HopliteKeyboardView extends KeyboardView {
