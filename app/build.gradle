@@ -11,7 +11,7 @@ apply plugin: 'com.android.application'
             minSdkVersion 16
             targetSdkVersion 27
             ndk {
-                abiFilters "armeabi-v7a", "x86", "armeabi", "mips", "arm64-v8a", "x86_64", "mips64"
+                abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64" //, "mips64", "armeabi", "mips"
             }
             externalNativeBuild {
                 cmake {

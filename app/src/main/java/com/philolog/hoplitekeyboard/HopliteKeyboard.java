@@ -129,7 +129,6 @@ import android.view.Window;
         return window.getAttributes().token;
     }
 
-
     @Override
     public void onKey(int primaryCode, int[] keyCodes) {
         InputConnection ic = getCurrentInputConnection();
