@@ -24,25 +24,126 @@
 #define UNICODE_SURROGATE_PAIR    -1
 #define UNICODE_BAD_INPUT         -2
 
-void rightShiftFromOffsetSteps(UCS2 *ucs2, int offset, int steps, int *len)
+#define DEBUG_SPLICE(X) debug_msg(X)
+
+void debug_msg(char *x)
 {
-    int j = offset + *len - 1;
-    for ( ; j >= offset; j--)
-    {
-        ucs2[j + steps] = ucs2[j];
-    }
-    *len += steps;
+    fprintf(stderr, "%s\n", x);
+    //exit(1);
 }
 
-//Moves everything over to the left, eating the first letter
-void leftShiftFromOffsetSteps(UCS2 *ucs2, int offset, int steps, int *len)
+bool rightShiftFromOffsetSteps(UCS2 *ucs2, int offset, int steps, int *len, int buffer_capacity)
 {
+    if (*len + steps > buffer_capacity)
+    {
+        DEBUG_SPLICE("right shift: out of bounds!");
+        return false;
+    }
+    if (offset >= *len)
+    {
+        DEBUG_SPLICE("right shift: offset out of bounds!");
+        return false;
+    }
+
+    for (int j = *len ; j >= offset; j--)
+    {
+        //printf("j: %d\n", j);
+        ucs2[j + steps] = ucs2[j];
+        ucs2[j] = 0;
+    }
+    *len += steps;
+    return true;
+}
+
+//Moves everything over to the left, eating the char at the offset index
+bool leftShiftFromOffsetSteps(UCS2 *ucs2, int offset, int steps, int *len)
+{
+    if (offset < 0)
+    {
+        DEBUG_SPLICE("offset out of bounds!");
+        return false;
+    }
+    if (offset + steps > *len)
+    {
+        DEBUG_SPLICE("out of bounds!");
+        return false;
+    }
     int j = offset;
     for ( ; j < *len - 1; j++)
     {
         ucs2[j] = ucs2[j + steps];
     }
     *len -= steps;
+    return true;
+}
+
+/*
+ * Almost just like the Javascript function splice
+ * Except there cannot be any empty gaps, it will fail
+ * string: the string
+ * len: the actual len of the string
+ * bufferCapacity: the length of the array buffer
+ * offset: the offset to begin inserting/removing elements
+ * replacing: how many characters to replace or remove if insert_len is 0
+ * insert: the string to insert
+ * insert_len: the length of the elements to be inserted.  Can be 0 if just want to remove.
+ *
+ * returns true, or false if error
+ */
+bool splice(UCS2 *string, int *len, int buffer_capacity, int offset, int replacing, UCS2 *insert, int insert_len)
+{
+    if (*len + insert_len - replacing > buffer_capacity)
+    {
+        DEBUG_SPLICE("out of bounds!");
+        return false;
+    }
+    if (offset >= *len + 1)
+    {
+        DEBUG_SPLICE("offset beyond end of string + 1!"); //would create gap
+        return false;
+    }
+    if (replacing > (*len - offset))
+    {
+        DEBUG_SPLICE("replacing cannot go past end of string!");
+        return false;
+    }
+    if (insert_len < 0)
+    {
+        DEBUG_SPLICE("insert len must be >= 0!");
+        return false;
+    }
+    if (offset > *len || offset < 0)
+    {
+        DEBUG_SPLICE("offset out of bounds!");
+        return false;
+    }
+    //shift right, this function increases len
+    if (replacing < insert_len)
+    {
+        if (offset + replacing < *len) //only call right shift if offset is before end, else rightShift will fail since nothing to move
+        {
+            if (!rightShiftFromOffsetSteps(string, offset + replacing, insert_len - replacing, len, buffer_capacity))
+            {
+                return false;
+            }
+        }
+        else
+        {
+            *len += insert_len - replacing;
+        }
+    }
+    else if (replacing > insert_len)
+    {
+        if (!leftShiftFromOffsetSteps(string, offset + insert_len, replacing - insert_len, len))
+        {
+            return false;
+        }
+    }
+    for (int i = 0; i < insert_len; i++)
+    {
+        string[offset + i] = insert[i];
+    }
+    return true;
 }
 
 /* Input: a Unicode code point, "ucs2".
@@ -70,7 +171,7 @@ int ucs2_to_utf8 (UCS2 ucs2, unsigned char * utf8)
     }
     if (ucs2 >= 0x800 && ucs2 < 0xFFFF) {
         if (ucs2 >= 0xD800 && ucs2 <= 0xDFFF) {
-            /* Ill-formed. */
+            // Ill-formed.
             return UNICODE_SURROGATE_PAIR;
         }
         utf8[0] = ((ucs2 >> 12)       ) | 0xE0;
@@ -79,15 +180,18 @@ int ucs2_to_utf8 (UCS2 ucs2, unsigned char * utf8)
         utf8[3] = '\0';
         return 3;
     }
-    if (ucs2 >= 0x10000 && ucs2 < 0x10FFFF) {
-        /* http://tidy.sourceforge.net/cgi-bin/lxr/source/src/utf8.c#L380 */
-        utf8[0] = 0xF0 | (ucs2 >> 18);
-        utf8[1] = 0x80 | ((ucs2 >> 12) & 0x3F);
-        utf8[2] = 0x80 | ((ucs2 >> 6) & 0x3F);
-        utf8[3] = 0x80 | ((ucs2 & 0x3F));
-        utf8[4] = '\0';
-        return 4;
-    }
+    /*
+     //ucs2 >= UINT16_MAX &&
+     if (ucs2 >= 0x10000 && ucs2 < 0x10FFFF) {
+     // http://tidy.sourceforge.net/cgi-bin/lxr/source/src/utf8.c#L380
+     utf8[0] = 0xF0 | (ucs2 >> 18);
+     utf8[1] = 0x80 | ((ucs2 >> 12) & 0x3F);
+     utf8[2] = 0x80 | ((ucs2 >> 6) & 0x3F);
+     utf8[3] = 0x80 | ((ucs2 & 0x3F));
+     utf8[4] = '\0';
+     return 4;
+     }
+     */
     return UNICODE_BAD_INPUT;
 }
 
@@ -170,3 +274,33 @@ void utf8_to_ucs2_string(const unsigned char *utf8, UCS2 *ucs2, int *len)
         (*len)++;
     }
 }
+
+/*
+ bool utf8HasSuffix2(char *s, char *suffix, ...)
+ {
+ va_list argp;
+ unsigned long len = strlen(s);
+
+ //if (suffixLen > len)
+ //    return false;
+
+ va_start( argp, suffix );
+ for( i = 0; argp != '\0'; ++i )
+ {
+
+ suffix = va_arg( vl, char * );
+ unsigned long suffixLen = strlen(suffix);
+
+ long j = len - 1;
+ for (long i = suffixLen - 1; i >= 0; i--, j--)
+ {
+ if (suffix[i] != s[j])
+ return false;
+ }
+ }
+ va_end( argp );
+
+ return true;
+ }
+
+ */
