@@ -77,6 +77,8 @@ import android.view.Window;
     public final static int COMBINING_ROUGH_BREATHING   = 0x0314;
     public final static int COMBINING_IOTA_SUBSCRIPT    = 0x0345;
     public final static int COMBINING_BREVE             = 0x0306;
+    public final static int COMBINING_UNDERDOT          = 0x0323;
+
 
     public HopliteKeyboardView kv;
     public Keyboard keyboard;
@@ -578,7 +580,8 @@ import android.view.Window;
                 s == COMBINING_SMOOTH_BREATHING ||
                 s == COMBINING_ROUGH_BREATHING ||
                 s == COMBINING_IOTA_SUBSCRIPT ||
-                s == COMBINING_BREVE)
+                s == COMBINING_BREVE ||
+                s == COMBINING_UNDERDOT)
             return true;
         else
             return false;

@@ -1,23 +1,10 @@
-/*
- * Created by Jeremy March on 4/15/15.
- * Copyright © 2015 Jeremy March. All rights reserved.
- *
- *
- *        This file is part of HoplitePolytonicKeyboardAndroid.
- *
- *        HoplitePolytonicKeyboardAndroid is free software: you can redistribute it and/or modify
- *        it under the terms of the GNU General Public License as published by
- *        the Free Software Foundation, either version 3 of the License, or
- *        (at your option) any later version.
- *
- *        HoplitePolytonicKeyboardAndroid is distributed in the hope that it will be useful,
- *        but WITHOUT ANY WARRANTY; without even the implied warranty of
- *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *        GNU General Public License for more details.
- *
- *        You should have received a copy of the GNU General Public License
- *        along with HoplitePolytonicKeyboardAndroid.  If not, see <http://www.gnu.org/licenses/>.
- */
+//
+//  utilities.c
+//  HCPolytonicGreekKBapp
+//
+//  Created by Jeremy March on 3/4/17.
+//  Copyright © 2017 Jeremy March. All rights reserved.
+//
 
 #include "utilities.h"
 
@@ -44,7 +31,7 @@ bool rightShiftFromOffsetSteps(UCS2 *ucs2, int offset, int steps, int *len, int 
         DEBUG_SPLICE("right shift: offset out of bounds!");
         return false;
     }
-
+    
     for (int j = *len ; j >= offset; j--)
     {
         //printf("j: %d\n", j);
@@ -90,7 +77,7 @@ bool leftShiftFromOffsetSteps(UCS2 *ucs2, int offset, int steps, int *len)
  *
  * returns true, or false if error
  */
-bool splice(UCS2 *string, int *len, int buffer_capacity, int offset, int replacing, UCS2 *insert, int insert_len)
+bool ucsplice(UCS2 *string, int *len, int buffer_capacity, int offset, int replacing, UCS2 *insert, int insert_len)
 {
     if (*len + insert_len - replacing > buffer_capacity)
     {
@@ -147,12 +134,12 @@ bool splice(UCS2 *string, int *len, int buffer_capacity, int offset, int replaci
 }
 
 /* Input: a Unicode code point, "ucs2".
-
+ 
  Output: UTF-8 characters in buffer "utf8".
-
+ 
  Return value: the number of bytes written into "utf8", or -1 if
  there was an error.
-
+ 
  This adds a zero byte to the end of the string. It assumes that the
  buffer "utf8" has at least four bytes of space to write to. */
 // from http://www.lemoda.net/c/ucs2-to-utf8/
@@ -181,17 +168,17 @@ int ucs2_to_utf8 (UCS2 ucs2, unsigned char * utf8)
         return 3;
     }
     /*
-     //ucs2 >= UINT16_MAX &&
-     if (ucs2 >= 0x10000 && ucs2 < 0x10FFFF) {
-     // http://tidy.sourceforge.net/cgi-bin/lxr/source/src/utf8.c#L380
-     utf8[0] = 0xF0 | (ucs2 >> 18);
-     utf8[1] = 0x80 | ((ucs2 >> 12) & 0x3F);
-     utf8[2] = 0x80 | ((ucs2 >> 6) & 0x3F);
-     utf8[3] = 0x80 | ((ucs2 & 0x3F));
-     utf8[4] = '\0';
-     return 4;
-     }
-     */
+    //ucs2 >= UINT16_MAX &&
+    if (ucs2 >= 0x10000 && ucs2 < 0x10FFFF) {
+        // http://tidy.sourceforge.net/cgi-bin/lxr/source/src/utf8.c#L380
+        utf8[0] = 0xF0 | (ucs2 >> 18);
+        utf8[1] = 0x80 | ((ucs2 >> 12) & 0x3F);
+        utf8[2] = 0x80 | ((ucs2 >> 6) & 0x3F);
+        utf8[3] = 0x80 | ((ucs2 & 0x3F));
+        utf8[4] = '\0';
+        return 4;
+    }
+*/
     return UNICODE_BAD_INPUT;
 }
 
@@ -215,17 +202,17 @@ UCS2 utf8_to_ucs2 (const unsigned char * input, const unsigned char ** end_ptr)
             return -1;
         * end_ptr = input + 3;
         return
-                (input[0] & 0x0F)<<12 |
-                (input[1] & 0x3F)<<6  |
-                (input[2] & 0x3F);
+        (input[0] & 0x0F)<<12 |
+        (input[1] & 0x3F)<<6  |
+        (input[2] & 0x3F);
     }
     if ((input[0] & 0xC0) == 0xC0) {
         if (input[1] == 0)
             return -1;
         * end_ptr = input + 2;
         return
-                (input[0] & 0x1F)<<6  |
-                (input[1] & 0x3F);
+        (input[0] & 0x1F)<<6  |
+        (input[1] & 0x3F);
     }
     return -1;
 }
@@ -240,7 +227,7 @@ int ucs2_to_utf8_string(UCS2 *ucs2, int len, unsigned char *utf8)
         utf8[0] = '\0';
         return 1;
     }
-
+    
     for (int i = 0; i < len; i++)
     {
         int utf8Len;
@@ -251,7 +238,7 @@ int ucs2_to_utf8_string(UCS2 *ucs2, int len, unsigned char *utf8)
             return 0;
         *utf8Temp = '\0';
     }
-
+    
     return 1;
 }
 
@@ -259,7 +246,7 @@ void utf8_to_ucs2_string(const unsigned char *utf8, UCS2 *ucs2, int *len)
 {
     int temp; //because UCS2 is unsigned.
     *len = 0;
-
+    
     for( int i = 0; *utf8 ; i++)
     {
         temp = utf8_to_ucs2 (utf8, &utf8);
@@ -276,31 +263,31 @@ void utf8_to_ucs2_string(const unsigned char *utf8, UCS2 *ucs2, int *len)
 }
 
 /*
- bool utf8HasSuffix2(char *s, char *suffix, ...)
- {
- va_list argp;
- unsigned long len = strlen(s);
+bool utf8HasSuffix2(char *s, char *suffix, ...)
+{
+    va_list argp;
+    unsigned long len = strlen(s);
+    
+    //if (suffixLen > len)
+    //    return false;
+ 
+    va_start( argp, suffix );
+    for( i = 0; argp != '\0'; ++i )
+    {
+ 
+        suffix = va_arg( vl, char * );
+        unsigned long suffixLen = strlen(suffix);
+    
+        long j = len - 1;
+        for (long i = suffixLen - 1; i >= 0; i--, j--)
+        {
+            if (suffix[i] != s[j])
+                return false;
+        }
+    }
+    va_end( argp );
+ 
+    return true;
+}
 
- //if (suffixLen > len)
- //    return false;
-
- va_start( argp, suffix );
- for( i = 0; argp != '\0'; ++i )
- {
-
- suffix = va_arg( vl, char * );
- unsigned long suffixLen = strlen(suffix);
-
- long j = len - 1;
- for (long i = suffixLen - 1; i >= 0; i--, j--)
- {
- if (suffix[i] != s[j])
- return false;
- }
- }
- va_end( argp );
-
- return true;
- }
-
- */
+*/

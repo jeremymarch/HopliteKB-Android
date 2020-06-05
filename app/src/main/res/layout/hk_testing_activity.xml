@@ -39,7 +39,8 @@
         android:paddingTop="20dp"
         android:text=""
         android:textAlignment="viewStart"
-        android:textSize="44sp" />
+        android:textSize="44sp"
+        android:textIsSelectable="true"/>
 
     <TextView
         android:id="@+id/modeView"

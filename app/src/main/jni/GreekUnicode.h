@@ -1,23 +1,14 @@
-/*
- * Created by Jeremy March on 4/15/15.
- * Copyright © 2015 Jeremy March. All rights reserved.
- *
- *
- *        This file is part of HoplitePolytonicKeyboardAndroid.
- *
- *        HoplitePolytonicKeyboardAndroid is free software: you can redistribute it and/or modify
- *        it under the terms of the GNU General Public License as published by
- *        the Free Software Foundation, either version 3 of the License, or
- *        (at your option) any later version.
- *
- *        HoplitePolytonicKeyboardAndroid is distributed in the hope that it will be useful,
- *        but WITHOUT ANY WARRANTY; without even the implied warranty of
- *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *        GNU General Public License for more details.
- *
- *        You should have received a copy of the GNU General Public License
- *        along with HoplitePolytonicKeyboardAndroid.  If not, see <http://www.gnu.org/licenses/>.
- */
+//
+//  GreekUnicode.h
+//  morph
+//
+//  Created by Jeremy on 4/15/15.
+//  Copyright (c) 2015 Jeremy March. All rights reserved.
+//
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+//
 
 
 #ifndef morph_GreekUnicode_h
@@ -34,15 +25,20 @@
 #define COMBINING_SMOOTH_BREATHING      0x0313
 #define COMBINING_ROUGH_BREATHING       0x0314
 #define COMBINING_IOTA_SUBSCRIPT        0x0345
-#define EM_DASH                         0x2014
 #define LEFT_PARENTHESIS                0x0028
 #define RIGHT_PARENTHESIS               0x0029
 #define SPACE                           0x0020
 #define EN_DASH                         0x2013
-#define HYPHEN                          0x2010
+#define EM_DASH                         0x2014
+#define HYPHEN                          0x2010 //0x002D might be more normal?
+#define HYPHEN_MINUS                    0x002D
 #define COMMA                           0x002C
 #define NEWLINE                         0x000A
 #define WORD_JOINER                     0x2060 //to prevent word from breaking, e.g. place after dashελήλακα
+
+#define DASH_CHAR                       HYPHEN_MINUS//leading hyphens which indicate the verb needs a prefix
+#define DECOMPOSED_SEPERATOR             HYPHEN
+
 /* BASIC GREEK 0370-03FF */
 
 #define GREEK_CAPITAL_LETTER_HETA                      0x0370 // Ͱ → 2C75 Ⱶ latin capital letter half h
@@ -449,34 +445,59 @@
 #define GREEK_DASIA                                                     0x1FFE  // ῾ → 02BD ʽ  modifier letter reversed comma ≈ 0020  0314 $̔
 
 //PRIVATE USE AREA PRE-COMPOSED GLYPHS
-#define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_PSILI_AND_OXIA_AND_MACRON     0xEB07
-#define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_VARIA_AND_MACRON              0xEAF0
-#define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_PSILI_AND_VARIA_AND_MACRON    0xEAF3
-#define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_DASIA_AND_VARIA_AND_MACRON    0xEAF4
-#define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_DASIA_AND_OXIA_AND_BREVE      0xEAFB
-#define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_DASIA_AND_VARIA_AND_BREVE     0xEAFC
 #define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_OXIA_AND_MACRON               0xEB00
+#define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_VARIA_AND_MACRON              0xEAF0
 #define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_PSILI_AND_MACRON              0xEB04
+#define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_PSILI_AND_OXIA_AND_MACRON     0xEB07
+#define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_PSILI_AND_VARIA_AND_MACRON    0xEAF3
 #define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_DASIA_AND_MACRON              0xEB05
 #define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_DASIA_AND_OXIA_AND_MACRON2    0xEB09
+#define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_DASIA_AND_VARIA_AND_MACRON    0xEAF4
 
-#define PUA_GREEK_SMALL_LETTER_IOTA_WITH_VARIA_AND_MACRON               0xEB38
 #define PUA_GREEK_SMALL_LETTER_IOTA_WITH_OXIA_AND_MACRON                0xEB39
+#define PUA_GREEK_SMALL_LETTER_IOTA_WITH_VARIA_AND_MACRON               0xEB38
 #define PUA_GREEK_SMALL_LETTER_IOTA_WITH_PSILI_AND_MACRON               0xEB3C
 #define PUA_GREEK_SMALL_LETTER_IOTA_WITH_PSILI_AND_OXIA_AND_MACRON      0xEB3D
+#define PUA_GREEK_SMALL_LETTER_IOTA_WITH_PSILI_AND_VARIA_AND_MACRON     0xEB54
 #define PUA_GREEK_SMALL_LETTER_IOTA_WITH_DASIA_AND_MACRON               0xEB3E
 #define PUA_GREEK_SMALL_LETTER_IOTA_WITH_DASIA_AND_OXIA_AND_MACRON      0xEB3F
-#define PUA_GREEK_SMALL_LETTER_IOTA_WITH_PSILI_AND_VARIA_AND_MACRON     0xEB54
 #define PUA_GREEK_SMALL_LETTER_IOTA_WITH_DASIA_AND_VARIA_AND_MACRON     0xEB55
 
-#define PUA_GREEK_SMALL_LETTER_UPSILON_WITH_VARIA_AND_MACRON            0xEB6F
-#define PUA_GREEK_SMALL_LETTER_UPSILON_WITH_PSILI_AND_VARIA_AND_MACRON  0xEB71
-#define PUA_GREEK_SMALL_LETTER_UPSILON_WITH_DASIA_AND_VARIA_AND_MACRON  0xEB75
 #define PUA_GREEK_SMALL_LETTER_UPSILON_WITH_OXIA_AND_MACRON             0xEB7A
+#define PUA_GREEK_SMALL_LETTER_UPSILON_WITH_VARIA_AND_MACRON            0xEB6F
 #define PUA_GREEK_SMALL_LETTER_UPSILON_WITH_PSILI_AND_MACRON            0xEB7D
-#define PUA_GREEK_SMALL_LETTER_UPSILON_WITH_DASIA_AND_MACRON            0xEB7E
 #define PUA_GREEK_SMALL_LETTER_UPSILON_WITH_PSILI_AND_OXIA_AND_MACRON   0xEB7F
+#define PUA_GREEK_SMALL_LETTER_UPSILON_WITH_PSILI_AND_VARIA_AND_MACRON  0xEB71
+#define PUA_GREEK_SMALL_LETTER_UPSILON_WITH_DASIA_AND_MACRON            0xEB7E
 #define PUA_GREEK_SMALL_LETTER_UPSILON_WITH_DASIA_AND_OXIA_AND_MACRON   0xEB80
+#define PUA_GREEK_SMALL_LETTER_UPSILON_WITH_DASIA_AND_VARIA_AND_MACRON  0xEB75
+
+#define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_OXIA_AND_BREVE               0xEB0A
+#define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_VARIA_AND_BREVE              0xEAF8
+#define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_PSILI_AND_BREVE              0xEAF9
+#define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_PSILI_AND_OXIA_AND_BREVE     0xEB0C
+#define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_PSILI_AND_VARIA_AND_BREVE    0xEAFA
+#define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_DASIA_AND_BREVE              0xEB0B
+#define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_DASIA_AND_OXIA_AND_BREVE     0xEAFB
+#define PUA_GREEK_SMALL_LETTER_ALPHA_WITH_DASIA_AND_VARIA_AND_BREVE    0xEAFC
+
+#define PUA_GREEK_SMALL_LETTER_IOTA_WITH_OXIA_AND_BREVE                0xEB40
+#define PUA_GREEK_SMALL_LETTER_IOTA_WITH_VARIA_AND_BREVE               0xEB44
+#define PUA_GREEK_SMALL_LETTER_IOTA_WITH_PSILI_AND_BREVE               0xEB41
+#define PUA_GREEK_SMALL_LETTER_IOTA_WITH_PSILI_AND_OXIA_AND_BREVE      0xEB42
+#define PUA_GREEK_SMALL_LETTER_IOTA_WITH_PSILI_AND_VARIA_AND_BREVE     0xEB45
+#define PUA_GREEK_SMALL_LETTER_IOTA_WITH_DASIA_AND_BREVE               0xEB43
+#define PUA_GREEK_SMALL_LETTER_IOTA_WITH_DASIA_AND_OXIA_AND_BREVE      0xEB47
+#define PUA_GREEK_SMALL_LETTER_IOTA_WITH_DASIA_AND_VARIA_AND_BREVE     0xEB48
+
+#define PUA_GREEK_SMALL_LETTER_UPSILON_WITH_OXIA_AND_BREVE             0xEB81
+#define PUA_GREEK_SMALL_LETTER_UPSILON_WITH_VARIA_AND_BREVE            0xEB83
+#define PUA_GREEK_SMALL_LETTER_UPSILON_WITH_PSILI_AND_BREVE            0xEB84
+#define PUA_GREEK_SMALL_LETTER_UPSILON_WITH_PSILI_AND_OXIA_AND_BREVE   0xEB85
+#define PUA_GREEK_SMALL_LETTER_UPSILON_WITH_PSILI_AND_VARIA_AND_BREVE  0xEB88
+#define PUA_GREEK_SMALL_LETTER_UPSILON_WITH_DASIA_AND_BREVE            0xEB82
+#define PUA_GREEK_SMALL_LETTER_UPSILON_WITH_DASIA_AND_OXIA_AND_BREVE   0xEB89
+#define PUA_GREEK_SMALL_LETTER_UPSILON_WITH_DASIA_AND_VARIA_AND_BREVE  0xEB8A
 
 #ifdef USE_TONOS
 #define ALPHA_WITH_ACUTE    GREEK_SMALL_LETTER_ALPHA_WITH_TONOS

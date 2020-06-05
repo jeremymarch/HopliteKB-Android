@@ -1,23 +1,14 @@
-/*
- * Created by Jeremy March on 4/15/15.
- * Copyright © 2015 Jeremy March. All rights reserved.
- *
- *
- *        This file is part of HoplitePolytonicKeyboardAndroid.
- *
- *        HoplitePolytonicKeyboardAndroid is free software: you can redistribute it and/or modify
- *        it under the terms of the GNU General Public License as published by
- *        the Free Software Foundation, either version 3 of the License, or
- *        (at your option) any later version.
- *
- *        HoplitePolytonicKeyboardAndroid is distributed in the hope that it will be useful,
- *        but WITHOUT ANY WARRANTY; without even the implied warranty of
- *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *        GNU General Public License for more details.
- *
- *        You should have received a copy of the GNU General Public License
- *        along with HoplitePolytonicKeyboardAndroid.  If not, see <http://www.gnu.org/licenses/>.
- */
+//
+//  accent.h
+//  HCPolytonicGreekKBapp
+//
+//  Created by Jeremy March on 3/4/17.
+//  Copyright © 2017 Jeremy March. All rights reserved.
+//
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+//
 
 
 #ifndef accent_h
@@ -37,7 +28,8 @@ enum {
     IOTA_SUBSCRIPT,
     SURROUNDING_PARENTHESES,
     DIAERESIS,
-    BREVE
+    BREVE,
+    UNDERDOT
 };
 
 //diacriticMask bit flags
@@ -50,7 +42,8 @@ enum {
     _CIRCUMFLEX = 1 << 5,
     _IOTA_SUB   = 1 << 6,
     _DIAERESIS  = 1 << 7,
-    _BREVE      = 1 << 8
+    _BREVE      = 1 << 8,
+    _UNDERDOT   = 1 << 9
 };
 
 enum {
@@ -64,8 +57,16 @@ void allowSpacingDiacritics(bool val);
 
 void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool toggleOff, int unicodeMode);
 
-int analyzeLetter(UCS2 *ucs2String, int i, int len, int *letterCode, int *accentBitMask);
+int scanLetter(UCS2 *ucs2String, int i, int len, UCS2 *letterCode, int *accentBitMask);
+int analyzeLetter(UCS2 *ucs2String, int i, int len, UCS2 *letterCode, int *accentBitMask);
+int analyzePrecomposedLetter(UCS2 letterToAnalyze, UCS2 *l, int *a);
 
-bool makeLetter(UCS2 *ucs2String, int *newLetterLen, int letterCode, int accentBitMask, int unicodeMode);
+bool makeLetter(UCS2 *ucs2String, int *newLetterLen, UCS2 letterCode, int accentBitMask, int unicodeMode);
+
+bool isCombiningDiacritic(UCS2 l);
+
+int compareSort(int len_a, const unsigned char *a, int len_b, const unsigned char *b);
+int hccontainsPUA(const unsigned char *utf8);
+int hcucHex(const unsigned char *utf8, int bufferLen, char *buffer);
 
 #endif /* accent_h */
