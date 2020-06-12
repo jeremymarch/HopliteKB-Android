@@ -67,6 +67,25 @@ public class HKHandleKeys {
     public final static int HKNineKey    = 169;
     public final static int HKLunateSigmaKey    = 169;
 
+    public final static int HKForwardSlashKey = 187;
+    public final static int HKPlusKey = 188;
+    public final static int HKAsterixKey = 189;
+    public final static int HKDoubleQuoteKey = 190;
+    public final static int HKOpenParenKey = 191;
+    public final static int HKCloseParenKey = 192;
+    public final static int HKOpenSquareBKey = 193;
+    public final static int HKCloseSquareBKey = 194;
+
+    public final static int HKBackSlashKey = 222;
+    public final static int HKEqualsKey = 223;
+    public final static int HKNumKey = 224;
+    public final static int HKSingleQuoteKey = 225;
+    public final static int HKOpenAngleBKey = 226;
+    public final static int HKCloseAngleBKey = 227;
+    public final static int HKOpenCurlyBKey = 228;
+    public final static int HKCloseCurlyBKey = 229;
+
+
     private final static String[] letters = {
             "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι", "κ", "λ", "μ", "ν", "ξ", "ο", "π", "ρ", "σ", "τ", "υ", "φ", "χ", "ψ", "ω", "ς",
             "Α", "Β", "Γ", "Δ", "Ε", "Ζ", "Η", "Θ", "Ι", "Κ", "Λ", "Μ", "Ν", "Ξ", "Ο", "Π", "Ρ", "Σ", "Τ", "Υ", "Φ", "Χ", "Ψ", "Ω",
@@ -251,6 +270,49 @@ public class HKHandleKeys {
                 s == COMBINING_IOTA_SUBSCRIPT ||
                 s == COMBINING_BREVE ||
                 s == COMBINING_UNDERDOT);
+    }
+
+    public static boolean isDiacriticKey(int code)
+    {
+        return (code == HKRoughBreathingKey ||
+        code == HKSmoothBreathingKey ||
+        code == HKAcuteKey ||
+        code == HKGraveKey ||
+        code == HKCircumflexKey ||
+        code == HKIotaSubscriptKey ||
+        code == HKMacronKey ||
+        code == HKBreveKey ||
+        code == HKUnderdotKey ||
+        code == HKDiaeresisKey);
+    }
+
+    public static boolean isPunctuationKey(int code)
+    {
+        return (code ==  HKPeriodKey ||
+        code ==  HKCommaKey ||
+        code ==  HKMiddleDotKey ||
+        code ==  HKQuestionKey ||
+        code ==  HKApostropheKey ||
+        code ==  HKEMDashKey ||
+        code ==  HKHyphenMinusKey ||
+        code ==  HKLowLineKey ||
+        code ==  HKExclamationKey ||
+        code ==  HKForwardSlashKey ||
+        code ==  HKPlusKey ||
+        code ==  HKAsterixKey ||
+        code ==  HKDoubleQuoteKey  ||
+        code ==  HKOpenParenKey ||
+        code ==  HKCloseParenKey ||
+        code ==  HKOpenSquareBKey ||
+        code ==  HKCloseSquareBKey ||
+        code ==  HKBackSlashKey ||
+        code ==  HKEqualsKey ||
+        code ==  HKNumKey ||
+        code ==  HKSingleQuoteKey ||
+        code ==  HKOpenAngleBKey ||
+        code ==  HKCloseAngleBKey ||
+        code ==  HKOpenCurlyBKey ||
+        code ==  HKCloseCurlyBKey);
     }
 
 }

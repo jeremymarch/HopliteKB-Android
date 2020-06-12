@@ -70,7 +70,7 @@ public class HopliteKeyboardView extends KeyboardView {
         Typeface tf = Typeface.createFromAsset(context.getAssets(),"fonts/newathu5.ttf");
 
         for (Keyboard.Key key : keys) {
-            if (key.codes[0] == 35) {
+            if (key.codes[0] == HKHandleKeys.HKEnterKey) {
                 Drawable dr;
                 if (key.pressed)
                 {
@@ -87,7 +87,7 @@ public class HopliteKeyboardView extends KeyboardView {
                 }
                 dr.draw(canvas);
             }
-            else if ((key.codes[0] > 26 && key.codes[0] < 35) || key.codes[0] == 86) {
+            else if ( HKHandleKeys.isDiacriticKey(key.codes[0]) ) {
                 Drawable dr;
                 if (key.pressed) {
                     dr = ContextCompat.getDrawable(context, R.drawable.accentbuttondown);
@@ -101,7 +101,7 @@ public class HopliteKeyboardView extends KeyboardView {
                 dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             }
-            else if (key.codes[0] == 36 || key.codes[0] == 37 || key.codes[0] == 40 || key.codes[0] == 41 || key.codes[0] == 75 || key.codes[0] == 76 || key.codes[0] == 77 || key.codes[0] == 78 || key.codes[0] == 79 || key.codes[0] == 82 || key.codes[0] == 83 || key.codes[0] == 84 || key.codes[0] == 85 || key.codes[0] == 87 || key.codes[0] == 88 || key.codes[0] == 89  || key.codes[0] == 92 || key.codes[0] == 93  || key.codes[0] == 94 || key.codes[0] == 95  || key.codes[0] == 98 || key.codes[0] == 99 || key.codes[0] == 90 || key.codes[0] == 91 || key.codes[0] == 225){
+            else if ( HKHandleKeys.isPunctuationKey( key.codes[0] )) {
                 Drawable dr;
                 if (key.pressed) {
                     dr = ContextCompat.getDrawable(context, R.drawable.puncbuttondown);
@@ -118,7 +118,7 @@ public class HopliteKeyboardView extends KeyboardView {
                     dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             }
-            else if (key.codes[0] == 42){
+            else if (key.codes[0] == HKHandleKeys.HKCapsKey){
                 Drawable dr;
                 if (key.pressed) {
                     dr = ContextCompat.getDrawable(context, R.drawable.normalbuttondown);
@@ -158,7 +158,7 @@ public class HopliteKeyboardView extends KeyboardView {
 
                 dr.draw(canvas);
             }
-            else if (key.codes[0] == 49) {
+            else if (key.codes[0] == HKHandleKeys.HKGlobeKey) {
                 Drawable dr;
                 if (key.pressed) {
                     dr = ContextCompat.getDrawable(context, R.drawable.normalbuttondown);
@@ -198,7 +198,7 @@ public class HopliteKeyboardView extends KeyboardView {
 
                 dr.draw(canvas);
             }
-            else if (key.codes[0] == 38) {
+            else if (key.codes[0] == HKHandleKeys.HKDeleteKey) {
                 Drawable dr;
                 if (key.pressed) {
                     dr = ContextCompat.getDrawable(context, R.drawable.normalbuttondown);
@@ -238,7 +238,7 @@ public class HopliteKeyboardView extends KeyboardView {
 
                 dr.draw(canvas);
             }
-            else if (key.codes[0] == 250) {
+            else if (key.codes[0] == HKHandleKeys.HKExtraKey) {
                 Drawable dr;
                 if (key.pressed) {
                     dr = ContextCompat.getDrawable(context, R.drawable.normalbuttondown);
