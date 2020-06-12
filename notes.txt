@@ -1,0 +1,4 @@
+Future:
+What to do now that KeyboardView etc. are deprecated:
+https://stackoverflow.com/questions/57634572/how-do-i-implement-custom-view-for-keyboard-after-keyboard-has-been-deprecated
+
