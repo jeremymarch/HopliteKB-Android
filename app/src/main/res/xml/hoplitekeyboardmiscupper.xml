@@ -5,55 +5,55 @@
     android:horizontalGap="3dp"
     android:verticalGap="3dp">
     <Row android:rowEdgeFlags="top">
-        <Key android:codes="210"    android:keyLabel="×" android:keyWidth="9.2%p"  android:keyEdgeFlags="left" />
-        <Key android:codes="211"    android:keyLabel="‒" android:keyWidth="9.2%p"  />
-        <Key android:codes="212"    android:keyLabel="⏑" android:keyWidth="9.2%p"  />
-        <Key android:codes="213"    android:keyLabel="⏒" android:keyWidth="9.2%p"  />
-        <Key android:codes="214"    android:keyLabel="⏓"  android:keyWidth="9.2%p" />
-        <Key android:codes="215"    android:keyLabel="⏔"  android:keyWidth="9.2%p" />
-        <Key android:codes="216"    android:keyLabel="⏕"  android:keyWidth="9.2%p" />
-        <Key android:codes="217"    android:keyLabel="⏖" android:keyWidth="9.2%p"  />
-        <Key android:codes="218"    android:keyLabel="|" android:keyWidth="9.2%p"  />
-        <Key android:codes="219"    android:keyLabel="‖" android:keyWidth="9.2%p"  android:keyEdgeFlags="right" />
+        <Key android:codes="195"    android:keyLabel="×" android:keyWidth="9.2%p"  android:keyEdgeFlags="left" />
+        <Key android:codes="196"    android:keyLabel="‒" android:keyWidth="9.2%p"  />
+        <Key android:codes="197"    android:keyLabel="⏑" android:keyWidth="9.2%p"  />
+        <Key android:codes="198"    android:keyLabel="⏒" android:keyWidth="9.2%p"  />
+        <Key android:codes="199"    android:keyLabel="⏓"  android:keyWidth="9.2%p" />
+        <Key android:codes="200"    android:keyLabel="⏔"  android:keyWidth="9.2%p" />
+        <Key android:codes="201"    android:keyLabel="⏕"  android:keyWidth="9.2%p" />
+        <Key android:codes="202"    android:keyLabel="⏖" android:keyWidth="9.2%p"  />
+        <Key android:codes="203"    android:keyLabel="|" android:keyWidth="9.2%p"  />
+        <Key android:codes="204"    android:keyLabel="‖" android:keyWidth="9.2%p"  android:keyEdgeFlags="right" />
     </Row>
     <Row>
-        <Key android:codes="125"    android:keyLabel="Ϲ" android:keyEdgeFlags="left"  />
-        <Key android:codes="117"    android:keyLabel="Ϙ" />
-        <Key android:codes="120"    android:keyLabel="Ϝ" />
-        <Key android:codes="109"    android:keyLabel="Ϛ"  />
-        <Key android:codes="101"    android:keyLabel="Ϟ" />
-        <Key android:codes="104"    android:keyLabel="Ϡ"  />
-        <Key android:codes="103"    android:keyLabel="Ϻ"  />
-        <Key android:codes="106"    android:keyLabel="Ͷ"  />
-        <Key android:codes="114"    android:keyLabel="Ͳ" android:keyEdgeFlags="right" />
+        <Key android:codes="205"    android:keyLabel="Ϲ" android:keyEdgeFlags="left"  />
+        <Key android:codes="206"    android:keyLabel="Ϙ" />
+        <Key android:codes="207"    android:keyLabel="Ϝ" />
+        <Key android:codes="208"    android:keyLabel="Ϛ"  />
+        <Key android:codes="209"    android:keyLabel="Ϟ" />
+        <Key android:codes="210"    android:keyLabel="Ϡ"  />
+        <Key android:codes="211"    android:keyLabel="Ϻ"  />
+        <Key android:codes="212"    android:keyLabel="Ͷ"  />
+        <Key android:codes="213"    android:keyLabel="Ͳ" android:keyEdgeFlags="right" />
     </Row>
     <Row>
-        <Key android:codes="123"    android:keyLabel="Ͱ"   android:keyEdgeFlags="left" />
-        <Key android:codes="97"    android:keyLabel="Ϸ"   />
-        <Key android:codes="102"    android:keyLabel="ͻ"  />
-        <Key android:codes="112"    android:keyLabel="ͽ"  />
-        <Key android:codes="44"    android:keyLabel="϶"  />
-        <Key android:codes="116" android:keyLabel="ϐ"/>
-        <Key android:codes="111" android:keyLabel="Ϗ" />
-        <Key android:codes="81" android:keyLabel="͵" />
-        <Key android:codes="95"    android:keyLabel="\\" android:keyEdgeFlags="right"/>
+        <Key android:codes="214"    android:keyLabel="Ͱ"   android:keyEdgeFlags="left" />
+        <Key android:codes="215"    android:keyLabel="Ϸ"   />
+        <Key android:codes="216"    android:keyLabel="ͻ"  />
+        <Key android:codes="217"    android:keyLabel="ͽ"  />
+        <Key android:codes="218"    android:keyLabel="϶"  />
+        <Key android:codes="219" android:keyLabel="ϐ"/>
+        <Key android:codes="220" android:keyLabel="Ϗ" />
+        <Key android:codes="221" android:keyLabel="͵" />
+        <Key android:codes="222"    android:keyLabel="\\" android:keyEdgeFlags="right"/>
     </Row>
     <Row>
-        <Key android:codes="90"    android:keyLabel="=" android:keyEdgeFlags="left"/>
-        <Key android:codes="99"    android:keyLabel="#"   />
-        <Key android:codes="93"    android:keyLabel="&apos;" />
-        <Key android:codes="88"    android:keyLabel="&lt;"   />
-        <Key android:codes="89"    android:keyLabel="&gt;"   />
-        <Key android:codes="84" android:keyLabel="{" />
-        <Key android:codes="85" android:keyLabel="}"    />
-        <Key android:codes="38" android:keyLabel=" " android:keyWidth="21.0%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:codes="223"    android:keyLabel="=" android:keyEdgeFlags="left"/>
+        <Key android:codes="224"    android:keyLabel="#"   />
+        <Key android:codes="225"    android:keyLabel="&apos;" />
+        <Key android:codes="226"    android:keyLabel="&lt;"   />
+        <Key android:codes="227"    android:keyLabel="&gt;"   />
+        <Key android:codes="228" android:keyLabel="{" />
+        <Key android:codes="229" android:keyLabel="}"    />
+        <Key android:codes="2" android:keyLabel=" " android:keyWidth="21.0%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="42"  android:keyLabel=" " android:keyEdgeFlags="left"  />
-        <Key android:codes="250"    android:keyLabel="αβγ" />
-        <Key android:codes="49"  android:keyLabel=" "  />
-        <Key android:codes="39" android:keyLabel="space"  android:keyWidth="32.0%p"  />
-        <Key android:codes="87"    android:keyLabel="_" />
-        <Key android:codes="35" android:keyLabel="enter" android:keyWidth="21.0%p" android:keyEdgeFlags="right" />
+        <Key android:codes="4"  android:keyLabel=" " android:keyEdgeFlags="left"  />
+        <Key android:codes="5"    android:keyLabel="αβγ" />
+        <Key android:codes="3"  android:keyLabel=" "  />
+        <Key android:codes="150" android:keyLabel="space"  android:keyWidth="32.0%p"  />
+        <Key android:codes="158"    android:keyLabel="_" />
+        <Key android:codes="1" android:keyLabel="enter" android:keyWidth="21.0%p" android:keyEdgeFlags="right" />
     </Row>
 </Keyboard>

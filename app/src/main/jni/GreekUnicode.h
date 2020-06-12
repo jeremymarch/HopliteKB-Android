@@ -25,6 +25,7 @@
 #define COMBINING_SMOOTH_BREATHING      0x0313
 #define COMBINING_ROUGH_BREATHING       0x0314
 #define COMBINING_IOTA_SUBSCRIPT        0x0345
+#define COMBINING_UNDERDOT              0x0323
 #define LEFT_PARENTHESIS                0x0028
 #define RIGHT_PARENTHESIS               0x0029
 #define SPACE                           0x0020

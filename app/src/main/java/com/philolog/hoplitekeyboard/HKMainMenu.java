@@ -35,6 +35,8 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -91,7 +93,9 @@ public class HKMainMenu extends AppCompatActivity {
         // Do not show the preview balloons
         mKeyboardView.setPreviewEnabled(false);
 
-        mKeyboardView.setOnKeyboardActionListener(new HKLocalOnKeyboardActionListener((EditText)mTextView, mKeyboardView, getBaseContext()));
+        //mKeyboardView.setOnKeyboardActionListener(new HKLocalOnKeyboardActionListener((EditText)mTextView, mKeyboardView, getBaseContext()));
+        InputConnection ic = mTextView.onCreateInputConnection(new EditorInfo());
+        mKeyboardView.setOnKeyboardActionListener(new HKLocalOnKeyboardActionListener(ic, mKeyboardView, getBaseContext()));
 
         mTextView.setOnTouchListener(new View.OnTouchListener(){
             public boolean onTouch(View view, MotionEvent motionEvent) {

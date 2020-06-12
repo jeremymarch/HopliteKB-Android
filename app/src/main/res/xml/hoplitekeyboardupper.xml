@@ -5,54 +5,54 @@
     android:horizontalGap="3dp"
     android:verticalGap="3dp">
     <Row android:rowEdgeFlags="top">
-        <Key android:codes="27"    android:keyLabel="("  android:keyEdgeFlags="left" />
-        <Key android:codes="28"    android:keyLabel=")"   />
-        <Key android:codes="29"    android:keyLabel="/"   />
-        <Key android:codes="34"    android:keyLabel="\\"   />
-        <Key android:codes="31"    android:keyLabel="¨"   />
-        <Key android:codes="86"    android:keyLabel="˘"   />
-        <Key android:codes="32"    android:keyLabel="ι"   />
-        <Key android:codes="77"    android:keyLabel="’" />
-        <Key android:codes="79"    android:keyLabel="—"   android:keyEdgeFlags="right"/>
+        <Key android:codes="10"    android:keyLabel="("  android:keyEdgeFlags="left" />
+        <Key android:codes="11"    android:keyLabel=")" />
+        <Key android:codes="12"    android:keyLabel="/" />
+        <Key android:codes="13"    android:keyLabel="\\" />
+        <Key android:codes="19"    android:keyLabel="¨" />
+        <Key android:codes="17"    android:keyLabel="˘" />
+        <Key android:codes="18"    android:keyLabel="." />
+        <Key android:codes="155"    android:keyLabel="’" />
+        <Key android:codes="156"    android:keyLabel="—"   android:keyEdgeFlags="right"/>
     </Row>
     <Row>
-        <Key android:codes="225"    android:keyLabel="!" android:keyEdgeFlags="left"  />
-        <Key android:codes="55"    android:keyLabel="Ε"  />
-        <Key android:codes="67"    android:keyLabel="Ρ" />
-        <Key android:codes="69"    android:keyLabel="Τ"  />
-        <Key android:codes="70"    android:keyLabel="Υ" />
-        <Key android:codes="58"    android:keyLabel="Θ"  />
-        <Key android:codes="59"    android:keyLabel="Ι"  />
-        <Key android:codes="65"    android:keyLabel="Ο"  />
-        <Key android:codes="66" android:keyLabel="Π" android:keyEdgeFlags="right" />
+        <Key android:codes="159"    android:keyLabel="!" android:keyEdgeFlags="left" />
+        <Key android:codes="130"    android:keyLabel="Ε" />
+        <Key android:codes="142"    android:keyLabel="Ρ" />
+        <Key android:codes="144"    android:keyLabel="Τ" />
+        <Key android:codes="145"    android:keyLabel="Υ" />
+        <Key android:codes="133"    android:keyLabel="Θ" />
+        <Key android:codes="134"    android:keyLabel="Ι"  />
+        <Key android:codes="140"    android:keyLabel="Ο"  />
+        <Key android:codes="141" android:keyLabel="Π" android:keyEdgeFlags="right" />
     </Row>
     <Row>
-        <Key android:codes="51"    android:keyLabel="Α" android:keyTextColor="#ff000000" android:keyEdgeFlags="left" />
-        <Key android:codes="68"    android:keyLabel="Σ" />
-        <Key android:codes="54"    android:keyLabel="Δ"  />
-        <Key android:codes="71"    android:keyLabel="Φ" />
-        <Key android:codes="53"    android:keyLabel="Γ"  />
-        <Key android:codes="57"    android:keyLabel="Η"  />
-        <Key android:codes="64"    android:keyLabel="Ξ"  />
-        <Key android:codes="60"    android:keyLabel="Κ"  />
-        <Key android:codes="61" android:keyLabel="Λ" android:keyEdgeFlags="right"/>
+        <Key android:codes="126"    android:keyLabel="Α" android:keyTextColor="#ff000000" android:keyEdgeFlags="left" />
+        <Key android:codes="143"    android:keyLabel="Σ" />
+        <Key android:codes="129"    android:keyLabel="Δ" />
+        <Key android:codes="146"    android:keyLabel="Φ" />
+        <Key android:codes="128"    android:keyLabel="Γ"  />
+        <Key android:codes="132"    android:keyLabel="Η"  />
+        <Key android:codes="139"    android:keyLabel="Ξ"  />
+        <Key android:codes="135"    android:keyLabel="Κ"  />
+        <Key android:codes="136" android:keyLabel="Λ" android:keyEdgeFlags="right"/>
     </Row>
     <Row>
-        <Key android:codes="56"    android:keyLabel="Ζ" android:keyEdgeFlags="left" />
-        <Key android:codes="72"    android:keyLabel="Χ" />
-        <Key android:codes="73"    android:keyLabel="Ψ"  />
-        <Key android:codes="74"    android:keyLabel="Ω" />
-        <Key android:codes="52"    android:keyLabel="Β"  />
-        <Key android:codes="63"    android:keyLabel="Ν"  />
-        <Key android:codes="62"    android:keyLabel="Μ"  />
-        <Key android:codes="38" android:keyLabel=" " android:keyWidth="21.0%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:codes="131"    android:keyLabel="Ζ" android:keyEdgeFlags="left" />
+        <Key android:codes="147"    android:keyLabel="Χ" />
+        <Key android:codes="148"    android:keyLabel="Ψ"  />
+        <Key android:codes="149"    android:keyLabel="Ω" />
+        <Key android:codes="127"    android:keyLabel="Β"  />
+        <Key android:codes="138"    android:keyLabel="Ν"  />
+        <Key android:codes="137"    android:keyLabel="Μ"  />
+        <Key android:codes="2" android:keyLabel=" " android:keyWidth="21.0%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="42" android:keyLabel=" " android:keyEdgeFlags="left"  />
-        <Key android:codes="250"    android:keyLabel="123" />
-        <Key android:codes="49"  android:keyLabel=" "  />
-        <Key android:codes="39" android:keyLabel="space"  android:keyWidth="32.0%p"  />
-        <Key android:codes="37"    android:keyLabel=";" />
-        <Key android:codes="35" android:keyLabel="enter" android:keyWidth="21.0%p" android:keyEdgeFlags="right" />
+        <Key android:codes="4" android:keyLabel=" " android:keyEdgeFlags="left"  />
+        <Key android:codes="5"    android:keyLabel="123" />
+        <Key android:codes="3"  android:keyLabel=" "  />
+        <Key android:codes="150" android:keyLabel="space"  android:keyWidth="32.0%p"  />
+        <Key android:codes="154"    android:keyLabel=";" />
+        <Key android:codes="1" android:keyLabel="enter" android:keyWidth="21.0%p" android:keyEdgeFlags="right" />
     </Row>
 </Keyboard>
