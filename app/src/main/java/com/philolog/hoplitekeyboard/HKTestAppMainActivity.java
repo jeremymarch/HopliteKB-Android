@@ -54,30 +54,13 @@ public class HKTestAppMainActivity extends AppCompatActivity {
         mCodePointTextView = (TextView) findViewById(R.id.mCodePointTextView);
         mTextView.setTypeface(type);
 
-
         Keyboard mKeyboard= new Keyboard(this,R.xml.hoplitekeyboard);
-        //draw custom keys:
-        // http://stackoverflow.com/questions/18224520/how-to-set-different-background-of-keys-for-android-custom-keyboard
-        // Lookup the KeyboardView
         mKeyboardView = (HopliteKeyboardView)findViewById(R.id.keyboardview);
-        // Attach the keyboard to the view
         mKeyboardView.setKeyboard( mKeyboard );
-        // Do not show the preview balloons
-        mKeyboardView.setPreviewEnabled(false);
+        mKeyboardView.setPreviewEnabled(false); // do not show the preview balloons
 
         InputConnection ic = mTextView.onCreateInputConnection(new EditorInfo());
         mKeyboardView.setOnKeyboardActionListener(new HKLocalOnKeyboardActionListener(ic, mKeyboardView, getBaseContext()));
-
-        //mKeyboardView.setOnKeyboardActionListener(new HopliteKeyboard(mKeyboardView, ic));
-        /*HKNewOnKeyboardActionListener kal = new HKNewOnKeyboardActionListener(mKeyboardView);
-        kal.unicodeMode = 1;
-        kal.ims = null;
-        kal.ic = ic;
-        mKeyboardView.setOnKeyboardActionListener(kal);
-
-         */
-
-        //
 
         mTextView.setOnTouchListener(new View.OnTouchListener(){
             public boolean onTouch(View view, MotionEvent motionEvent) {

@@ -74,7 +74,6 @@ public class HKMainMenu extends AppCompatActivity {
         //Remove notification bar
         //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-
         setContentView(R.layout.main);
 
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/newathu5.ttf");
@@ -82,18 +81,11 @@ public class HKMainMenu extends AppCompatActivity {
         menuView = findViewById(R.id.HKMenu);
         mTextView.setTypeface(type);
 
-
         Keyboard mKeyboard= new Keyboard(this,R.xml.hoplitekeyboard);
-        //draw custom keys:
-        // http://stackoverflow.com/questions/18224520/how-to-set-different-background-of-keys-for-android-custom-keyboard
-        // Lookup the KeyboardView
         mKeyboardView = (HopliteKeyboardView)findViewById(R.id.keyboardview);
-        // Attach the keyboard to the view
         mKeyboardView.setKeyboard( mKeyboard );
-        // Do not show the preview balloons
-        mKeyboardView.setPreviewEnabled(false);
+        mKeyboardView.setPreviewEnabled(false); // do not show the preview balloons
 
-        //mKeyboardView.setOnKeyboardActionListener(new HKLocalOnKeyboardActionListener((EditText)mTextView, mKeyboardView, getBaseContext()));
         InputConnection ic = mTextView.onCreateInputConnection(new EditorInfo());
         mKeyboardView.setOnKeyboardActionListener(new HKLocalOnKeyboardActionListener(ic, mKeyboardView, getBaseContext()));
 
