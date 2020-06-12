@@ -85,6 +85,8 @@ public class HKHandleKeys {
     public final static int HKOpenCurlyBKey = 228;
     public final static int HKCloseCurlyBKey = 229;
 
+    public final static int HKMultipleFormsKey = 500;
+
 
     private final static String[] letters = {
             "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι", "κ", "λ", "μ", "ν", "ξ", "ο", "π", "ρ", "σ", "τ", "υ", "φ", "χ", "ψ", "ω", "ς",

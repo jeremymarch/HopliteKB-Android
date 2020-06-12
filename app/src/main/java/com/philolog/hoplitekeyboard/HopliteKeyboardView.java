@@ -112,10 +112,13 @@ public class HopliteKeyboardView extends KeyboardView {
                     dr = ContextCompat.getDrawable(context, R.drawable.puncbutton);
                     paint.setColor(Color.WHITE);
                 }
-                if (key.codes[0] == 40 || key.codes[0] == 41 || key.codes[0] == 75 || key.codes[0] == 76 || key.codes[0] == 77 || key.codes[0] == 78 || key.codes[0] == 79) //for top row punctuation
+
+                //make top row punctuation key height shorter just like the diacritics
+                if (key.codes[0] == HKHandleKeys.HKCommaKey || key.codes[0] == HKHandleKeys.HKMiddleDotKey || key.codes[0] == HKHandleKeys.HKApostropheKey || key.codes[0] == HKHandleKeys.HKEMDashKey)
                     dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
                 else
                     dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+
                 dr.draw(canvas);
             }
             else if (key.codes[0] == HKHandleKeys.HKCapsKey){
@@ -267,31 +270,31 @@ public class HopliteKeyboardView extends KeyboardView {
             paint.setTextAlign(Paint.Align.CENTER);
             float FONT_SIZE;
             // Convert the dips to pixels
-            if ( key.codes[0] == 28 || key.codes[0] == 27) {
+            if ( key.codes[0] == HKHandleKeys.HKRoughBreathingKey || key.codes[0] == HKHandleKeys.HKSmoothBreathingKey) {
                 FONT_SIZE = 38.0f; //or 26.0?
                 paint.setTypeface(tf);
             }
-            else if (key.codes[0] == 29 || key.codes[0] == 34)
+            else if (key.codes[0] == HKHandleKeys.HKAcuteKey || key.codes[0] == HKHandleKeys.HKGraveKey)
             {
                 FONT_SIZE = 44.0f; //or 26.0?
                 paint.setTypeface(tf);
             }
-            else if (key.codes[0] == 32)
+            else if (key.codes[0] == HKHandleKeys.HKIotaSubscriptKey)
             {
                 FONT_SIZE = 23.0f; //or 26.0?
                 paint.setTypeface(Typeface.DEFAULT);
                 //paint.setTypeface(tf);
             }
-            else if (key.codes[0] == 33 && mMFPressed)
+            else if (key.codes[0] == HKHandleKeys.HKMultipleFormsKey && mMFPressed)
             {
                 FONT_SIZE = 32.0f; //or 26.0?
                 paint.setTypeface(tf);
             }
-            else if (key.codes[0] == 35)
+            else if (key.codes[0] == HKHandleKeys.HKEnterKey)
             {
                 FONT_SIZE = 23.0f; //or 26.0?
             }
-            else if (key.codes[0] == 31 || key.codes[0] == 86)
+            else if (key.codes[0] == HKHandleKeys.HKDiaeresisKey || key.codes[0] == HKHandleKeys.HKBreveKey)
             {
                 FONT_SIZE = 32.0f; //or 26.0?
             }
@@ -301,7 +304,7 @@ public class HopliteKeyboardView extends KeyboardView {
                 paint.setTypeface(Typeface.DEFAULT);
             }
 
-            if (key.codes[0] == 39)
+            if (key.codes[0] == HKHandleKeys.HKSpaceKey)
             {
                 paint.setColor(Color.GRAY);
             }
@@ -317,54 +320,48 @@ public class HopliteKeyboardView extends KeyboardView {
             String s;
             int offset;
             if (key.label != null) {
-                if (key.codes[0] == 27) {
+                if (key.codes[0] == HKHandleKeys.HKRoughBreathingKey) {
                     s = "῾";
                     offset = 20;
                 }
-                else if (key.codes[0] == 28) {
+                else if (key.codes[0] == HKHandleKeys.HKSmoothBreathingKey) {
                     s = "᾿";
                     offset = 20;
                 }
-                else if (key.codes[0] == 29) {
+                else if (key.codes[0] == HKHandleKeys.HKAcuteKey) {
                     s = "´";//"´";
                     offset = 19;
                 }
-                else if (key.codes[0] == 34) {
+                else if (key.codes[0] == HKHandleKeys.HKGraveKey) {
                     s = "`";//"´";
                     offset = 21;
                 }
-                else if (key.codes[0] == 30) {
+                else if (key.codes[0] == HKHandleKeys.HKCircumflexKey) {
                     s = key.label.toString();
                     offset = 2;
                 }
-                else if (key.codes[0] == 33) {
+                else if (key.codes[0] == HKHandleKeys.HKMacronKey) {
                     s = "—";//key.label.toString();
                     offset = 4;
                 }
-                else if (key.codes[0] == 32) {
+                else if (key.codes[0] == HKHandleKeys.HKIotaSubscriptKey) {
                     s = "ι";//"ι";//"ͺ";
                     offset = 13;
                 }
-                else if (key.codes[0] == 33 && mMFPressed) {
+                else if (key.codes[0] == HKHandleKeys.HKMultipleFormsKey && mMFPressed) {
                     s = ",";
                     offset = 5;
                 }
-                else if (key.codes[0] == 31) {
+                else if (key.codes[0] == HKHandleKeys.HKDiaeresisKey) {
                     s = "¨";
                     offset = 14;
                 }
-                else if (key.codes[0] == 86) {
+                else if (key.codes[0] == HKHandleKeys.HKBreveKey) {
                     s = "˘";
                     offset = 18;
                 }
                 else {
                     s = key.label.toString();
-                    /*
-                    if (caps && key.codes[0] > 0 && key.codes[0] < 25)
-                    {
-                        s = s.toUpperCase();
-                    }
-                    */
                     offset = 9;
                 }
                 offset = (int) (offset * scale + 0.5f); //convert dp to px

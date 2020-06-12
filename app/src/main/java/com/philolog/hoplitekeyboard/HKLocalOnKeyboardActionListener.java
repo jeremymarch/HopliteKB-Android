@@ -44,7 +44,7 @@ import android.inputmethodservice.Keyboard;
 public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardActionListener {
     public HopliteKeyboardView kv;
     public Context c;
-    public InputConnection ic = null;
+    public InputConnection ic;
 
     public boolean capsLock = false;
     public boolean extraKeysLock = false;
@@ -61,7 +61,11 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
 
         //SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(c);
         //unicodeMode = Integer.parseInt(sharedPref.getString("UnicodeMode", "0"));
-
+        if (ic == null || kv == null || c == null)
+        {
+            return;
+        }
+        
         if (primaryCode == HKHandleKeys.HKEnterKey) {
             ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
         } else if (primaryCode == HKHandleKeys.HKCapsKey) {
