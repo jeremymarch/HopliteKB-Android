@@ -58,14 +58,10 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
     }
 
     @Override public void onKey(int primaryCode, int[] keyCodes) {
-
-        //SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(c);
-        //unicodeMode = Integer.parseInt(sharedPref.getString("UnicodeMode", "0"));
-        if (ic == null || kv == null || c == null)
-        {
+        if (ic == null || kv == null || c == null) {
             return;
         }
-        
+
         if (primaryCode == HKHandleKeys.HKEnterKey) {
             ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
         } else if (primaryCode == HKHandleKeys.HKCapsKey) {
@@ -73,6 +69,7 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
             setKeys(c, kv );
         } else if (primaryCode == HKHandleKeys.HKExtraKey) {
             extraKeysLock = !extraKeysLock;
+            capsLock = false; //force initial lowercase when pressing extra key
             setKeys(c, kv);
         }
         //else if (primaryCode == HKHandleKeys.HKGlobeKey) {

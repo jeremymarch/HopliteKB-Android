@@ -139,6 +139,9 @@ import android.widget.EditText;
                 case EditorInfo.IME_ACTION_SEARCH:
                 case EditorInfo.IME_ACTION_GO:
                 case EditorInfo.IME_ACTION_SEND:
+                case EditorInfo.IME_ACTION_DONE:
+                case EditorInfo.IME_ACTION_NEXT:
+                case EditorInfo.IME_ACTION_PREVIOUS:
                     this.sendDefaultEditorAction(true);
                     break;
                 default:
@@ -151,6 +154,7 @@ import android.widget.EditText;
             setKeys(this, kv );
         } else if (primaryCode == HKHandleKeys.HKExtraKey) {
             extraKeysLock = !extraKeysLock;
+            capsLock = false; //force initial lowercase when pressing extra key
             setKeys(this, kv);
         } else if (primaryCode == HKHandleKeys.HKGlobeKey) {
             InputMethodManager imeManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -208,57 +212,7 @@ import android.widget.EditText;
         }
         return window.getAttributes().token;
     }
-
     /*
-
-    public void localAccentLetter(InputConnection ic, int start, int acc)
-    {
-        //seems wasteful, but performs ok
-        //the only thing that lets this change on the fly
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        unicodeMode = Integer.parseInt(sharedPref.getString("UnicodeMode", "0"));
-
-        GreekVerb gv1 = new GreekVerb();
-
-        ExtractedText et = ic.getExtractedText(new ExtractedTextRequest(), 0);
-        if (et == null) {
-            return;
-        }
-        int selectionStart = et.selectionStart;
-        int selectionEnd = et.selectionEnd;
-
-        int maxSubstringForAccent = 7;
-        String strBefore = ic.getTextBeforeCursor(maxSubstringForAccent, 0).toString();
-
-        int strBeforeLen = strBefore.length();
-        if (strBeforeLen < 1) {
-            //return;
-        }
-
-        int cc = numCombiningChars(strBefore);
-
-        //Log.e("abc", "NUM: " + cc + ", " + (strBeforeLen - cc - 1) + ", " + (strBeforeLen) + ", " + strBefore.substring(strBeforeLen - cc - 1, strBeforeLen));
-        String accentedLetter = "";
-        //Log.e("abc", "unicode mode: " + unicodeMode);
-
-        if (strBeforeLen < 1)
-        {
-            accentedLetter = gv1.addAccent(acc, unicodeMode, "");
-        }
-        else {
-            accentedLetter = gv1.addAccent(acc, unicodeMode, strBefore.substring(strBeforeLen - cc - 1, strBeforeLen));
-        }
-
-        if (!accentedLetter.equals("")) {
-            ic.setComposingRegion(selectionStart - (1+cc), selectionEnd);
-            ic.setComposingText(accentedLetter, 1);
-            ic.finishComposingText();
-            //ic.commitText(accentedLetter, start);
-        }
-    }
-
-
-
     private void playClick(int keyCode){
         AudioManager am = (AudioManager)getSystemService(AUDIO_SERVICE);
         if (am != null) {
@@ -277,5 +231,6 @@ import android.widget.EditText;
                     am.playSoundEffect(AudioManager.FX_KEYPRESS_STANDARD);
             }
         }
-    }*/
+    }
+    */
 }
