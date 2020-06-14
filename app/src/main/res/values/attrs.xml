@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="keyBgColor" format="reference|color" />
+    <attr name="keyTextColor" format="reference|color" />
+    <attr name="diacriticBgColor" format="reference|color" />
+    <attr name="diacriticTextColor" format="reference|color" />
+    <attr name="punctuationBgColor" format="reference|color" />
+    <attr name="punctuationTextColor" format="reference|color" />
+    <attr name="specialBgColor" format="reference|color" />
+    <attr name="specialTextColor" format="reference|color" />
+    <attr name="enterBgColor" format="reference|color" />
+    <attr name="enterTextColor" format="reference|color" />
+
+    <attr name="keyBgColorDown" format="reference|color" />
+    <attr name="keyTextColorDown" format="reference|color" />
+    <attr name="diacriticBgColorDown" format="reference|color" />
+    <attr name="diacriticTextColorDown" format="reference|color" />
+    <attr name="punctuationBgColorDown" format="reference|color" />
+    <attr name="punctuationTextColorDown" format="reference|color" />
+    <attr name="specialBgColorDown" format="reference|color" />
+    <attr name="specialTextColorDown" format="reference|color" />
+    <attr name="enterBgColorDown" format="reference|color" />
+    <attr name="enterTextColorDown" format="reference|color" />
+
+    <attr name="spaceTextColor" format="reference|color" />
+    <attr name="keyboardBgColor" format="reference|color" />
+</resources>

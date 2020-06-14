@@ -23,6 +23,7 @@ package com.philolog.hoplitekeyboard;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -32,6 +33,7 @@ import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.animation.Animation;
 import android.support.v4.content.ContextCompat;
 
@@ -54,17 +56,44 @@ public class HopliteKeyboardView extends KeyboardView {
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        Context context = getContext();
+
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = context.getTheme();
+        theme.resolveAttribute(R.attr.keyTextColor, typedValue, true);
+        int keyTextColor = typedValue.data;
+        theme.resolveAttribute(R.attr.keyTextColorDown, typedValue, true);
+        int keyTextColorDown = typedValue.data;
+        theme.resolveAttribute(R.attr.diacriticTextColor, typedValue, true);
+        int diacriticTextColor = typedValue.data;
+        theme.resolveAttribute(R.attr.diacriticTextColorDown, typedValue, true);
+        int diacriticTextColorDown = typedValue.data;
+        theme.resolveAttribute(R.attr.punctuationTextColor, typedValue, true);
+        int punctuationTextColor = typedValue.data;
+        theme.resolveAttribute(R.attr.punctuationTextColorDown, typedValue, true);
+        int punctuationTextColorDown = typedValue.data;
+        theme.resolveAttribute(R.attr.enterTextColor, typedValue, true);
+        int enterTextColor = typedValue.data;
+        theme.resolveAttribute(R.attr.enterTextColorDown, typedValue, true);
+        int enterTextColorDown = typedValue.data;
+        theme.resolveAttribute(R.attr.specialTextColor, typedValue, true);
+        int specialTextColor = typedValue.data;
+        theme.resolveAttribute(R.attr.specialTextColorDown, typedValue, true);
+        int specialTextColorDown = typedValue.data;
+        theme.resolveAttribute(R.attr.spaceTextColor, typedValue, true);
+        int spaceTextColor = typedValue.data;
+        theme.resolveAttribute(R.attr.keyboardBgColor, typedValue, true);
+        int keyboardBgColor = typedValue.data;
 
         Paint paint = new Paint();
 
         //background color:
         int width = this.getWidth();
         int height = this.getHeight();
-        paint.setColor(Color.rgb(200, 200, 200));
+        paint.setColor(keyboardBgColor);
         paint.setStyle(Paint.Style.FILL); //fill the background with blue color
         canvas.drawRect(0, 0, width, height, paint);
 
-        Context context = getContext();
         List<Keyboard.Key> keys = getKeyboard().getKeys();
 
         Typeface tf = Typeface.createFromAsset(context.getAssets(),"fonts/newathu5.ttf");
@@ -78,12 +107,12 @@ public class HopliteKeyboardView extends KeyboardView {
                     dr = ContextCompat.getDrawable(context, R.drawable.enterbuttondown);
                     //dr = context.getResources().getDrawable(R.drawable.enterbuttondown);
                     dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
-                    paint.setColor(ContextCompat.getColor(context, R.color.ButtonBlue));
+                    paint.setColor(enterTextColorDown);
                 }
                 else {
                     dr = ContextCompat.getDrawable(context, R.drawable.enterbutton);
                     dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
-                    paint.setColor(Color.WHITE);
+                    paint.setColor(enterTextColor);
                 }
                 dr.draw(canvas);
             }
@@ -91,12 +120,12 @@ public class HopliteKeyboardView extends KeyboardView {
                 Drawable dr;
                 if (key.pressed) {
                     dr = ContextCompat.getDrawable(context, R.drawable.accentbuttondown);
-                    paint.setColor(Color.WHITE);
+                    paint.setColor(diacriticTextColorDown);
                 }
                 else
                 {
                     dr = ContextCompat.getDrawable(context, R.drawable.accentbutton);
-                    paint.setColor(Color.BLACK);
+                    paint.setColor(diacriticTextColor);
                 }
                 dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
@@ -105,12 +134,12 @@ public class HopliteKeyboardView extends KeyboardView {
                 Drawable dr;
                 if (key.pressed) {
                     dr = ContextCompat.getDrawable(context, R.drawable.puncbuttondown);
-                    paint.setColor(Color.WHITE);
+                    paint.setColor(punctuationTextColorDown);
                 }
                 else
                 {
                     dr = ContextCompat.getDrawable(context, R.drawable.puncbutton);
-                    paint.setColor(Color.WHITE);
+                    paint.setColor(punctuationTextColor);
                 }
 
                 //make top row punctuation key height shorter just like the diacritics
@@ -125,23 +154,23 @@ public class HopliteKeyboardView extends KeyboardView {
                 Drawable dr;
                 if (key.pressed) {
                     dr = ContextCompat.getDrawable(context, R.drawable.normalbuttondown);
-                    paint.setColor(Color.WHITE);
+                    paint.setColor(specialTextColorDown);
                 }
                 else {
                     dr = ContextCompat.getDrawable(context, R.drawable.greybutton);
-                    paint.setColor(Color.BLACK);
+                    paint.setColor(specialTextColor);
                 }
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
 
                 if (key.pressed) {
                     dr = ContextCompat.getDrawable(context, R.drawable.capslockicond);
-                    paint.setColor(Color.WHITE);
+                    paint.setColor(specialTextColorDown); //?
                 }
                 else
                 {
                     dr = ContextCompat.getDrawable(context, R.drawable.capslockicon);
-                    paint.setColor(Color.WHITE);
+                    paint.setColor(specialTextColorDown); //?
                 }
                 //Log.e("abc", key.width + " " + key.height);
                 double a = ((key.width < key.height) ? key.width : key.height) * 0.75;
@@ -165,23 +194,23 @@ public class HopliteKeyboardView extends KeyboardView {
                 Drawable dr;
                 if (key.pressed) {
                     dr = ContextCompat.getDrawable(context, R.drawable.normalbuttondown);
-                    paint.setColor(Color.WHITE);
+                    paint.setColor(specialTextColorDown);
                 }
                 else {
                     dr = ContextCompat.getDrawable(context, R.drawable.greybutton);
-                    paint.setColor(Color.BLACK);
+                    paint.setColor(specialTextColor);
                 }
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
 
                 if (key.pressed) {
                     dr = ContextCompat.getDrawable(context, R.drawable.globeicond);
-                    paint.setColor(Color.WHITE);
+                    paint.setColor(specialTextColorDown); //?
                 }
                 else
                 {
                     dr = ContextCompat.getDrawable(context, R.drawable.globeicon);
-                    paint.setColor(Color.WHITE);
+                    paint.setColor(specialTextColorDown); //?
                 }
                 //Log.e("abc", key.width + " " + key.height);
                 double a = ((key.width < key.height) ? key.width : key.height) * 0.55;
@@ -205,23 +234,23 @@ public class HopliteKeyboardView extends KeyboardView {
                 Drawable dr;
                 if (key.pressed) {
                     dr = ContextCompat.getDrawable(context, R.drawable.normalbuttondown);
-                    paint.setColor(Color.WHITE);
+                    paint.setColor(specialTextColorDown);
                 }
                 else {
                     dr = ContextCompat.getDrawable(context, R.drawable.greybutton);
-                    paint.setColor(Color.BLACK);
+                    paint.setColor(specialTextColor);
                 }
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
 
                 if (key.pressed) {
                     dr = ContextCompat.getDrawable(context, R.drawable.deleteicond);
-                    paint.setColor(Color.WHITE);
+                    paint.setColor(specialTextColorDown); //?
                 }
                 else
                 {
                     dr = ContextCompat.getDrawable(context, R.drawable.deleteicon);
-                    paint.setColor(Color.WHITE);
+                    paint.setColor(specialTextColorDown); //?
                 }
                 //Log.e("abc", key.width + " " + key.height);
                 double a = ((key.width < key.height) ? key.width : key.height) * 0.66;
@@ -245,11 +274,11 @@ public class HopliteKeyboardView extends KeyboardView {
                 Drawable dr;
                 if (key.pressed) {
                     dr = ContextCompat.getDrawable(context, R.drawable.normalbuttondown);
-                    paint.setColor(Color.WHITE);
+                    paint.setColor(specialTextColorDown);
                 }
                 else {
                     dr = ContextCompat.getDrawable(context, R.drawable.greybutton);
-                    paint.setColor(Color.BLACK);
+                    paint.setColor(specialTextColor);
                 }
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
@@ -258,11 +287,11 @@ public class HopliteKeyboardView extends KeyboardView {
                 Drawable dr;
                 if (key.pressed) {
                     dr = ContextCompat.getDrawable(context, R.drawable.normalbuttondown);
-                    paint.setColor(Color.WHITE);
+                    paint.setColor(keyTextColorDown);
                 }
                 else {
                     dr = ContextCompat.getDrawable(context, R.drawable.normalbutton);
-                    paint.setColor(Color.BLACK);
+                    paint.setColor(keyTextColor);
                 }
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
@@ -306,7 +335,7 @@ public class HopliteKeyboardView extends KeyboardView {
 
             if (key.codes[0] == HKHandleKeys.HKSpaceKey)
             {
-                paint.setColor(Color.GRAY);
+                paint.setColor(spaceTextColor);
             }
 
             final float scale = context.getResources().getDisplayMetrics().density;

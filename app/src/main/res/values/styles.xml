@@ -15,5 +15,37 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <style name="HKDayNight" parent="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+
+        <item name="keyBgColor">#FFFFFFFF</item>
+        <item name="keyTextColor">#FF000000</item>
+        <item name="diacriticBgColor">@color/accentorange</item>
+        <item name="diacriticTextColor">#FF000000</item>
+        <item name="punctuationBgColor">@color/puncblue</item>
+        <item name="punctuationTextColor">#FFFFFFFF</item>
+        <item name="specialBgColor">#ff787786</item>
+        <item name="specialTextColor">#FF000000</item>
+        <item name="enterBgColor">@color/ButtonBlue</item>
+        <item name="enterTextColor">#FFFFFFFF</item>
+
+        <item name="keyBgColorDown">#FF000000</item>
+        <item name="keyTextColorDown">#FFFFFFFF</item>
+        <item name="diacriticBgColorDown">#FF000000</item>
+        <item name="diacriticTextColorDown">#FFFFFFFF</item>
+        <item name="punctuationBgColorDown">#FF000000</item>
+        <item name="punctuationTextColorDown">#FFFFFFFF</item>
+        <item name="specialBgColorDown">#ff787786</item>
+        <item name="specialTextColorDown">#FFFFFFFF</item>
+        <item name="enterBgColorDown">#FFFFFFFF</item>
+        <item name="enterTextColorDown">@color/ButtonBlue</item>
+
+        <item name="spaceTextColor">@color/KBGrey</item>
+        <item name="keyboardBgColor">#FFC8C8C8</item>
+    </style>
+
 </resources>
 

@@ -7,7 +7,7 @@
     <application
         android:label="@string/app_name"
         android:icon="@mipmap/hoplitekblogo"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+        android:theme="@style/HKDayNight"
         android:allowBackup="true">
 
         <activity android:name=".HKMainMenu"
