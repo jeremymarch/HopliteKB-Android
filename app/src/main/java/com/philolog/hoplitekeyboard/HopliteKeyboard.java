@@ -70,8 +70,14 @@ import android.widget.EditText;
     public boolean capsLock = false;
     public boolean extraKeysLock = false;
 
+    @Override public void onCreate() {
+        super.setTheme(R.style.HKDayNight);
+        super.onCreate();
+    }
+
     @Override
     public View onCreateInputView() {
+        //setTheme(R.style.HKDayNight);
         kv = (HopliteKeyboardView)getLayoutInflater().inflate(R.layout.keyboard, null);
         keyboard = new Keyboard(this, R.xml.hoplitekeyboard);
         kv.setKeyboard(keyboard);

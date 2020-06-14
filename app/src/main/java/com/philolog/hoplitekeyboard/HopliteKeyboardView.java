@@ -47,9 +47,48 @@ public class HopliteKeyboardView extends KeyboardView {
     public boolean mMFPressed = false;
     public boolean caps = false;
 
+    int keyTextColor = 0;
+    int keyTextColorDown = 0;
+    int diacriticTextColor = 0;
+    int diacriticTextColorDown = 0;
+    int punctuationTextColor = 0;
+    int punctuationTextColorDown = 0;
+    int enterTextColor = 0;
+    int enterTextColorDown = 0;
+    int specialTextColor = 0;
+    int specialTextColorDown = 0;
+    int spaceTextColor = 0;
+    int keyboardBgColor = 0;
     public HopliteKeyboardView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
+
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = context.getTheme();
+        theme.resolveAttribute(R.attr.keyTextColor, typedValue, true);
+        keyTextColor = typedValue.data;
+        theme.resolveAttribute(R.attr.keyTextColorDown, typedValue, true);
+        keyTextColorDown = typedValue.data;
+        theme.resolveAttribute(R.attr.diacriticTextColor, typedValue, true);
+        diacriticTextColor = typedValue.data;
+        theme.resolveAttribute(R.attr.diacriticTextColorDown, typedValue, true);
+        diacriticTextColorDown = typedValue.data;
+        theme.resolveAttribute(R.attr.punctuationTextColor, typedValue, true);
+        punctuationTextColor = typedValue.data;
+        theme.resolveAttribute(R.attr.punctuationTextColorDown, typedValue, true);
+        punctuationTextColorDown = typedValue.data;
+        theme.resolveAttribute(R.attr.enterTextColor, typedValue, true);
+        enterTextColor = typedValue.data;
+        theme.resolveAttribute(R.attr.enterTextColorDown, typedValue, true);
+        enterTextColorDown = typedValue.data;
+        theme.resolveAttribute(R.attr.specialTextColor, typedValue, true);
+        specialTextColor = typedValue.data;
+        theme.resolveAttribute(R.attr.specialTextColorDown, typedValue, true);
+        specialTextColorDown = typedValue.data;
+        theme.resolveAttribute(R.attr.spaceTextColor, typedValue, true);
+        spaceTextColor = typedValue.data;
+        theme.resolveAttribute(R.attr.keyboardBgColor, typedValue, true);
+        keyboardBgColor = typedValue.data;
     }
 
     //http://stackoverflow.com/questions/3972445/how-to-put-text-in-a-drawable
@@ -57,33 +96,6 @@ public class HopliteKeyboardView extends KeyboardView {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         Context context = getContext();
-
-        TypedValue typedValue = new TypedValue();
-        Resources.Theme theme = context.getTheme();
-        theme.resolveAttribute(R.attr.keyTextColor, typedValue, true);
-        int keyTextColor = typedValue.data;
-        theme.resolveAttribute(R.attr.keyTextColorDown, typedValue, true);
-        int keyTextColorDown = typedValue.data;
-        theme.resolveAttribute(R.attr.diacriticTextColor, typedValue, true);
-        int diacriticTextColor = typedValue.data;
-        theme.resolveAttribute(R.attr.diacriticTextColorDown, typedValue, true);
-        int diacriticTextColorDown = typedValue.data;
-        theme.resolveAttribute(R.attr.punctuationTextColor, typedValue, true);
-        int punctuationTextColor = typedValue.data;
-        theme.resolveAttribute(R.attr.punctuationTextColorDown, typedValue, true);
-        int punctuationTextColorDown = typedValue.data;
-        theme.resolveAttribute(R.attr.enterTextColor, typedValue, true);
-        int enterTextColor = typedValue.data;
-        theme.resolveAttribute(R.attr.enterTextColorDown, typedValue, true);
-        int enterTextColorDown = typedValue.data;
-        theme.resolveAttribute(R.attr.specialTextColor, typedValue, true);
-        int specialTextColor = typedValue.data;
-        theme.resolveAttribute(R.attr.specialTextColorDown, typedValue, true);
-        int specialTextColorDown = typedValue.data;
-        theme.resolveAttribute(R.attr.spaceTextColor, typedValue, true);
-        int spaceTextColor = typedValue.data;
-        theme.resolveAttribute(R.attr.keyboardBgColor, typedValue, true);
-        int keyboardBgColor = typedValue.data;
 
         Paint paint = new Paint();
 
