@@ -8,7 +8,7 @@ apply plugin: 'com.android.application'
 
         defaultConfig {
             applicationId = "com.philolog.hoplitekeyboard"
-            minSdkVersion 16
+            minSdkVersion 21
             targetSdkVersion 29
 
             ndk {

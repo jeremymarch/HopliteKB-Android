@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="ButtonBlue">#FF007AFF</color>
+    <color name="KBGrey">#999999</color>
+    <color name="orange">#ff3800</color>
+    <color name="teal">#FF00B7FF</color>
+    <color name="ButtonDarkBlue">#FF00006E</color>
+    <color name="ButtonLightBlue">#FF8CDCFF</color>
+    <color name="accentorange">#ffff6046</color>
+    <color name="puncblue">#ff325A8B</color>
+    <color name="MenuButtonBlue">#ff6ca1fc</color>
+</resources>

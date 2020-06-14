@@ -2082,7 +2082,7 @@ UCS2 getSpacingDiacritic(int diacritic)
 //there should be room for a least MAX_COMBINING more characters at the end of ucs2String, in case it needs to grow
 void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool toggleOff, int unicodeMode)
 {
-    if (accentToAdd == IOTA_SUBSCRIPT)
+    if (accentToAdd == UNDERDOT)
     {
         if (ucs2String[*len - 1] == COMBINING_UNDERDOT)
         {

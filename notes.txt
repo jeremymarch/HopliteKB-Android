@@ -4,3 +4,22 @@ https://stackoverflow.com/questions/57634572/how-do-i-implement-custom-view-for-
 
 //draw custom keys:
 http://stackoverflow.com/questions/18224520/how-to-set-different-background-of-keys-for-android-custom-keyboard
+
+https://android.googlesource.com/platform/development/+/master/samples/SoftKeyboard/src/com/example/android/softkeyboard/SoftKeyboard.java#124
+
+http://www.java2s.com/Code/Android/User-Event/Exampleofwritinganinputmethodforasoftkeyboard.htm
+
+https://developer.android.com/studio/projects/android-library
+
+https://stuff.mit.edu/afs/sipb/project/android/docs/guide/topics/text/creating-input-method.html
+
+https://stackoverflow.com/questions/9577304/how-can-you-make-a-custom-keyboard-in-android
+
+https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/refs/heads/master/java
+
+https://stackoverflow.com/questions/57634572/how-do-i-implement-custom-view-for-keyboard-after-keyboard-has-been-deprecated
+
+Night mode:
+https://stackoverflow.com/questions/35629664/how-to-use-the-new-daynight-theme
+
+

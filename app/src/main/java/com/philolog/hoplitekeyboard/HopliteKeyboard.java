@@ -75,6 +75,12 @@ import android.widget.EditText;
         super.onCreate();
     }
 
+    @Override public void onStartInputView (EditorInfo info,
+                                            boolean restarting)
+    {
+        setInputView(onCreateInputView());
+    }
+
     @Override
     public View onCreateInputView() {
         //setTheme(R.style.HKDayNight);

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Hoplite Polytonic Greek Keyboard</string>
+        <string name="simple_ime">Hoplite Keyboard</string>
+        <string name="subtype_en_US">English (US)</string>
+</resources>
