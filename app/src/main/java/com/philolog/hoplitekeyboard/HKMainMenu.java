@@ -26,9 +26,8 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -38,28 +37,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.view.Window;
-import android.util.Log;
-
-import android.app.Activity;
-import android.graphics.Typeface;
-import android.inputmethodservice.Keyboard;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.view.View;
-import android.view.MotionEvent;
-import android.view.WindowManager;
 
 public class HKMainMenu extends AppCompatActivity {
     public TextView mTextView;

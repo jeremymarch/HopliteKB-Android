@@ -59,7 +59,7 @@
         <item name="punctuationTextColor">#FFFFFFFF</item>
         <item name="specialBgColor">#ff676767</item>
         <item name="specialTextColor">#FF000000</item>
-        <item name="enterBgColor">#FF545454</item>
+        <item name="enterBgColor">#FF101012</item>
         <item name="enterTextColor">#FFFFFFFF</item>
 
         <item name="keyBgColorDown">#FF000000</item>
