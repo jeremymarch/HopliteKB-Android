@@ -26,7 +26,10 @@ import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
 import android.inputmethodservice.KeyboardView;
 import android.inputmethodservice.Keyboard;
+import android.os.Build;
 import android.os.Debug;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.ExtractedText;
@@ -45,6 +48,8 @@ import android.os.IBinder;
 import android.app.Dialog;
 import android.view.Window;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatDelegate;
 
 /**
 
@@ -115,6 +120,7 @@ import android.widget.EditText;
                         //Log.e("abc", "preferences changed to: " + unicodeMode);
                     }
                 };
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         return kv;
     }
 
@@ -141,6 +147,8 @@ import android.widget.EditText;
         InputConnection ic = getCurrentInputConnection();
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         unicodeMode = Integer.parseInt(sharedPref.getString("UnicodeMode", "0"));
+        Boolean soundOn = sharedPref.getBoolean("SoundOn", false);
+        Boolean vibrateOn = sharedPref.getBoolean("VibrateOn", false);
 
         if (primaryCode == HKHandleKeys.HKEnterKey) {
 
@@ -174,6 +182,16 @@ import android.widget.EditText;
         }
         else {
             HKHandleKeys.onKey(primaryCode, keyCodes, ic, unicodeMode);
+        }
+        if (soundOn)
+        {
+            playClick(primaryCode);
+            Log.e("abc", "play click");
+        }
+        if (vibrateOn)
+        {
+            vibrate(primaryCode);
+            Log.e("abc", "vibrate");
         }
     }
 
@@ -224,7 +242,26 @@ import android.widget.EditText;
         }
         return window.getAttributes().token;
     }
-    /*
+
+    private void vibrate(int keyCode) {
+
+        //if (isSetVibration) {
+            if (Build.VERSION.SDK_INT >= 26) {
+                ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(VibrationEffect.createOneShot(20, VibrationEffect.DEFAULT_AMPLITUDE));
+            } else {
+                ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(20);
+            }/*
+        } else {
+            if (Build.VERSION.SDK_INT >= 26) {
+                ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(VibrationEffect.createOneShot(0, VibrationEffect.DEFAULT_AMPLITUDE));
+            } else {
+                ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(0);
+            }
+        }*/
+
+
+    }
+
     private void playClick(int keyCode){
         AudioManager am = (AudioManager)getSystemService(AUDIO_SERVICE);
         if (am != null) {
@@ -244,5 +281,5 @@ import android.widget.EditText;
             }
         }
     }
-    */
+
 }

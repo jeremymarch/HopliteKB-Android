@@ -23,11 +23,13 @@ package com.philolog.hoplitekeyboard;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.preference.PreferenceManager;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -61,6 +63,11 @@ public class HKMainMenu extends AppCompatActivity {
 
         Keyboard mKeyboard= new Keyboard(this,R.xml.hoplitekeyboard);
         mKeyboardView = (HopliteKeyboardView)findViewById(R.id.keyboardview);
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        mKeyboardView.soundOn = sharedPref.getBoolean("SoundOn", false);
+        mKeyboardView.vibrateOn = sharedPref.getBoolean("VibrateOn", false);
+
         mKeyboardView.setKeyboard( mKeyboard );
         mKeyboardView.setPreviewEnabled(false); // do not show the preview balloons
 

@@ -45,7 +45,8 @@ public class HopliteKeyboardView extends KeyboardView {
 
     public boolean mMFPressed = false;
     public boolean caps = false;
-
+    public boolean soundOn = false;
+    public boolean vibrateOn = false;
     int keyTextColor = 0;
     int keyTextColorDown = 0;
     int diacriticTextColor = 0;

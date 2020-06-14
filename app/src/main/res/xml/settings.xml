@@ -10,7 +10,14 @@
             android:entries="@array/unicodemodeentries"
             android:entryValues="@array/unicodemodevalues"
             android:defaultValue="0"/>
-
+        <CheckBoxPreference
+            android:key="VibrateOn"
+            android:title="Vibrate"
+            android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="SoundOn"
+            android:title="Sound"
+            android:defaultValue="false" />
 </PreferenceCategory>
 
 </PreferenceScreen>

@@ -28,7 +28,11 @@ import android.content.ContextWrapper;
 import android.content.SharedPreferences;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.KeyboardView;
+import android.media.AudioManager;
+import android.os.Build;
 import android.os.IBinder;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.view.KeyEvent;
@@ -40,6 +44,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.util.Log;
 import android.inputmethodservice.Keyboard;
+
+import static android.content.Context.AUDIO_SERVICE;
 
 public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardActionListener {
     public HopliteKeyboardView kv;
@@ -78,6 +84,17 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
         //}
         else {
             HKHandleKeys.onKey(primaryCode, keyCodes, ic, unicodeMode);
+        }
+
+        if (kv.soundOn)
+        {
+            playClick(primaryCode);
+            Log.e("abc", "play click");
+        }
+        if (kv.vibrateOn)
+        {
+            vibrate(primaryCode);
+            Log.e("abc", "vibrate");
         }
     }
 
@@ -121,5 +138,44 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
     }
 
     @Override public void swipeUp() {
+    }
+
+    private void vibrate(int keyCode) {
+
+        //if (isSetVibration) {
+        if (Build.VERSION.SDK_INT >= 26) {
+            ((Vibrator) c.getSystemService(c.VIBRATOR_SERVICE)).vibrate(VibrationEffect.createOneShot(20, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            ((Vibrator) c.getSystemService(c.VIBRATOR_SERVICE)).vibrate(20);
+        }/*
+        } else {
+            if (Build.VERSION.SDK_INT >= 26) {
+                ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(VibrationEffect.createOneShot(0, VibrationEffect.DEFAULT_AMPLITUDE));
+            } else {
+                ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(0);
+            }
+        }*/
+
+
+    }
+
+    private void playClick(int keyCode){
+        AudioManager am = (AudioManager)c.getSystemService(AUDIO_SERVICE);
+        if (am != null) {
+            switch (keyCode) {
+                case 32:
+                    am.playSoundEffect(AudioManager.FX_KEYPRESS_SPACEBAR);
+                    break;
+                case Keyboard.KEYCODE_DONE:
+                case 10:
+                    am.playSoundEffect(AudioManager.FX_KEYPRESS_RETURN);
+                    break;
+                case Keyboard.KEYCODE_DELETE:
+                    am.playSoundEffect(AudioManager.FX_KEYPRESS_DELETE);
+                    break;
+                default:
+                    am.playSoundEffect(AudioManager.FX_KEYPRESS_STANDARD);
+            }
+        }
     }
 }
