@@ -5,19 +5,21 @@
     android:key="pref_key_storage_settings">
 
         <ListPreference
-            android:key="UnicodeMode"
+            android:key="HKUnicodeMode"
             android:title="Unicode Mode"
             android:entries="@array/unicodemodeentries"
             android:entryValues="@array/unicodemodevalues"
             android:defaultValue="0"/>
         <CheckBoxPreference
-            android:key="VibrateOn"
-            android:title="Vibrate"
-            android:defaultValue="false" />
-        <CheckBoxPreference
-            android:key="SoundOn"
+            android:key="HKSoundOn"
             android:title="Sound"
             android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="HKVibrateOn"
+            android:title="Vibrate"
+            android:defaultValue="false" />
+
+
 </PreferenceCategory>
 
 </PreferenceScreen>

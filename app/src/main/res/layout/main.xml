@@ -31,7 +31,7 @@
 
         android:ems="20"
         android:gravity="start"
-        android:inputType="textMultiLine"
+        android:inputType="textMultiLine|textNoSuggestions"
         android:padding="20dp"
         android:paddingBottom="20dp"
         android:paddingEnd="20dp"

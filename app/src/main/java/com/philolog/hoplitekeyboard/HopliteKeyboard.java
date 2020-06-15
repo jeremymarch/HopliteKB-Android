@@ -107,7 +107,7 @@ import androidx.appcompat.app.AppCompatDelegate;
         kv.setPreviewEnabled(false);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        unicodeMode = Integer.parseInt(sharedPref.getString("UnicodeMode", "0"));
+        unicodeMode = Integer.parseInt(sharedPref.getString("HKUnicodeMode", "0"));
 
         //this doesn't seem to work
         SharedPreferences.OnSharedPreferenceChangeListener spChanged = new
@@ -116,7 +116,7 @@ import androidx.appcompat.app.AppCompatDelegate;
                     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
                                                           String key) {
                         // your stuff here
-                        unicodeMode = Integer.parseInt(sharedPreferences.getString("UnicodeMode", "0"));
+                        unicodeMode = Integer.parseInt(sharedPreferences.getString("HKUnicodeMode", "0"));
                         //Log.e("abc", "preferences changed to: " + unicodeMode);
                     }
                 };
@@ -145,10 +145,14 @@ import androidx.appcompat.app.AppCompatDelegate;
 
     @Override public void onKey(int primaryCode, int[] keyCodes) {
         InputConnection ic = getCurrentInputConnection();
+
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        unicodeMode = Integer.parseInt(sharedPref.getString("UnicodeMode", "0"));
-        Boolean soundOn = sharedPref.getBoolean("SoundOn", false);
-        Boolean vibrateOn = sharedPref.getBoolean("VibrateOn", false);
+        String tempUMode = sharedPref.getString("HKUnicodeMode", "0");
+        if (tempUMode != null) {
+            unicodeMode = Integer.parseInt(tempUMode);
+        }
+        boolean soundOn = sharedPref.getBoolean("HKSoundOn", false);
+        boolean vibrateOn = sharedPref.getBoolean("HKVibrateOn", false);
 
         if (primaryCode == HKHandleKeys.HKEnterKey) {
 

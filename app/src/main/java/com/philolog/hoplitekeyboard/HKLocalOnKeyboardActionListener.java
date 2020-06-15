@@ -54,7 +54,7 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
 
     public boolean capsLock = false;
     public boolean extraKeysLock = false;
-    public int unicodeMode = 1;
+    //public int unicodeMode = 1;
 
     public HKLocalOnKeyboardActionListener(InputConnection icon, HopliteKeyboardView kview, Context co)
     {
@@ -83,7 +83,7 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
         //    imeManager.switchToNextInputMethod(getToken(this), false /* onlyCurrentIme */);
         //}
         else {
-            HKHandleKeys.onKey(primaryCode, keyCodes, ic, unicodeMode);
+            HKHandleKeys.onKey(primaryCode, keyCodes, ic, kv.unicodeMode);
         }
 
         if (kv.soundOn)

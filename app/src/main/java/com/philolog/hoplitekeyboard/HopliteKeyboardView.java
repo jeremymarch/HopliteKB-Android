@@ -47,6 +47,8 @@ public class HopliteKeyboardView extends KeyboardView {
     public boolean caps = false;
     public boolean soundOn = false;
     public boolean vibrateOn = false;
+    public int unicodeMode = 0;
+
     int keyTextColor = 0;
     int keyTextColorDown = 0;
     int diacriticTextColor = 0;
@@ -417,8 +419,13 @@ public class HopliteKeyboardView extends KeyboardView {
 
     public int getUnicodeMode()
     {
+        int uMode = 0;
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
-        return Integer.parseInt(sharedPref.getString("UnicodeMode", "0"));
+        String tempUMode = sharedPref.getString("HKUnicodeMode", "0");
+        if (tempUMode != null) {
+            uMode = Integer.parseInt(tempUMode);
+        }
+        return uMode;
     }
 
     public void showWithAnimation(Animation animation, final Runnable onComplete) {

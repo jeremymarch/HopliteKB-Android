@@ -30,7 +30,7 @@
         android:textColor="#ff000000"
         android:ems="20"
         android:gravity="start"
-        android:inputType="textMultiLine"
+        android:inputType="textMultiLine|textNoSuggestions"
         android:padding="20dp"
         android:paddingBottom="20dp"
         android:paddingEnd="20dp"
@@ -41,7 +41,8 @@
         android:text=""
         android:textAlignment="viewStart"
         android:textSize="44sp"
-        android:textIsSelectable="true"/>
+        android:textIsSelectable="true"
+        />
 
     <TextView
         android:id="@+id/modeView"
@@ -68,7 +69,7 @@
         android:textColor="#ffffffff"
         android:ems="20"
         android:gravity="start"
-        android:inputType="textMultiLine"
+        android:inputType="textMultiLine|textNoSuggestions"
         android:paddingBottom="0dp"
         android:paddingEnd="10dp"
         android:paddingLeft="10dp"

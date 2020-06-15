@@ -45,6 +45,8 @@ public class HKMainMenu extends AppCompatActivity {
     public TextView mTextView;
     public View menuView;
     public HopliteKeyboardView mKeyboardView;
+    private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,8 +67,9 @@ public class HKMainMenu extends AppCompatActivity {
         mKeyboardView = (HopliteKeyboardView)findViewById(R.id.keyboardview);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        mKeyboardView.soundOn = sharedPref.getBoolean("SoundOn", false);
-        mKeyboardView.vibrateOn = sharedPref.getBoolean("VibrateOn", false);
+        mKeyboardView.soundOn = sharedPref.getBoolean("HKSoundOn", false);
+        mKeyboardView.vibrateOn = sharedPref.getBoolean("HKVibrateOn", false);
+        mKeyboardView.unicodeMode = mKeyboardView.getUnicodeMode();
 
         mKeyboardView.setKeyboard( mKeyboard );
         mKeyboardView.setPreviewEnabled(false); // do not show the preview balloons
@@ -74,9 +77,26 @@ public class HKMainMenu extends AppCompatActivity {
         InputConnection ic = mTextView.onCreateInputConnection(new EditorInfo());
         mKeyboardView.setOnKeyboardActionListener(new HKLocalOnKeyboardActionListener(ic, mKeyboardView, getBaseContext()));
 
+        prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+                if (key.equals("HKUnicodeMode")) {
+                    int uMode = 0;
+                    String tempUMode = prefs.getString("HKUnicodeMode", "0");
+                    if (tempUMode != null) {
+                        uMode = Integer.parseInt(tempUMode);
+                    }
+                    mKeyboardView.unicodeMode = uMode;
+                } else if (key.equals("HKSoundOn")) {
+                    mKeyboardView.soundOn = prefs.getBoolean(key, false);
+                } else if (key.equals("HKVibrateOn")) {
+                    mKeyboardView.soundOn = prefs.getBoolean(key, false);
+                }
+            };
+        };
+        sharedPref.registerOnSharedPreferenceChangeListener(prefListener);
+
         mTextView.setOnTouchListener(new View.OnTouchListener(){
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                // your code here....
                 getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 openKeyboard(view, null);
                 return true;
