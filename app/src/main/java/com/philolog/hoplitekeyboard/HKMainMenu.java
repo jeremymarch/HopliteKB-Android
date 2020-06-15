@@ -89,7 +89,7 @@ public class HKMainMenu extends AppCompatActivity {
                 } else if (key.equals("HKSoundOn")) {
                     mKeyboardView.soundOn = prefs.getBoolean(key, false);
                 } else if (key.equals("HKVibrateOn")) {
-                    mKeyboardView.soundOn = prefs.getBoolean(key, false);
+                    mKeyboardView.vibrateOn = prefs.getBoolean(key, false);
                 }
             };
         };
