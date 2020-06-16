@@ -70,8 +70,8 @@
         <item name="punctuationTextColorDown">#FFFFFFFF</item>
         <item name="specialBgColorDown">#ff787786</item>
         <item name="specialTextColorDown">#FFFFFFFF</item>
-        <item name="enterBgColorDown">#FFFFFFFF</item>
-        <item name="enterTextColorDown">@color/ButtonBlue</item>
+        <item name="enterBgColorDown">#FF666666</item>
+        <item name="enterTextColorDown">#FFFFFFFF</item>
 
         <item name="spaceTextColor">@color/KBGrey</item>
         <item name="keyboardBgColor">#FF000000</item>

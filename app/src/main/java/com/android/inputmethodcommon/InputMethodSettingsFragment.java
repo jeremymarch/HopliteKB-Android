@@ -27,19 +27,29 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
+import androidx.preference.PreferenceFragmentCompat;
+
+import com.philolog.hoplitekeyboard.R;
+
 /**
  * This is a helper class for an IME's settings preference fragment. It's recommended for every
  * IME to have its own settings preference fragment which inherits this class.
  */
-public abstract class InputMethodSettingsFragment extends PreferenceFragment
+public abstract class InputMethodSettingsFragment extends PreferenceFragmentCompat
         implements InputMethodSettingsInterface {
     private final InputMethodSettingsImpl mSettings = new InputMethodSettingsImpl();
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        final Context context = getActivity();
-        setPreferenceScreen(getPreferenceManager().createPreferenceScreen(context));
-        mSettings.init(context, getPreferenceScreen());
+
+        //getPreferenceManager().setSharedPreferencesName(PREFS_NAME);
+        //addPreferencesFromResource(R.xml.settings);
+    }
+
+    @Override
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        //setPreferencesFromResource(R.xml.settings, rootKey);
     }
 
     /**

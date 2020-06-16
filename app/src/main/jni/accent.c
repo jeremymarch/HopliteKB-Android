@@ -1808,7 +1808,7 @@ unsigned int updateDiacritics(UCS2 letter, int accentToAdd, unsigned int accentB
     return accentBitMask;
 }
 
-int analyzeCombiningChars(UCS2 *ucs2String, int i, int len, UCS2 *letter, int *accentBitMask)
+int analyzeCombiningChars(UCS2 *ucs2String, int i, int len, UCS2 *letter, unsigned int *accentBitMask)
 {
     unsigned char letterLen = 1;
 
@@ -1878,7 +1878,7 @@ int analyzeCombiningChars(UCS2 *ucs2String, int i, int len, UCS2 *letter, int *a
 
 //passes back the letterCode and diacriticMask for this letter
 //returns the number of characters or -1, if not valid or unknown
-int analyzeLetter(UCS2 *ucs2String, int i, int len, UCS2 *letter, int *accentBitMask)
+int analyzeLetter(UCS2 *ucs2String, int i, int len, UCS2 *letter, unsigned int *accentBitMask)
 {
     int letterLen = analyzeCombiningChars(ucs2String, i, len, letter, accentBitMask);
     
@@ -2008,17 +2008,13 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, UCS2 letter, int accentBitM
     *newLetterLen = 1;
     if (unicode_mode == COMBINING_ONLY_MODE || precomposingFallbackToComposing)
     {
-        return makeLetterCombining(ucs2String, &newLetterLen, letter, accentBitMask, unicodeMode);
+        return makeLetterCombining(ucs2String, newLetterLen, letter, accentBitMask, unicodeMode);
     }
     else
     {
         if (unicode_mode == PRECOMPOSED_WITH_PUA_MODE && (accentBitMask & (_IOTA_SUB | _MACRON)) == (_IOTA_SUB | _MACRON))
         {
             (*newLetterLen)++;
-        }
-        
-        if (unicode_mode == PRECOMPOSED_WITH_PUA_MODE && (accentBitMask & (_IOTA_SUB | _MACRON)) == (_IOTA_SUB | _MACRON))
-        {
             ucs2String[i+1] = COMBINING_IOTA_SUBSCRIPT;
             accentBitMask &= ~_IOTA_SUB; //so we don't get two iota subscripts
         }
@@ -2026,12 +2022,26 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, UCS2 letter, int accentBitM
         int letterIndex = ucs2ToLetterIndex(letter);
         if (letterIndex < 0)
         {
-            return false;
+            if ((accentBitMask & _UNDERDOT) == _UNDERDOT)
+            {
+                ucs2String[i+1] = COMBINING_UNDERDOT;
+                (*newLetterLen)++;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         UCS2 ucs2 = getPrecomposedLetter(letterIndex, accentBitMask);
         if (ucs2 != 0)
         {
             ucs2String[i] = ucs2;
+            if ((accentBitMask & _UNDERDOT) == _UNDERDOT)
+            {
+                ucs2String[i+1] = COMBINING_UNDERDOT;
+                (*newLetterLen)++;
+            }
             return true;
         }
         else
@@ -2114,7 +2124,7 @@ void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool tog
         }
         return;
     }
-    
+
     //1. handle consonants
     if (ucs2String[i] == GREEK_SMALL_LETTER_RHO && accentToAdd == ROUGH_BREATHING)
     {
@@ -2170,21 +2180,22 @@ void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool tog
     
     //2. now analyze what is currently there
     UCS2 baseLetter = 0;
-    int accentBitMask = 0;
+    unsigned int accentBitMask = 0;
     
     //this will be -1 on error
     int letterLen = analyzeLetter(ucs2String, i, *len, &baseLetter, &accentBitMask);
-    if (letterLen < 1) {
-        if (accentToAdd == UNDERDOT)
+    if (accentToAdd == UNDERDOT)
+    {
+        if ((accentBitMask & _UNDERDOT) == _UNDERDOT)
         {
-            if ((accentBitMask & _UNDERDOT) == _UNDERDOT)
-            {
-                //
-            } else {
-                ucsplice(ucs2String, len, 1024, i + *len, 0, (UCS2[]){COMBINING_UNDERDOT}, 1);
-            }
+            //
+        } else {
+            ucsplice(ucs2String, len, 1024, i + *len, 0, (UCS2[]){COMBINING_UNDERDOT}, 1);
         }
-        else if (addSpacingDiacriticIfNotLegal) {
+    }
+    if (letterLen < 1) {
+
+        if (addSpacingDiacriticIfNotLegal) {
             UCS2 sd = getSpacingDiacritic(accentToAdd);
             if (sd) {
                 ucs2String[i + 1] = sd;

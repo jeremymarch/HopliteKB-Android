@@ -30,7 +30,7 @@ import android.os.Build;
 import android.os.Debug;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
@@ -221,6 +221,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 
     @Override public void swipeUp() {
     }
+
     //needed to get token to switch to next keyboard.
     private IBinder getToken() {
         final Dialog dialog = getWindow();

@@ -21,27 +21,14 @@
 
 package com.philolog.hoplitekeyboard;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.ContextWrapper;
-import android.content.SharedPreferences;
-import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.KeyboardView;
 import android.media.AudioManager;
 import android.os.Build;
-import android.os.IBinder;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.preference.PreferenceManager;
-import android.text.Editable;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.Window;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.util.Log;
 import android.inputmethodservice.Keyboard;
 

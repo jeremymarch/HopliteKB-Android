@@ -18,33 +18,27 @@ package com.philolog.hoplitekeyboard;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.android.inputmethodcommon.InputMethodSettingsFragment;
+import static android.preference.PreferenceActivity.EXTRA_NO_HEADERS;
+import static android.preference.PreferenceActivity.EXTRA_SHOW_FRAGMENT;
 
 /**
  * Displays the IME preferences inside the input method setting.
  */
-public class HKSettings extends PreferenceActivity {
-    @Override
-    public Intent getIntent() {
-        final Intent modIntent = new Intent(super.getIntent());
-        modIntent.putExtra(EXTRA_SHOW_FRAGMENT, Settings.class.getName());
-        modIntent.putExtra(EXTRA_NO_HEADERS, true);
-        return modIntent;
-    }
+public class HKSettings extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(android.R.id.content, new Settings())
+                .commit();
+
         // We overwrite the title of the activity, as the default one is "Voice Search".
         setTitle("Hoplite Keyboard Settings");
-    }
-
-    @Override
-    protected boolean isValidFragment(final String fragmentName) {
-        return Settings.class.getName().equals(fragmentName);
     }
 
     public static class Settings extends InputMethodSettingsFragment {
@@ -53,9 +47,10 @@ public class HKSettings extends PreferenceActivity {
             super.onCreate(savedInstanceState);
             setInputMethodSettingsCategoryTitle("Hoplite Keyboard Settings");
             setSubtypeEnablerTitle("Greek");
-
-            // Load the preferences from an XML resource
-            addPreferencesFromResource(R.xml.settings);
         }
+    @Override
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        setPreferencesFromResource(R.xml.settings, rootKey);
+    }
     }
 }

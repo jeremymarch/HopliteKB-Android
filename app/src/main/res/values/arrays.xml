@@ -10,4 +10,14 @@
     <item>1</item>
     <item>2</item>
 </string-array>
+<string-array name="themeentries">
+    <item>Follow System</item>
+    <item>Dark</item>
+    <item>Light</item>
+</string-array>
+<string-array name="themevalues">
+    <item>HKDayNight</item>
+    <item>HKDark</item>
+    <item>HKLight</item>
+</string-array>
 </resources>

@@ -10,15 +10,24 @@
             android:entries="@array/unicodemodeentries"
             android:entryValues="@array/unicodemodevalues"
             android:defaultValue="0"/>
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="HKSoundOn"
             android:title="Sound"
             android:defaultValue="false" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="HKVibrateOn"
             android:title="Vibrate"
             android:defaultValue="false" />
-
+        <!--<CheckBoxPreference
+            android:key="HKSpacingDiacritics"
+            android:title="Enable Spacing Diacritics"
+            android:defaultValue="false" />-->
+        <ListPreference
+            android:key="HKTheme"
+            android:title="Theme"
+            android:entries="@array/themeentries"
+            android:entryValues="@array/themevalues"
+            android:defaultValue="HKDayNight"/>
 
 </PreferenceCategory>
 

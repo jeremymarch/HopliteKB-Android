@@ -28,7 +28,7 @@ import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.animation.Animation;

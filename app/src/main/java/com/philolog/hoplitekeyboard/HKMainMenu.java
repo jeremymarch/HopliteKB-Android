@@ -29,7 +29,7 @@ import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
