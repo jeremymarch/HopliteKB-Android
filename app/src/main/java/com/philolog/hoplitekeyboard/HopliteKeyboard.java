@@ -27,13 +27,10 @@ import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
 import android.inputmethodservice.KeyboardView;
 import android.inputmethodservice.Keyboard;
 import android.os.Build;
-import android.os.Debug;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import androidx.preference.PreferenceManager;
 import android.view.inputmethod.InputConnection;
-import android.view.inputmethod.ExtractedText;
-import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.EditorInfo;
 
 import android.view.inputmethod.InputMethodManager;
@@ -47,9 +44,6 @@ import android.content.Context;
 import android.os.IBinder;
 import android.app.Dialog;
 import android.view.Window;
-import android.widget.EditText;
-
-import androidx.appcompat.app.AppCompatDelegate;
 
 /**
 
@@ -75,30 +69,7 @@ import androidx.appcompat.app.AppCompatDelegate;
     public boolean capsLock = false;
     public boolean extraKeysLock = false;
     private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
-/*
-    public void localSetTheme(Context context)
-    {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        String themeName = sharedPref.getString("HKTheme", "HKDayNight");
-        if (themeName == null)
-        {
-            themeName = "HKDayNight";
-        }
 
-        switch(themeName)
-        {
-            case "HKDark":
-                context.setTheme(R.style.HKDark);
-                break;
-            case "HKLight":
-                context.setTheme(R.style.HKLight);
-                break;
-            default:
-                context.setTheme(R.style.HKDayNight);
-                break;
-        }
-    }
-*/
     @Override public void onCreate() {
         super.onCreate();
     }
@@ -109,7 +80,7 @@ import androidx.appcompat.app.AppCompatDelegate;
     {
         //calling this here allows the theme to reflect current preference settings
         setInputView(onCreateInputView());
-        Log.e("abc", "onstartinputview");
+        //Log.e("abc", "onstartinputview");
     }
 
     @Override
@@ -129,7 +100,7 @@ import androidx.appcompat.app.AppCompatDelegate;
                 kv = (HopliteKeyboardView)getLayoutInflater().inflate(R.layout.keyboard_light, null);
                 break;
             default:
-                kv = (HopliteKeyboardView)getLayoutInflater().inflate(R.layout.keyboard, null);
+                kv = (HopliteKeyboardView)getLayoutInflater().inflate(R.layout.keyboard_daynight, null);
                 break;
         }
 

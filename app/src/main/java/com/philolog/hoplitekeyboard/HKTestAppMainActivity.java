@@ -119,6 +119,8 @@ public class HKTestAppMainActivity extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 openKeyboard(view, null);
+                mTextView.setCursorVisible(true);
+                mTextView.requestFocus();
                 return true;
             }
         });
