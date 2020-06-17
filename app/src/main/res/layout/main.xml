@@ -42,7 +42,9 @@
         android:text=""
         android:textAlignment="viewStart"
         android:textSize="44sp"
-        android:textIsSelectable="true" />
+        android:textIsSelectable="true"
+        android:cursorVisible="true"
+        android:textCursorDrawable="@drawable/cursor"/>
 
     <Button
         android:id="@+id/buttonAbout"

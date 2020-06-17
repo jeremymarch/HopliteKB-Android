@@ -42,7 +42,7 @@
         android:textAlignment="viewStart"
         android:textSize="44sp"
         android:textIsSelectable="true"
-        />
+        android:textCursorDrawable="@drawable/cursor" />
 
     <TextView
         android:id="@+id/modeView"
