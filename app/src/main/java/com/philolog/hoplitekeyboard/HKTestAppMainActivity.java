@@ -47,8 +47,32 @@ public class HKTestAppMainActivity extends AppCompatActivity {
     public HopliteKeyboardView mKeyboardView;
     private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
 
+    public void localSetTheme()
+    {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String themeName = sharedPref.getString("HKTheme", "HKDayNight");
+        if (themeName == null)
+        {
+            themeName = "HKDayNight";
+        }
+
+        switch(themeName)
+        {
+            case "HKDark":
+                setTheme(R.style.HKDark);
+                break;
+            case "HKLight":
+                setTheme(R.style.HKLight);
+                break;
+            default:
+                setTheme(R.style.HKDayNight);
+                break;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        localSetTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hk_testing_activity);
 
@@ -84,6 +108,8 @@ public class HKTestAppMainActivity extends AppCompatActivity {
                     mKeyboardView.soundOn = prefs.getBoolean(key, false);
                 } else if (key.equals("HKVibrateOn")) {
                     mKeyboardView.vibrateOn = prefs.getBoolean(key, false);
+                } else if (key.equals("HKTheme")) {
+                    recreate();
                 }
             };
         };
@@ -167,6 +193,29 @@ public class HKTestAppMainActivity extends AppCompatActivity {
             if( v!=null) {
                 ((InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(v.getWindowToken(), 0);
             }
+        }
+    }
+
+    public void hideKeyboard(View v, Runnable onComplete)
+    {
+        if (mKeyboardView.getVisibility() != View.GONE) {
+/*
+            Animation animation = AnimationUtils
+                    .loadAnimation(HKTestAppMainActivity.this,
+                            R.anim.slide_in_bottom);
+            animation.setRepeatCount(Animation.INFINITE);
+            animation.setRepeatMode(Animation.RESTART);
+            animation.setInterpolator(new LinearInterpolator());
+            mKeyboardView.showWithAnimation(animation, onComplete);
+*/
+            mKeyboardView.setVisibility(View.GONE);
+            /*
+            mKeyboardView.bringToFront();
+            mKeyboardView.setEnabled(true);
+            if( v!=null) {
+                ((InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+             */
         }
     }
 

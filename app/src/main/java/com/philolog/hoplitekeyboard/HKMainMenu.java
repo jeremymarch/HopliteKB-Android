@@ -47,8 +47,32 @@ public class HKMainMenu extends AppCompatActivity {
     public HopliteKeyboardView mKeyboardView;
     private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
 
+    public void localSetTheme()
+    {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String themeName = sharedPref.getString("HKTheme", "HKDayNight");
+        if (themeName == null)
+        {
+            themeName = "HKDayNight";
+        }
+
+        switch(themeName)
+        {
+            case "HKDark":
+                setTheme(R.style.HKDark);
+                break;
+            case "HKLight":
+                setTheme(R.style.HKLight);
+                break;
+            default:
+                setTheme(R.style.HKDayNight);
+                break;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        localSetTheme();
         super.onCreate(savedInstanceState);
 
         //Remove title bar
@@ -90,6 +114,8 @@ public class HKMainMenu extends AppCompatActivity {
                     mKeyboardView.soundOn = prefs.getBoolean(key, false);
                 } else if (key.equals("HKVibrateOn")) {
                     mKeyboardView.vibrateOn = prefs.getBoolean(key, false);
+                } else if (key.equals("HKTheme")) {
+                    recreate();
                 }
             };
         };
@@ -104,7 +130,10 @@ public class HKMainMenu extends AppCompatActivity {
         });
     }
 
+
+
     public void showAbout(View view) {
+        hideKeyboard();
         // Do something in response to button
         Intent intent = new Intent(this, AboutActivity.class);
         //EditText editText = (EditText) findViewById(R.id.edit_message);
@@ -120,6 +149,7 @@ public class HKMainMenu extends AppCompatActivity {
     }
 
     public void showSettings(View view) {
+        hideKeyboard();
         // Do something in response to button
         Intent intent = new Intent(this, HKSettings.class);
         //EditText editText = (EditText) findViewById(R.id.edit_message);
@@ -135,6 +165,7 @@ public class HKMainMenu extends AppCompatActivity {
     }
 
     public void showInstallation(View view) {
+        hideKeyboard();
         // Do something in response to button
         Intent intent = new Intent(this, InstallationActivity.class);
         //EditText editText = (EditText) findViewById(R.id.edit_message);
@@ -150,6 +181,7 @@ public class HKMainMenu extends AppCompatActivity {
     }
 
     public void showTesting(View view) {
+        hideKeyboard();
         // Do something in response to button
         Intent intent = new Intent(this, HKTestAppMainActivity.class);
         //EditText editText = (EditText) findViewById(R.id.edit_message);
@@ -163,8 +195,6 @@ public class HKMainMenu extends AppCompatActivity {
         overridePendingTransition (0, 0);
         startActivity(intent);
     }
-
-
 
     public void openKeyboard(View v, Runnable onComplete)
     {
@@ -185,6 +215,14 @@ public class HKMainMenu extends AppCompatActivity {
                 ((InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(v.getWindowToken(), 0);
             }
             mKeyboardView.bringToFront();
+        }
+    }
+
+    public void hideKeyboard()
+    {
+        if (mKeyboardView.getVisibility() != View.GONE) {
+
+            mKeyboardView.setVisibility(View.GONE);
         }
     }
 
