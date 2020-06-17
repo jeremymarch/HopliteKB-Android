@@ -22,14 +22,9 @@
 
 package com.android.inputmethodcommon;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
-
 import androidx.preference.PreferenceFragmentCompat;
-
-import com.philolog.hoplitekeyboard.R;
 
 /**
  * This is a helper class for an IME's settings preference fragment. It's recommended for every

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <com.philolog.hoplitekeyboard.HopliteKeyboardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/keyboard"
+    android:id="@+id/keyboarddark"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:keyPreviewLayout ="@layout/preview"
-    android:theme="@style/HKDayNight"
+    android:theme="@style/HKDark"
     />

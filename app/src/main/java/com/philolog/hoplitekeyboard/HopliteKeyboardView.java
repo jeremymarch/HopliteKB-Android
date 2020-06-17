@@ -61,9 +61,35 @@ public class HopliteKeyboardView extends KeyboardView {
     int specialTextColorDown = 0;
     int spaceTextColor = 0;
     int keyboardBgColor = 0;
+/*
+    public void localSetTheme(Context context)
+    {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        String themeName = sharedPref.getString("HKTheme", "HKDayNight");
+        if (themeName == null)
+        {
+            themeName = "HKDayNight";
+        }
+
+        switch(themeName)
+        {
+            case "HKDark":
+                context.setTheme(R.style.HKDark);
+                break;
+            case "HKLight":
+                context.setTheme(R.style.HKLight);
+                break;
+            default:
+                context.setTheme(R.style.HKDayNight);
+                break;
+        }
+    }
+    */
     public HopliteKeyboardView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
+
+        //localSetTheme(context);
 
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = context.getTheme();

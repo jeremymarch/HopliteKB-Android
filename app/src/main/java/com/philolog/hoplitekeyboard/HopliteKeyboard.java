@@ -74,39 +74,72 @@ import androidx.appcompat.app.AppCompatDelegate;
 
     public boolean capsLock = false;
     public boolean extraKeysLock = false;
+    private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
+/*
+    public void localSetTheme(Context context)
+    {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        String themeName = sharedPref.getString("HKTheme", "HKDayNight");
+        if (themeName == null)
+        {
+            themeName = "HKDayNight";
+        }
 
+        switch(themeName)
+        {
+            case "HKDark":
+                context.setTheme(R.style.HKDark);
+                break;
+            case "HKLight":
+                context.setTheme(R.style.HKLight);
+                break;
+            default:
+                context.setTheme(R.style.HKDayNight);
+                break;
+        }
+    }
+*/
     @Override public void onCreate() {
-        super.setTheme(R.style.HKDayNight);
         super.onCreate();
     }
 
-    @Override public void onStartInputView (EditorInfo info,
-                                            boolean restarting)
+    //this is called each time the keyboard comes up
+    @Override
+    public void onStartInputView (EditorInfo info, boolean restarting)
     {
+        //calling this here allows the theme to reflect current preference settings
         setInputView(onCreateInputView());
+        Log.e("abc", "onstartinputview");
     }
 
     @Override
     public View onCreateInputView() {
-        //setTheme(R.style.HKDayNight);
-        kv = (HopliteKeyboardView)getLayoutInflater().inflate(R.layout.keyboard, null);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String theme = sharedPref.getString("HKTheme", "HKDayNight");
+        if (theme == null)
+        {
+            theme = "HKDayNight";
+        }
+        switch(theme)
+        {
+            case "HKDark":
+                kv = (HopliteKeyboardView)getLayoutInflater().inflate(R.layout.keyboard_dark, null);
+                break;
+            case "HKLight":
+                kv = (HopliteKeyboardView)getLayoutInflater().inflate(R.layout.keyboard_light, null);
+                break;
+            default:
+                kv = (HopliteKeyboardView)getLayoutInflater().inflate(R.layout.keyboard, null);
+                break;
+        }
+
         keyboard = new Keyboard(this, R.xml.hoplitekeyboard);
         kv.setKeyboard(keyboard);
-        //kv.setOnKeyboardActionListener(this);
-        /*
-        InputConnection ic = getCurrentInputConnection();
-        kal = new HKNewOnKeyboardActionListener(kv);
-        kal.unicodeMode = 1;
-        kal.ic = getCurrentInputConnection();
-        kal.ims = this;
-        kv.setOnKeyboardActionListener(kal);*/
         kv.setOnKeyboardActionListener(this);
-
 
         //this removes the yellow preview when key is pressed.
         kv.setPreviewEnabled(false);
-
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+/* we check this on each key anyway, so no need to set it here
         unicodeMode = Integer.parseInt(sharedPref.getString("HKUnicodeMode", "0"));
 
         //this doesn't seem to work
@@ -115,12 +148,13 @@ import androidx.appcompat.app.AppCompatDelegate;
                     @Override
                     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
                                                           String key) {
-                        // your stuff here
-                        unicodeMode = Integer.parseInt(sharedPreferences.getString("HKUnicodeMode", "0"));
-                        //Log.e("abc", "preferences changed to: " + unicodeMode);
-                    }
-                };
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                // your stuff here
+                unicodeMode = Integer.parseInt(sharedPreferences.getString("HKUnicodeMode", "0"));
+                //Log.e("abc", "preferences changed to: " + unicodeMode);
+            }
+        };*/
+
+        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         return kv;
     }
 
