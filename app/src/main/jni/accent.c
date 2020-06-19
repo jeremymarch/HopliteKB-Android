@@ -17,9 +17,15 @@
 #include "GreekUnicode.h"
 #include "accent.h"
 
+#include <android/log.h>
+#define  LOG_TAG    "your-log-tag"
+#define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
+#define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
+// If you want you can add other log definition for info, warning etc
+
 #define ALLOW_PRIVATE_USE_AREA 1
 #define ALLOW_RHO_WITH_PSILI 0
-#define MAX_COMBINING 5 //macron, breathing, accent, iota subscript || diaeresis, macron, accent
+#define MAX_COMBINING 6 //macron, breathing, accent, iota subscript || diaeresis, macron, accent, underdot
 
 char unicode_mode = PRECOMPOSED_MODE; //set default
 bool addSpacingDiacriticIfNotLegal = false;
@@ -1790,6 +1796,12 @@ unsigned int updateDiacritics(UCS2 letter, int accentToAdd, unsigned int accentB
                 accentBitMask |= _IOTA_SUB;
             accentBitMask &= ~_BREVE;
             break;
+        case UNDERDOT:
+            if (toggleOff && (accentBitMask & _UNDERDOT) == _UNDERDOT)
+                accentBitMask &= ~_UNDERDOT;
+            else
+                accentBitMask |= _UNDERDOT;
+            break;
         case DIAERESIS:
             if (letter == GREEK_CAPITAL_LETTER_IOTA || letter == GREEK_CAPITAL_LETTER_UPSILON)
             {
@@ -1982,7 +1994,7 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, UCS2 letter, int accentBitM
     //Use both, if macron use combining
     //Use only combining accents
     int i = 0;
-    
+
     //fallback if macron + one more diacritic
     bool precomposingFallbackToComposing = false;
     if ((unicode_mode == PRECOMPOSED_MODE && (accentBitMask & _MACRON) == _MACRON) || (unicodeMode == PRECOMPOSED_WITH_PUA_MODE && (accentBitMask & (_MACRON | _DIAERESIS)) == (_MACRON | _DIAERESIS)))
@@ -2012,16 +2024,18 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, UCS2 letter, int accentBitM
     }
     else
     {
+        //fix me
+        bool needToAddIotaSubscript = false;
         if (unicode_mode == PRECOMPOSED_WITH_PUA_MODE && (accentBitMask & (_IOTA_SUB | _MACRON)) == (_IOTA_SUB | _MACRON))
         {
-            (*newLetterLen)++;
-            ucs2String[i+1] = COMBINING_IOTA_SUBSCRIPT;
+            needToAddIotaSubscript = true;
             accentBitMask &= ~_IOTA_SUB; //so we don't get two iota subscripts
         }
-        
+
         int letterIndex = ucs2ToLetterIndex(letter);
         if (letterIndex < 0)
         {
+            //still add underdot even if not a vowel
             if ((accentBitMask & _UNDERDOT) == _UNDERDOT)
             {
                 ucs2String[i+1] = COMBINING_UNDERDOT;
@@ -2033,13 +2047,25 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, UCS2 letter, int accentBitM
                 return false;
             }
         }
+
+        bool needToAddUnderdot = false;
+        if ((accentBitMask & _UNDERDOT) == _UNDERDOT)
+        {
+            needToAddUnderdot = true;
+            accentBitMask &= ~_UNDERDOT; //turn off while we add precomposed char
+        }
         UCS2 ucs2 = getPrecomposedLetter(letterIndex, accentBitMask);
         if (ucs2 != 0)
         {
             ucs2String[i] = ucs2;
-            if ((accentBitMask & _UNDERDOT) == _UNDERDOT)
+            if (needToAddIotaSubscript)
             {
-                ucs2String[i+1] = COMBINING_UNDERDOT;
+                (*newLetterLen)++;
+                ucs2String[++i] = COMBINING_IOTA_SUBSCRIPT;
+            }
+            if (needToAddUnderdot)
+            {
+                ucs2String[++i] = COMBINING_UNDERDOT;
                 (*newLetterLen)++;
             }
             return true;
@@ -2048,8 +2074,6 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, UCS2 letter, int accentBitM
         {
             return false;
         }
-        
-        //fprintf(stderr, "final len: %d\n", *len);
     }
 }
 
@@ -2092,6 +2116,7 @@ UCS2 getSpacingDiacritic(int diacritic)
 //there should be room for a least MAX_COMBINING more characters at the end of ucs2String, in case it needs to grow
 void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool toggleOff, int unicodeMode)
 {
+    /* remove?
     if (accentToAdd == UNDERDOT)
     {
         if (ucs2String[*len - 1] == COMBINING_UNDERDOT)
@@ -2107,13 +2132,12 @@ void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool tog
         }
         return;
     }
-
+*/
     if (unicodeMode != PRECOMPOSED_MODE && unicodeMode != PRECOMPOSED_WITH_PUA_MODE && unicodeMode != COMBINING_ONLY_MODE && unicodeMode != PRECOMPOSED_HC_MODE)
     {
         unicodeMode = PRECOMPOSED_MODE;
     }
     unicode_mode = unicodeMode;
-    
     if (*len < 1) {
         if (addSpacingDiacriticIfNotLegal) {
             UCS2 sd = getSpacingDiacritic(accentToAdd);
@@ -2177,25 +2201,27 @@ void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool tog
         ucsplice(ucs2String, len, 1024, i, 1, (UCS2[]){LEFT_PARENTHESIS,GREEK_SMALL_LETTER_NU,RIGHT_PARENTHESIS }, 3);
         return;
     }
-    
+
     //2. now analyze what is currently there
     UCS2 baseLetter = 0;
     unsigned int accentBitMask = 0;
     
     //this will be -1 on error
     int letterLen = analyzeLetter(ucs2String, i, *len, &baseLetter, &accentBitMask);
-    if (accentToAdd == UNDERDOT)
-    {
-        if ((accentBitMask & _UNDERDOT) == _UNDERDOT)
-        {
-            //
-        } else {
-            ucsplice(ucs2String, len, 1024, i + *len, 0, (UCS2[]){COMBINING_UNDERDOT}, 1);
-        }
-    }
+
     if (letterLen < 1) {
 
-        if (addSpacingDiacriticIfNotLegal) {
+
+        if (accentToAdd == UNDERDOT)
+        {
+            if ((accentBitMask & _UNDERDOT) == _UNDERDOT)
+            {
+                (*len)--;
+            } else {
+                ucsplice(ucs2String, len, 1024, i + *len, 0, (UCS2[]){COMBINING_UNDERDOT}, 1);
+            }
+        }
+        else if (addSpacingDiacriticIfNotLegal) {
             UCS2 sd = getSpacingDiacritic(accentToAdd);
             if (sd) {
                 ucs2String[i + 1] = sd;
@@ -2204,6 +2230,7 @@ void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool tog
         }
         return;
     }
+
     //2.5: return if this diacritic isn't legal for the letter it's being added to
     if (!isLegalDiacriticForLetter(baseLetter, accentToAdd)) {
         if (addSpacingDiacriticIfNotLegal) {
@@ -2215,7 +2242,7 @@ void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool tog
         }
         return;
     }
-    
+
     //3. this changes old letter analysis to the one we want
     accentBitMask = updateDiacritics(baseLetter, accentToAdd, accentBitMask, toggleOff);
     

@@ -4,6 +4,14 @@
     android:title="Hoplite Keyboard Settings"
     android:key="pref_key_storage_settings">
 
+        <SwitchPreferenceCompat
+            android:key="HKSoundOn"
+            android:title="Sound"
+            android:defaultValue="false" />
+        <SwitchPreferenceCompat
+            android:key="HKVibrateOn"
+            android:title="Vibrate"
+            android:defaultValue="false" />
         <ListPreference
             android:key="HKUnicodeMode"
             android:title="Unicode Mode"
@@ -16,14 +24,6 @@
             android:entries="@array/themeentries"
             android:entryValues="@array/themevalues"
             android:defaultValue="HKDayNight"/>
-        <SwitchPreferenceCompat
-            android:key="HKSoundOn"
-            android:title="Sound"
-            android:defaultValue="false" />
-        <SwitchPreferenceCompat
-            android:key="HKVibrateOn"
-            android:title="Vibrate"
-            android:defaultValue="false" />
         <!--<CheckBoxPreference
             android:key="HKSpacingDiacritics"
             android:title="Enable Spacing Diacritics"

@@ -29,7 +29,6 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.KeyEvent;
 import android.view.inputmethod.InputConnection;
-import android.util.Log;
 import android.inputmethodservice.Keyboard;
 
 import static android.content.Context.AUDIO_SERVICE;
@@ -76,12 +75,10 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
         if (kv.soundOn)
         {
             playClick(primaryCode);
-            Log.e("abc", "play click");
         }
         if (kv.vibrateOn)
         {
-            vibrate(primaryCode);
-            Log.e("abc", "vibrate");
+            vibrate();
         }
     }
 
@@ -127,37 +124,26 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
     @Override public void swipeUp() {
     }
 
-    private void vibrate(int keyCode) {
+    private void vibrate() {
 
-        //if (isSetVibration) {
         if (Build.VERSION.SDK_INT >= 26) {
             ((Vibrator) c.getSystemService(c.VIBRATOR_SERVICE)).vibrate(VibrationEffect.createOneShot(20, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
             ((Vibrator) c.getSystemService(c.VIBRATOR_SERVICE)).vibrate(20);
-        }/*
-        } else {
-            if (Build.VERSION.SDK_INT >= 26) {
-                ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(VibrationEffect.createOneShot(0, VibrationEffect.DEFAULT_AMPLITUDE));
-            } else {
-                ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(0);
-            }
-        }*/
-
-
+        }
     }
 
     private void playClick(int keyCode){
         AudioManager am = (AudioManager)c.getSystemService(AUDIO_SERVICE);
         if (am != null) {
             switch (keyCode) {
-                case 32:
+                case HKHandleKeys.HKSpaceKey:
                     am.playSoundEffect(AudioManager.FX_KEYPRESS_SPACEBAR);
                     break;
-                case Keyboard.KEYCODE_DONE:
-                case 10:
+                case HKHandleKeys.HKEnterKey:
                     am.playSoundEffect(AudioManager.FX_KEYPRESS_RETURN);
                     break;
-                case Keyboard.KEYCODE_DELETE:
+                case HKHandleKeys.HKDeleteKey:
                     am.playSoundEffect(AudioManager.FX_KEYPRESS_DELETE);
                     break;
                 default:

@@ -68,7 +68,7 @@ import android.view.Window;
 
     public boolean capsLock = false;
     public boolean extraKeysLock = false;
-    private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
+    //private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
 
     @Override public void onCreate() {
         super.onCreate();
@@ -150,7 +150,10 @@ import android.view.Window;
 
     @Override public void onKey(int primaryCode, int[] keyCodes) {
         InputConnection ic = getCurrentInputConnection();
-
+        if (ic == null)
+        {
+            return;
+        }
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String tempUMode = sharedPref.getString("HKUnicodeMode", "0");
         if (tempUMode != null) {
@@ -186,8 +189,7 @@ import android.view.Window;
             capsLock = false; //force initial lowercase when pressing extra key
             setKeys(this, kv);
         } else if (primaryCode == HKHandleKeys.HKGlobeKey) {
-            InputMethodManager imeManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-            imeManager.switchToNextInputMethod(getToken(this), false /* onlyCurrentIme */);
+            nextKeyboard();
         }
         else {
             HKHandleKeys.onKey(primaryCode, keyCodes, ic, unicodeMode);
@@ -195,12 +197,10 @@ import android.view.Window;
         if (soundOn)
         {
             playClick(primaryCode);
-            Log.e("abc", "play click");
         }
         if (vibrateOn)
         {
-            vibrate(primaryCode);
-            Log.e("abc", "vibrate");
+            vibrate();
         }
     }
 
@@ -227,17 +227,10 @@ import android.view.Window;
     @Override public void swipeUp() {
     }
 
-    //needed to get token to switch to next keyboard.
-    private IBinder getToken() {
-        final Dialog dialog = getWindow();
-        if (dialog == null) {
-            return null;
-        }
-        final Window window = dialog.getWindow();
-        if (window == null) {
-            return null;
-        }
-        return window.getAttributes().token;
+    private void nextKeyboard()
+    {
+        InputMethodManager imeManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imeManager.switchToNextInputMethod(getToken(this), false /* onlyCurrentIme */);
     }
 
     //needed to get token to switch to next keyboard.
@@ -253,37 +246,25 @@ import android.view.Window;
         return window.getAttributes().token;
     }
 
-    private void vibrate(int keyCode) {
-
-        //if (isSetVibration) {
-            if (Build.VERSION.SDK_INT >= 26) {
-                ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(VibrationEffect.createOneShot(20, VibrationEffect.DEFAULT_AMPLITUDE));
-            } else {
-                ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(20);
-            }/*
+    private void vibrate() {
+        if (Build.VERSION.SDK_INT >= 26) {
+            ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(VibrationEffect.createOneShot(20, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
-            if (Build.VERSION.SDK_INT >= 26) {
-                ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(VibrationEffect.createOneShot(0, VibrationEffect.DEFAULT_AMPLITUDE));
-            } else {
-                ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(0);
-            }
-        }*/
-
-
+            ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(20);
+        }
     }
 
     private void playClick(int keyCode){
         AudioManager am = (AudioManager)getSystemService(AUDIO_SERVICE);
         if (am != null) {
             switch (keyCode) {
-                case 32:
+                case HKHandleKeys.HKSpaceKey:
                     am.playSoundEffect(AudioManager.FX_KEYPRESS_SPACEBAR);
                     break;
-                case Keyboard.KEYCODE_DONE:
-                case 10:
+                case HKHandleKeys.HKEnterKey: //enter
                     am.playSoundEffect(AudioManager.FX_KEYPRESS_RETURN);
                     break;
-                case Keyboard.KEYCODE_DELETE:
+                case HKHandleKeys.HKDeleteKey: //delete
                     am.playSoundEffect(AudioManager.FX_KEYPRESS_DELETE);
                     break;
                 default:
