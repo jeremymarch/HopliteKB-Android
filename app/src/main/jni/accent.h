@@ -59,9 +59,9 @@ void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool tog
 
 int scanLetter(UCS2 *ucs2String, int i, int len, UCS2 *letterCode, int *accentBitMask);
 int analyzeLetter(UCS2 *ucs2String, int i, int len, UCS2 *letterCode, unsigned int *accentBitMask);
-int analyzePrecomposedLetter(UCS2 letterToAnalyze, UCS2 *l, int *a);
+int analyzePrecomposedLetter(UCS2 letterToAnalyze, UCS2 *l, unsigned int *a);
 
-bool makeLetter(UCS2 *ucs2String, int *newLetterLen, UCS2 letterCode, int accentBitMask, int unicodeMode);
+bool makeLetter(UCS2 *ucs2String, int *newLetterLen, UCS2 letterCode, unsigned int accentBitMask, int unicodeMode);
 
 bool isCombiningDiacritic(UCS2 l);
 

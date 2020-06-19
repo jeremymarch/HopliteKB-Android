@@ -872,7 +872,7 @@ bool analyzePrecomposedLetterOLD(UCS2 letter, int *l, int *a)
  For ACCENTABLE_CHAR it puts the base vowel in *l and an accentBitMask in *a
  For NOT_ACCENTABLE_CHAR it puts the consonant in *l which will be the same as letterToAnalyze
  */
-int analyzePrecomposedLetter(UCS2 letterToAnalyze, UCS2 *l, int *a)
+int analyzePrecomposedLetter(UCS2 letterToAnalyze, UCS2 *l, unsigned int *a)
 {
     int offset = 0;
     UCS2 returnChar = 0; //will be NOCHAR, NOT_ACCENTABLE_CHAR, or the base vowel if ACCENTABLE_CHAR
@@ -1125,8 +1125,8 @@ int compareSort(int len_a, const unsigned char *a, int len_b, const unsigned cha
     int type_b = 0;
     UCS2 base_a = 0; //the base chars
     UCS2 base_b = 0; //the base chars
-    int diacritics_a = 0;
-    int diacritics_b = 0;
+    unsigned diacritics_a = 0;
+    unsigned diacritics_b = 0;
     int idx_a = 0;
     int idx_b = 0;
     const unsigned char *end_a;
@@ -1903,7 +1903,7 @@ int analyzeLetter(UCS2 *ucs2String, int i, int len, UCS2 *letter, unsigned int *
     return letterLen;
 }
 
-bool makeLetterCombining(UCS2 *ucs2String, int *newLetterLen, UCS2 letter, int accentBitMask, int unicodeMode)
+bool makeLetterCombining(UCS2 *ucs2String, int *newLetterLen, UCS2 letter, unsigned int accentBitMask, int unicodeMode)
 {
     int i = 0;
 
@@ -1988,7 +1988,7 @@ bool makeLetterCombining(UCS2 *ucs2String, int *newLetterLen, UCS2 letter, int a
     return true;
 }
 
-bool makeLetter(UCS2 *ucs2String, int *newLetterLen, UCS2 letter, int accentBitMask, int unicodeMode)
+bool makeLetter(UCS2 *ucs2String, int *newLetterLen, UCS2 letter, unsigned int accentBitMask, int unicodeMode)
 {
     //Use PUA, - almost all precomposing except alpha macron, breathing, accent, iota_sub, if iota_sub use combining
     //Use both, if macron use combining
