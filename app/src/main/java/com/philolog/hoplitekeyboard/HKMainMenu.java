@@ -127,7 +127,7 @@ public class HKMainMenu extends AppCompatActivity {
                 openKeyboard(view, null);
                 mTextView.setCursorVisible(true);
                 mTextView.requestFocus();
-                return true;
+                return true; //true blocks copy/paste, but also prevents normal keyboard from appearing
             }
         });
     }
