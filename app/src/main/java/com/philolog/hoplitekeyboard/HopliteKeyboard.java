@@ -171,7 +171,7 @@ import android.view.Window;
                 case EditorInfo.IME_ACTION_SEARCH:
                 case EditorInfo.IME_ACTION_GO:
                 case EditorInfo.IME_ACTION_SEND:
-                case EditorInfo.IME_ACTION_DONE:
+                //case EditorInfo.IME_ACTION_DONE: //this broke when we want \n??
                 case EditorInfo.IME_ACTION_NEXT:
                 case EditorInfo.IME_ACTION_PREVIOUS:
                     this.sendDefaultEditorAction(true);
