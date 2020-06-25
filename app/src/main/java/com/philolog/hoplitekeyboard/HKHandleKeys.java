@@ -22,7 +22,7 @@ public class HKHandleKeys {
 
     public final static int COMBINING_GRAVE             = 0x0300;
     public final static int COMBINING_ACUTE             = 0x0301;
-    public final static int COMBINING_CIRCUMFLEX        = 0x0302;
+    public final static int COMBINING_CIRCUMFLEX        = 0x0342; //0x0302
     public final static int COMBINING_MACRON            = 0x0304;
     public final static int COMBINING_DIAERESIS         = 0x0308;
     public final static int COMBINING_SMOOTH_BREATHING  = 0x0313;
