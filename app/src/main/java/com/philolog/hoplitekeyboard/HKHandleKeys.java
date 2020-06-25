@@ -110,8 +110,11 @@ public class HKHandleKeys {
             }
         } else if (primaryCode == HKDeleteKey) {
             //cursor could be between character and combining accents...
-            String strBefore = ic.getTextBeforeCursor(MAX_COMBINING_DIACRITICS, 0).toString();
-
+            CharSequence charsBefore = ic.getTextBeforeCursor(MAX_COMBINING_DIACRITICS, 0);
+            if (charsBefore == null) {
+                return;
+            }
+            String strBefore = charsBefore.toString();
             int strBeforeLen = strBefore.length();
             if (strBeforeLen < 1) {
                 return;
@@ -158,7 +161,7 @@ public class HKHandleKeys {
 
     public static void localAccentLetter(InputConnection ic, int start, int acc, int unicodeMode)
     {
-        GreekVerb gv1 = new GreekVerb();
+        //GreekVerb gv1 = new GreekVerb();
 
         ExtractedText et = ic.getExtractedText(new ExtractedTextRequest(), 0);
         if (et == null) {
@@ -168,7 +171,11 @@ public class HKHandleKeys {
         int selectionEnd = et.selectionEnd;
 
         int maxSubstringForAccent = 7;
-        String strBefore = ic.getTextBeforeCursor(maxSubstringForAccent, 0).toString();
+        CharSequence charsBefore = ic.getTextBeforeCursor(maxSubstringForAccent, 0);
+        if (charsBefore == null) {
+            return;
+        }
+        String strBefore = charsBefore.toString();
 
         int strBeforeLen = strBefore.length();
         if (strBeforeLen < 1) {
@@ -183,10 +190,10 @@ public class HKHandleKeys {
 
         if (strBeforeLen < 1)
         {
-            accentedLetter = gv1.addAccent(acc, unicodeMode, "");
+            accentedLetter = GreekVerb.addAccent(acc, unicodeMode, "");
         }
         else {
-            accentedLetter = gv1.addAccent(acc, unicodeMode, strBefore.substring(strBeforeLen - cc - 1, strBeforeLen));
+            accentedLetter = GreekVerb.addAccent(acc, unicodeMode, strBefore.substring(strBeforeLen - cc - 1, strBeforeLen));
         }
 
         if (!accentedLetter.equals("")) {
