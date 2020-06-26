@@ -43,7 +43,8 @@ import android.view.MotionEvent;
 import android.view.WindowManager;
 
 public class HKTestAppMainActivity extends AppCompatActivity {
-    public TextView mTextView, mCodePointTextView, mModeView;
+    public HCGreekEditText mTextView;
+    public TextView mCodePointTextView, mModeView;
     public HopliteKeyboardView mKeyboardView;
     private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
 
@@ -77,7 +78,7 @@ public class HKTestAppMainActivity extends AppCompatActivity {
         setContentView(R.layout.hk_testing_activity);
 
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/newathu5.ttf");
-        mTextView = (TextView) findViewById(R.id.mTextView);
+        mTextView = (HCGreekEditText) findViewById(R.id.mTextView);
         mModeView = (TextView) findViewById(R.id.modeView);
         mCodePointTextView = (TextView) findViewById(R.id.mCodePointTextView);
         mTextView.setTypeface(type);
@@ -118,10 +119,10 @@ public class HKTestAppMainActivity extends AppCompatActivity {
         mTextView.setOnTouchListener(new View.OnTouchListener(){
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-                openKeyboard(view, null);
+                mKeyboardView.openKeyboard(view, null);
                 mTextView.setCursorVisible(true);
                 mTextView.requestFocus();
-                return true; //true blocks copy/paste, but also prevents normal keyboard from appearing
+                return false; //true blocks copy/paste, but also prevents normal keyboard from appearing
             }
         });
 
@@ -176,7 +177,7 @@ public class HKTestAppMainActivity extends AppCompatActivity {
             }
         });
     }
-
+/*
     public void openKeyboard(View v, Runnable onComplete)
     {
         if (mKeyboardView.getVisibility() == View.GONE) {
@@ -201,31 +202,15 @@ public class HKTestAppMainActivity extends AppCompatActivity {
     public void hideKeyboard(View v, Runnable onComplete)
     {
         if (mKeyboardView.getVisibility() != View.GONE) {
-/*
-            Animation animation = AnimationUtils
-                    .loadAnimation(HKTestAppMainActivity.this,
-                            R.anim.slide_in_bottom);
-            animation.setRepeatCount(Animation.INFINITE);
-            animation.setRepeatMode(Animation.RESTART);
-            animation.setInterpolator(new LinearInterpolator());
-            mKeyboardView.showWithAnimation(animation, onComplete);
-*/
             mKeyboardView.setVisibility(View.GONE);
-            /*
-            mKeyboardView.bringToFront();
-            mKeyboardView.setEnabled(true);
-            if( v!=null) {
-                ((InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(v.getWindowToken(), 0);
-            }
-             */
         }
     }
-
+*/
     @Override
     public void onResume() {
         super.onResume();
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/newathu5.ttf");
-        mTextView = (TextView) findViewById(R.id.mTextView);
+        mTextView = (HCGreekEditText) findViewById(R.id.mTextView);
         mTextView.setTypeface(type);
         //Log.e("abc", "resumed");
     }

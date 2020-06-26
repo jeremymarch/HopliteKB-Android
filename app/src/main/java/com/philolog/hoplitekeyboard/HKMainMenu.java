@@ -42,7 +42,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 public class HKMainMenu extends AppCompatActivity {
-    public TextView mTextView;
+    public HCGreekEditText mTextView;
     public View menuView;
     public HopliteKeyboardView mKeyboardView;
     private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
@@ -83,7 +83,7 @@ public class HKMainMenu extends AppCompatActivity {
         setContentView(R.layout.main);
 
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/newathu5.ttf");
-        mTextView = (TextView) findViewById(R.id.mTextView);
+        mTextView = (HCGreekEditText) findViewById(R.id.mTextView);
         menuView = findViewById(R.id.HKMenu);
         mTextView.setTypeface(type);
 
@@ -124,18 +124,17 @@ public class HKMainMenu extends AppCompatActivity {
         mTextView.setOnTouchListener(new View.OnTouchListener(){
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-                openKeyboard(view, null);
+                mKeyboardView.openKeyboard(view, null);
                 mTextView.setCursorVisible(true);
                 mTextView.requestFocus();
-                return true; //true blocks copy/paste, but also prevents normal keyboard from appearing
+                return false; //true blocks copy/paste, but also prevents normal keyboard from appearing
             }
         });
+
     }
 
-
-
     public void showAbout(View view) {
-        hideKeyboard();
+        mKeyboardView.hideKeyboard();
         // Do something in response to button
         Intent intent = new Intent(this, AboutActivity.class);
         //EditText editText = (EditText) findViewById(R.id.edit_message);
@@ -151,7 +150,7 @@ public class HKMainMenu extends AppCompatActivity {
     }
 
     public void showSettings(View view) {
-        hideKeyboard();
+        mKeyboardView.hideKeyboard();
         // Do something in response to button
         Intent intent = new Intent(this, HKSettings.class);
         //EditText editText = (EditText) findViewById(R.id.edit_message);
@@ -167,7 +166,7 @@ public class HKMainMenu extends AppCompatActivity {
     }
 
     public void showInstallation(View view) {
-        hideKeyboard();
+        mKeyboardView.hideKeyboard();
         // Do something in response to button
         Intent intent = new Intent(this, InstallationActivity.class);
         //EditText editText = (EditText) findViewById(R.id.edit_message);
@@ -183,7 +182,7 @@ public class HKMainMenu extends AppCompatActivity {
     }
 
     public void showTesting(View view) {
-        hideKeyboard();
+        mKeyboardView.hideKeyboard();
         // Do something in response to button
         Intent intent = new Intent(this, HKTestAppMainActivity.class);
         //EditText editText = (EditText) findViewById(R.id.edit_message);
@@ -197,7 +196,7 @@ public class HKMainMenu extends AppCompatActivity {
         overridePendingTransition (0, 0);
         startActivity(intent);
     }
-
+/*
     public void openKeyboard(View v, Runnable onComplete)
     {
         if (mKeyboardView.getVisibility() == View.GONE) {
@@ -227,12 +226,12 @@ public class HKMainMenu extends AppCompatActivity {
             mKeyboardView.setVisibility(View.GONE);
         }
     }
-
+*/
     @Override
     public void onResume() {
         super.onResume();
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/newathu5.ttf");
-        mTextView = (TextView) findViewById(R.id.mTextView);
+        mTextView = (HCGreekEditText) findViewById(R.id.mTextView);
         mTextView.setTypeface(type);
         //Log.e("abc", "resumed");
     }

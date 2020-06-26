@@ -21,6 +21,7 @@
 
 package com.philolog.hoplitekeyboard;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -33,7 +34,12 @@ import android.inputmethodservice.KeyboardView;
 import androidx.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.inputmethod.InputMethodManager;
+
 import androidx.core.content.ContextCompat;
 
 import java.util.List;
@@ -453,5 +459,35 @@ public class HopliteKeyboardView extends KeyboardView {
     }
     public void hideKBWithAnimation(Animation animation, final Runnable onComplete) {
 
+    }
+
+    public void openKeyboard(View v, Runnable onComplete)
+    {
+        if (this.getVisibility() == View.GONE) {
+
+            Animation animation = AnimationUtils
+                    .loadAnimation(v.getContext(),
+                            R.anim.slide_in_bottom);
+            animation.setRepeatCount(Animation.INFINITE);
+            animation.setRepeatMode(Animation.RESTART);
+            animation.setInterpolator(new LinearInterpolator());
+            this.showWithAnimation(animation, onComplete);
+
+            this.setVisibility(View.VISIBLE);
+
+            this.setEnabled(true);
+            if( v!=null) {
+                ((InputMethodManager) v.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+            this.bringToFront();
+        }
+    }
+
+    public void hideKeyboard()
+    {
+        if (this.getVisibility() != View.GONE) {
+
+            this.setVisibility(View.GONE);
+        }
     }
 }
