@@ -45,6 +45,8 @@ import android.os.IBinder;
 import android.app.Dialog;
 import android.view.Window;
 
+import java.util.Arrays;
+
 /**
 
 //examples:
@@ -67,6 +69,7 @@ import android.view.Window;
     //public HKNewOnKeyboardActionListener kal = null;
 
     public boolean capsLock = false;
+    //public boolean capsLockKeyDown = false;
     public boolean extraKeysLock = false;
     //private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
 
@@ -163,7 +166,21 @@ import android.view.Window;
         boolean vibrateOn = sharedPref.getBoolean("HKVibrateOn", false);
 
         if (primaryCode == HKHandleKeys.HKEnterKey) {
+            /*
+            //hold down shift + enter to always send \n ?
+            String strArray[] = new String[keyCodes.length];
 
+            for (int i = 0; i < keyCodes.length; i++)
+                strArray[i] = String.valueOf(keyCodes[i]);
+
+            Log.e("abc", "keycodes1: " + Arrays.toString(strArray) );
+            */
+            /*
+            if (capsLockKeyDown) {
+                ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
+                return;
+            }
+*/
             final int options = this.getCurrentInputEditorInfo().imeOptions;
             final int actionId = options & EditorInfo.IME_MASK_ACTION;
 
@@ -226,7 +243,23 @@ import android.view.Window;
 
     @Override public void swipeUp() {
     }
+/*
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == HKHandleKeys.HKCapsKey) {
+            capsLockKeyDown = false;
+        }
+        return super.onKeyUp(keyCode, event);
+    }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == HKHandleKeys.HKCapsKey) {
+            capsLockKeyDown = true;
+        }
+        return super.onKeyUp(keyCode, event);
+    }
+*/
     private void nextKeyboard()
     {
         InputMethodManager imeManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
