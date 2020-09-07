@@ -121,7 +121,11 @@ public class HKHandleKeys {
             }
             int cc = numCombiningChars(strBefore);
 
-            String strAfter = ic.getTextAfterCursor(MAX_COMBINING_DIACRITICS, 0).toString();
+             CharSequence charsAfter = ic.getTextAfterCursor(MAX_COMBINING_DIACRITICS, 0);
+            if (charsAfter == null) {
+                return;
+            }
+            String strAfter = charsAfter.toString();
             int ccAfter = numCombiningCharsAfter(strAfter);
             ic.deleteSurroundingText(cc+1, ccAfter);
         } else if (primaryCode == HKEnterKey) {

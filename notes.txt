@@ -1,3 +1,17 @@
+To do:
+
+1. text box in testing app should be multiline
+2. Adjust text of enter button based on inputType.
+3. Shift + Enter will always send \n
+4. add a roman keys layout?
+5. localize non-Greek text?
+
+
+hc verb search
+ph credits in settings
+add new logeion data
+
+
 Future:
 What to do now that KeyboardView etc. are deprecated:
 https://stackoverflow.com/questions/57634572/how-do-i-implement-custom-view-for-keyboard-after-keyboard-has-been-deprecated

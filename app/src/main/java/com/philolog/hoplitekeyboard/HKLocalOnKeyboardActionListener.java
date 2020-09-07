@@ -55,6 +55,7 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
         }
 
         if (primaryCode == HKHandleKeys.HKEnterKey) {
+            //ic.commitText("\n", 1);
             ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
         } else if (primaryCode == HKHandleKeys.HKCapsKey) {
             capsLock = !capsLock;

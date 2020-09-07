@@ -81,6 +81,10 @@ import java.util.Arrays;
     @Override
     public void onStartInputView (EditorInfo info, boolean restarting)
     {
+        //check input type here to decide to show "enter" or "search", etc. button.  Probably also for globe button
+        //check here, set variable, and use that variable in onCreateInputView below to actually display/hide buttons
+        //https://stackoverflow.com/questions/43938444/custom-keyboard-handling-inputtype-change
+
         //calling this here allows the theme to reflect current preference settings
         setInputView(onCreateInputView());
         //Log.e("abc", "onstartinputview");
