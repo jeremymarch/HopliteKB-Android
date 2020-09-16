@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-    android:keyWidth="10.19%p"
+    android:keyWidth="10.5%p"
     android:keyHeight="6.9%p"
-    android:horizontalGap="3dp"
-    android:verticalGap="3dp">
+    android:horizontalGap="0.5%p"
+    android:verticalGap="0.5%p">
 <!--https://stackoverflow.com/questions/7752580/creating-a-softkeyboard-with-multiple-alternate-characters-per-key-->
     <Row android:rowEdgeFlags="top">
         <Key android:codes="10"    android:keyLabel="("  android:keyEdgeFlags="left" />
@@ -49,7 +49,7 @@
         <Key android:codes="113"    android:keyLabel="ν"  />
         <Key android:codes="112"    android:keyLabel="μ"  />
 
-        <Key android:codes="2" android:keyLabel=" " android:keyWidth="21.0%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:codes="2" android:keyLabel=" " android:keyWidth="21.5%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
 
 
     </Row>
@@ -58,9 +58,9 @@
         <Key android:codes="5"    android:keyLabel="123" />
         <Key android:codes="3"  android:keyLabel=" "  />
 
-        <Key android:codes="150" android:keyLabel="space"  android:keyWidth="32.0%p"  />
+        <Key android:codes="150" android:keyLabel="space"  android:keyWidth="32.5%p"  />
         <Key android:codes="151"    android:keyLabel="." />
 
-        <Key android:codes="1" android:keyLabel="enter" android:keyWidth="21.0%p" android:keyEdgeFlags="right" />
+        <Key android:codes="1" android:keyLabel="enter" android:keyWidth="21.5%p" android:keyEdgeFlags="right" />
     </Row>
 </Keyboard>
