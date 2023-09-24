@@ -1,14 +1,16 @@
 apply plugin: 'com.android.application'
 
     android {
-        compileSdkVersion 34
+        namespace = "com.philolog.hoplitekeyboard"
+
+        compileSdk 34
 
         //To see what is the latest: http://developer.android.com/tools/revisions/build-tools.html
         buildToolsVersion = '34.0.0'
 
         defaultConfig {
             applicationId = "com.philolog.hoplitekeyboard"
-            minSdkVersion 21
+            minSdkVersion 26
             targetSdkVersion 34
 
             ndk {
@@ -23,7 +25,7 @@ apply plugin: 'com.android.application'
                     cFlags "-std=c99 -O3"
                 }
             }
-            flavorDimensions "abi"
+            flavorDimensions = ["abi"]
             productFlavors {
                 all {
                     flavorDimension "abi"
@@ -90,7 +92,7 @@ apply plugin: 'com.android.application'
 */
 
         dependencies {
-            implementation 'androidx.preference:preference:1.1.1'
+            implementation 'androidx.preference:preference:1.2.1'
         }
 
 // Specifies the location of the top level CMakeLists.txt
