@@ -14,14 +14,11 @@
  * limitations under the License.
  */
 
-package com.philolog.hoplitekeyboard;
+package com.philolog.hoplitekb;
 
-import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import com.android.inputmethodcommon.InputMethodSettingsFragment;
-import static android.preference.PreferenceActivity.EXTRA_NO_HEADERS;
-import static android.preference.PreferenceActivity.EXTRA_SHOW_FRAGMENT;
 
 /**
  * Displays the IME preferences inside the input method setting.

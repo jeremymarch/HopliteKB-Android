@@ -19,7 +19,7 @@
  *        along with HoplitePolytonicKeyboardAndroid.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.philolog.hoplitekeyboard;
+package com.philolog.hoplitekb;
 
 import android.content.SharedPreferences;
 import android.inputmethodservice.InputMethodService;
@@ -35,7 +35,6 @@ import android.view.inputmethod.EditorInfo;
 
 import android.view.inputmethod.InputMethodManager;
 
-import android.util.Log;
 import android.view.View;
 import android.view.KeyEvent;
 import android.media.AudioManager;
@@ -44,8 +43,6 @@ import android.content.Context;
 import android.os.IBinder;
 import android.app.Dialog;
 import android.view.Window;
-
-import java.util.Arrays;
 
 /**
 

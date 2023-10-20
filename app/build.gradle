@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
     android {
-        namespace = "com.philolog.hoplitekeyboard"
+        namespace = "com.philolog.hoplitekb"
 
         compileSdk 34
 
@@ -9,7 +9,7 @@ apply plugin: 'com.android.application'
         buildToolsVersion = '34.0.0'
 
         defaultConfig {
-            applicationId = "com.philolog.hoplitekeyboard"
+            applicationId = "com.philolog.hoplitekb"
             minSdkVersion 26
             targetSdkVersion 34
 
@@ -53,6 +53,8 @@ apply plugin: 'com.android.application'
             release {
                 minifyEnabled = true
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                signingConfig
+                debuggable = false
             }
             debug {
                 debuggable = true

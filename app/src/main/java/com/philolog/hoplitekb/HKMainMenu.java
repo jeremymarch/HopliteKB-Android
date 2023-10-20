@@ -19,9 +19,9 @@
  *        along with HoplitePolytonicKeyboardAndroid.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.philolog.hoplitekeyboard;
+package com.philolog.hoplitekb;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.inputmethodservice.Keyboard;
@@ -29,22 +29,15 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.preference.PreferenceManager;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
-import android.view.View;
-import android.view.MotionEvent;
-import android.view.WindowManager;
 
-public class HKTestAppMainActivity extends AppCompatActivity {
+public class HKMainMenu extends AppCompatActivity {
     public HCGreekEditText mTextView;
-    public TextView mCodePointTextView, mModeView;
+    public View menuView;
     public HopliteKeyboardView mKeyboardView;
     private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
 
@@ -75,12 +68,17 @@ public class HKTestAppMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         localSetTheme();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.hk_testing_activity);
+
+        //Remove title bar
+        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //Remove notification bar
+        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        setContentView(R.layout.main);
 
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/newathu5.ttf");
         mTextView = (HCGreekEditText) findViewById(R.id.mTextView);
-        mModeView = (TextView) findViewById(R.id.modeView);
-        mCodePointTextView = (TextView) findViewById(R.id.mCodePointTextView);
+        menuView = findViewById(R.id.HKMenu);
         mTextView.setTypeface(type);
 
         Keyboard mKeyboard= new Keyboard(this,R.xml.hoplitekeyboard);
@@ -89,6 +87,7 @@ public class HKTestAppMainActivity extends AppCompatActivity {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         mKeyboardView.soundOn = sharedPref.getBoolean("HKSoundOn", false);
         mKeyboardView.vibrateOn = sharedPref.getBoolean("HKVibrateOn", false);
+        mKeyboardView.unicodeMode = mKeyboardView.getUnicodeMode();
 
         mKeyboardView.setKeyboard( mKeyboard );
         mKeyboardView.setPreviewEnabled(false); // do not show the preview balloons
@@ -126,56 +125,70 @@ public class HKTestAppMainActivity extends AppCompatActivity {
             }
         });
 
-        mKeyboardView.unicodeMode = mKeyboardView.getUnicodeMode();
-        String mode = "";
-        switch (mKeyboardView.unicodeMode)
-        {
-            case 0:
-                mode = "Precomposed";
-                break;
-            case 1:
-                mode = "Precomposed with PUA";
-                break;
-            case 2:
-                mode = "Combining Only";
-                break;
-            default:
-                mode = "Unknown";
-                break;
-        }
-        mModeView.setText("Unicode mode: " + mode);
+    }
 
-        mTextView.addTextChangedListener(new TextWatcher() {
+    public void showAbout(View view) {
+        mKeyboardView.hideKeyboard();
+        // Do something in response to button
+        Intent intent = new Intent(this, AboutActivity.class);
+        //EditText editText = (EditText) findViewById(R.id.edit_message);
+        //String message = "practice history";//editText.getText().toString();
+        //intent.putExtra(EXTRA_MESSAGE, message);
+        //intent.putExtra("GameID", 1); //1 is the practice game.
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        overridePendingTransition (0, 0);
+        startActivity(intent);
+    }
 
-            @Override
-            public void afterTextChanged(Editable s) { }
+    public void showSettings(View view) {
+        mKeyboardView.hideKeyboard();
+        // Do something in response to button
+        Intent intent = new Intent(this, HKSettings.class);
+        //EditText editText = (EditText) findViewById(R.id.edit_message);
+        //String message = "practice history";//editText.getText().toString();
+        //intent.putExtra(EXTRA_MESSAGE, message);
+        //intent.putExtra("GameID", 1); //1 is the practice game.
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        overridePendingTransition (0, 0);
+        startActivity(intent);
+    }
 
-            @Override
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {
-            }
+    public void showInstallation(View view) {
+        mKeyboardView.hideKeyboard();
+        // Do something in response to button
+        Intent intent = new Intent(this, InstallationActivity.class);
+        //EditText editText = (EditText) findViewById(R.id.edit_message);
+        //String message = "practice history";//editText.getText().toString();
+        //intent.putExtra(EXTRA_MESSAGE, message);
+        //intent.putExtra("GameID", 1); //1 is the practice game.
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        overridePendingTransition (0, 0);
+        startActivity(intent);
+    }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
-
-                String str = mTextView.getText().toString();
-                String res = "";
-
-                final int length = str.length();
-                for (int offset = 0; offset < length; ) {
-                    final int codepoint = str.codePointAt(offset);
-                    res = res + String.format("%04X", codepoint) + " - ";
-
-                    offset += Character.charCount(codepoint);
-                }
-                if (res.endsWith(" - ")) {
-                    res = res.substring(0, res.length() - 3);
-                }
-
-                mCodePointTextView.setText(res);
-            }
-        });
+    public void showTesting(View view) {
+        mKeyboardView.hideKeyboard();
+        // Do something in response to button
+        Intent intent = new Intent(this, HKTestAppMainActivity.class);
+        //EditText editText = (EditText) findViewById(R.id.edit_message);
+        //String message = "practice history";//editText.getText().toString();
+        //intent.putExtra(EXTRA_MESSAGE, message);
+        //intent.putExtra("GameID", 1); //1 is the practice game.
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        overridePendingTransition (0, 0);
+        startActivity(intent);
     }
 /*
     public void openKeyboard(View v, Runnable onComplete)
@@ -183,7 +196,7 @@ public class HKTestAppMainActivity extends AppCompatActivity {
         if (mKeyboardView.getVisibility() == View.GONE) {
 
             Animation animation = AnimationUtils
-                    .loadAnimation(HKTestAppMainActivity.this,
+                    .loadAnimation(HKMainMenu.this,
                             R.anim.slide_in_bottom);
             animation.setRepeatCount(Animation.INFINITE);
             animation.setRepeatMode(Animation.RESTART);
@@ -191,17 +204,19 @@ public class HKTestAppMainActivity extends AppCompatActivity {
             mKeyboardView.showWithAnimation(animation, onComplete);
 
             mKeyboardView.setVisibility(View.VISIBLE);
-            mKeyboardView.bringToFront();
+
             mKeyboardView.setEnabled(true);
             if( v!=null) {
                 ((InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(v.getWindowToken(), 0);
             }
+            mKeyboardView.bringToFront();
         }
     }
 
-    public void hideKeyboard(View v, Runnable onComplete)
+    public void hideKeyboard()
     {
         if (mKeyboardView.getVisibility() != View.GONE) {
+
             mKeyboardView.setVisibility(View.GONE);
         }
     }

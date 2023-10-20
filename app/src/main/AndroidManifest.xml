@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.philolog.hoplitekeyboard"
-    android:versionCode="31"
-    android:versionName="1.6.0">
-
+    android:versionCode="34"
+    android:versionName="1.7.0">
     <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:label="@string/app_name"
         android:icon="@mipmap/hoplitekblogo"
         android:theme="@style/HKDayNight"
         android:allowBackup="true">
-
         <activity android:name=".HKMainMenu"
             android:exported="true"
             android:label="Hoplite Keyboard">
@@ -24,7 +21,7 @@
         <activity android:name=".InstallationActivity" android:label="Hoplite Keyboard Installation"/>
         <activity android:name=".HKTestAppMainActivity" android:label="Hoplite Keyboard Testing"/>
 
-        <service android:name="com.philolog.hoplitekeyboard.HopliteKeyboard"
+        <service android:name="com.philolog.hoplitekb.HopliteKeyboard"
             android:exported="true"
             android:label="@string/app_name"
             android:permission="android.permission.BIND_INPUT_METHOD">

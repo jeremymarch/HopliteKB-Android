@@ -1,12 +1,8 @@
-package com.philolog.hoplitekeyboard;
+package com.philolog.hoplitekb;
 
 import android.content.Context;
-import android.graphics.Rect;
 import android.text.InputType;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 
 public class HCGreekEditText extends androidx.appcompat.widget.AppCompatEditText {

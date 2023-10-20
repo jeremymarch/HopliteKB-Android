@@ -36,7 +36,7 @@
 // If you want you can add other log definition for info, warning etc
 
 JNIEXPORT jstring JNICALL
-Java_com_philolog_hoplitekeyboard_GreekVerb_addAccent( JNIEnv* env, jobject thiz, jint accent, jint unicodeMode,
+Java_com_philolog_hoplitekb_GreekVerb_addAccent( JNIEnv* env, jobject thiz, jint accent, jint unicodeMode,
                                                        jstring str) {
     char buffer[1024];
     UCS2 ucs2[1024];
