@@ -3,15 +3,16 @@ apply plugin: 'com.android.application'
     android {
         namespace = "com.philolog.hoplitekb"
 
-        compileSdk 34
+        compileSdk 36
 
         //To see what is the latest: http://developer.android.com/tools/revisions/build-tools.html
-        buildToolsVersion = '34.0.0'
+        buildToolsVersion = '36.0.0'
 
         defaultConfig {
             applicationId = "com.philolog.hoplitekb"
             minSdkVersion 26
-            targetSdkVersion 34
+            targetSdkVersion 36
+
 
             ndk {
                 abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64" //, "mips64", "armeabi", "mips"
@@ -113,7 +114,7 @@ apply plugin: 'com.android.application'
             includeInApk true
             includeInBundle true
         }
-        ndkVersion '26.0.10792818'
+        ndkVersion "29.0.14206865"
     }
 
 allprojects {
