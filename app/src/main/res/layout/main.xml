@@ -22,7 +22,7 @@
         android:textSize="18sp"
         android:layout_marginBottom="8dp"/>
 
-    <com.philolog.hoplitekb.HCGreekEditText
+    <com.philolog.hoplitekeyboard.HCGreekEditText
         android:layout_below="@+id/titleView"
         android:id="@+id/mTextView"
         android:layout_width="match_parent"
@@ -107,7 +107,7 @@
         android:paddingLeft="6dp"
         android:gravity="center_vertical|start"/>
 
-    <com.philolog.hoplitekb.HopliteKeyboardView
+    <com.philolog.hoplitekeyboard.HopliteKeyboardView
         android:id="@+id/keyboardview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

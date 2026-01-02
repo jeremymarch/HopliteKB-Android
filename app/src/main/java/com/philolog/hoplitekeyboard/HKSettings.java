@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.philolog.hoplitekb;
+package com.philolog.hoplitekeyboard;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;

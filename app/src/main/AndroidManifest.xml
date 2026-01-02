@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:versionCode="35"
-    android:versionName="1.8.0">
+    android:versionCode="34"
+    android:versionName="1.7.0">
     <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:label="@string/app_name"
@@ -21,7 +21,7 @@
         <activity android:name=".InstallationActivity" android:label="Hoplite Keyboard Installation"/>
         <activity android:name=".HKTestAppMainActivity" android:label="Hoplite Keyboard Testing"/>
 
-        <service android:name="com.philolog.hoplitekb.HopliteKeyboard"
+        <service android:name="com.philolog.hoplitekeyboard.HopliteKeyboard"
             android:exported="true"
             android:label="@string/app_name"
             android:permission="android.permission.BIND_INPUT_METHOD">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<com.philolog.hoplitekb.HopliteKeyboardView
+<com.philolog.hoplitekeyboard.HopliteKeyboardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/keyboardlight"
     android:layout_width="match_parent"
@@ -7,4 +7,5 @@
     android:layout_alignParentBottom="true"
     android:keyPreviewLayout ="@layout/preview"
     android:theme="@style/HKLight"
+    android:fitsSystemWindows="true"
     />

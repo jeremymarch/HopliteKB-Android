@@ -19,7 +19,7 @@
  *        along with HoplitePolytonicKeyboardAndroid.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.philolog.hoplitekb;
+package com.philolog.hoplitekeyboard;
 
 public class GreekVerb
 {

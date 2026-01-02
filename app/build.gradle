@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
     android {
-        namespace = "com.philolog.hoplitekb"
+        namespace = "com.philolog.hoplitekeyboard"
 
         compileSdk 36
 
@@ -9,7 +9,7 @@ apply plugin: 'com.android.application'
         buildToolsVersion = '36.0.0'
 
         defaultConfig {
-            applicationId = "com.philolog.hoplitekb"
+            applicationId = "com.philolog.hoplitekeyboard"
             minSdkVersion 26
             targetSdkVersion 36
 

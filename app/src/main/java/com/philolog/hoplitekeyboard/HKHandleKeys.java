@@ -1,4 +1,4 @@
-package com.philolog.hoplitekb;
+package com.philolog.hoplitekeyboard;
 
 import android.view.KeyEvent;
 import android.view.inputmethod.InputConnection;

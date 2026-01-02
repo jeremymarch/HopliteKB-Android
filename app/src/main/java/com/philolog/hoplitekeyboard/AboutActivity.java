@@ -19,7 +19,7 @@
  *        along with HoplitePolytonicKeyboardAndroid.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.philolog.hoplitekb;
+package com.philolog.hoplitekeyboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
