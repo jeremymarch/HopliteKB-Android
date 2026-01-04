@@ -66,11 +66,16 @@ public class HopliteKeyboardView extends KeyboardView {
     int specialTextColor = 0;
     int specialTextColorDown = 0;
     int spaceTextColor = 0;
-    int keyboardBgColor = 0;
+
+    private final Paint mPaint;
+    private final Typeface mKeyTypeface;
 
     public HopliteKeyboardView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
+
+        mPaint = new Paint();
+        mKeyTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/newathu5.ttf");
 
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = context.getTheme();
@@ -96,8 +101,6 @@ public class HopliteKeyboardView extends KeyboardView {
         specialTextColorDown = typedValue.data;
         theme.resolveAttribute(R.attr.spaceTextColor, typedValue, true);
         spaceTextColor = typedValue.data;
-        theme.resolveAttribute(R.attr.keyboardBgColor, typedValue, true);
-        keyboardBgColor = typedValue.data;
     }
 
     //http://stackoverflow.com/questions/3972445/how-to-put-text-in-a-drawable
@@ -106,18 +109,9 @@ public class HopliteKeyboardView extends KeyboardView {
         super.onDraw(canvas);
         Context context = getContext();
 
-        Paint paint = new Paint();
-
-        //background color:
-        int width = this.getWidth();
-        int height = this.getHeight();
-        paint.setColor(keyboardBgColor);
-        paint.setStyle(Paint.Style.FILL); //fill the background with blue color
-        canvas.drawRect(0, 0, width, height, paint);
-
+        Paint paint = mPaint;
         List<Keyboard.Key> keys = getKeyboard().getKeys();
-
-        Typeface tf = Typeface.createFromAsset(context.getAssets(),"fonts/newathu5.ttf");
+        Typeface tf = mKeyTypeface;
 
         for (Keyboard.Key key : keys) {
             if (key.codes[0] == HKHandleKeys.HKEnterKey) {
@@ -317,6 +311,7 @@ public class HopliteKeyboardView extends KeyboardView {
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             }
+
             paint.setTextAlign(Paint.Align.CENTER);
             float FONT_SIZE;
             // Convert the dips to pixels

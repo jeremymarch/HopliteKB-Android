@@ -21,28 +21,34 @@
 
 package com.philolog.hoplitekeyboard;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.inputmethodservice.InputMethodService;
-import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
-import android.inputmethodservice.KeyboardView;
 import android.inputmethodservice.Keyboard;
+import android.inputmethodservice.KeyboardView;
+import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
+import android.media.AudioManager;
 import android.os.Build;
+import android.os.IBinder;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import androidx.preference.PreferenceManager;
-import android.view.inputmethod.InputConnection;
-import android.view.inputmethod.EditorInfo;
-
-import android.view.inputmethod.InputMethodManager;
-
-import android.view.View;
+import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
-import android.media.AudioManager;
-import android.content.Context;
-
-import android.os.IBinder;
-import android.app.Dialog;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
+
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.preference.PreferenceManager;
 
 /**
 
@@ -56,22 +62,29 @@ import android.view.Window;
 //http://stackoverflow.com/questions/15825081/error-default-activity-not-found
  //https://code.tutsplus.com/tutorials/create-a-custom-keyboard-on-android--cms-22615
 */
+ @SuppressWarnings("deprecation")
  public class HopliteKeyboard extends InputMethodService implements OnKeyboardActionListener {
 
     public HopliteKeyboardView kv;
     public Keyboard keyboard;
 
     private int unicodeMode = 0;
-    //public InputConnection exIC = null;
-    //public HKNewOnKeyboardActionListener kal = null;
 
     public boolean capsLock = false;
-    //public boolean capsLockKeyDown = false;
     public boolean extraKeysLock = false;
-    //private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
+    private int mLastBottomInset = 0;
 
     @Override public void onCreate() {
         super.onCreate();
+    }
+
+    @Override
+    public void onInitializeInterface() {
+        super.onInitializeInterface();
+        final Window window = getWindow().getWindow();
+        if (window != null) {
+            WindowCompat.setDecorFitsSystemWindows(window, false);
+        }
     }
 
     //this is called each time the keyboard comes up
@@ -90,23 +103,37 @@ import android.view.Window;
     @Override
     public View onCreateInputView() {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        String theme = sharedPref.getString("HKTheme", "HKDayNight");
-        if (theme == null)
-        {
-            theme = "HKDayNight";
-        }
-        switch(theme)
-        {
+        String themeName = sharedPref.getString("HKTheme", "HKDayNight");
+
+        int themeResId;
+        int layoutResId;
+        switch (themeName) {
             case "HKDark":
-                kv = (HopliteKeyboardView)getLayoutInflater().inflate(R.layout.keyboard_dark, null);
+                themeResId = R.style.HKDark;
+                layoutResId = R.layout.keyboard_dark;
                 break;
             case "HKLight":
-                kv = (HopliteKeyboardView)getLayoutInflater().inflate(R.layout.keyboard_light, null);
+                themeResId = R.style.HKLight;
+                layoutResId = R.layout.keyboard_light;
                 break;
             default:
-                kv = (HopliteKeyboardView)getLayoutInflater().inflate(R.layout.keyboard_daynight, null);
+                themeResId = R.style.HKDayNight;
+                layoutResId = R.layout.keyboard_daynight;
                 break;
         }
+
+        final Context themedContext = new ContextThemeWrapper(this, themeResId);
+        LayoutInflater inflater = LayoutInflater.from(themedContext);
+
+        FrameLayout container = new FrameLayout(themedContext);
+
+        kv = (HopliteKeyboardView) inflater.inflate(layoutResId, container, false);
+        container.addView(kv);
+
+        // Get the background color from the theme
+        TypedValue background = new TypedValue();
+        themedContext.getTheme().resolveAttribute(R.attr.keyboardBgColor, background, true);
+        container.setBackgroundColor(background.data);
 
         keyboard = new Keyboard(this, R.xml.hoplitekeyboard);
         kv.setKeyboard(keyboard);
@@ -114,23 +141,47 @@ import android.view.Window;
 
         //this removes the yellow preview when key is pressed.
         kv.setPreviewEnabled(false);
-/* we check this on each key anyway, so no need to set it here
-        unicodeMode = Integer.parseInt(sharedPref.getString("HKUnicodeMode", "0"));
 
-        //this doesn't seem to work
-        SharedPreferences.OnSharedPreferenceChangeListener spChanged = new
-                SharedPreferences.OnSharedPreferenceChangeListener() {
-                    @Override
-                    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-                                                          String key) {
-                // your stuff here
-                unicodeMode = Integer.parseInt(sharedPreferences.getString("HKUnicodeMode", "0"));
-                //Log.e("abc", "preferences changed to: " + unicodeMode);
+        container.setPadding(0, 0, 0, mLastBottomInset);
+
+        ViewCompat.setOnApplyWindowInsetsListener(container, (v, insets) -> {
+
+            androidx.core.graphics.Insets systemBars =
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars());
+
+            androidx.core.graphics.Insets systemGestures =
+                    insets.getInsets(WindowInsetsCompat.Type.systemGestures());
+
+            int bottomInset = Math.max(
+                    systemBars.bottom,
+                    systemGestures.bottom
+            );
+
+            mLastBottomInset = bottomInset;
+
+            v.setPadding(
+                    v.getPaddingLeft(),
+                    v.getPaddingTop(),
+                    v.getPaddingRight(),
+                    bottomInset
+            );
+
+            return WindowInsetsCompat.CONSUMED;
+        });
+
+        container.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+            @Override
+            public void onViewAttachedToWindow(View v) {
+                ViewCompat.requestApplyInsets(v);
             }
-        };*/
 
-        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        return kv;
+            @Override
+            public void onViewDetachedFromWindow(View v) {
+                // No-op
+            }
+        });
+
+        return container;
     }
 
     public void setKeys(Context baseContext, KeyboardView kv)
@@ -167,21 +218,6 @@ import android.view.Window;
         boolean vibrateOn = sharedPref.getBoolean("HKVibrateOn", false);
 
         if (primaryCode == HKHandleKeys.HKEnterKey) {
-            /*
-            //hold down shift + enter to always send \n ?
-            String strArray[] = new String[keyCodes.length];
-
-            for (int i = 0; i < keyCodes.length; i++)
-                strArray[i] = String.valueOf(keyCodes[i]);
-
-            Log.e("abc", "keycodes1: " + Arrays.toString(strArray) );
-            */
-            /*
-            if (capsLockKeyDown) {
-                ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
-                return;
-            }
-*/
             final int options = this.getCurrentInputEditorInfo().imeOptions;
             final int actionId = options & EditorInfo.IME_MASK_ACTION;
 
@@ -189,7 +225,6 @@ import android.view.Window;
                 case EditorInfo.IME_ACTION_SEARCH:
                 case EditorInfo.IME_ACTION_GO:
                 case EditorInfo.IME_ACTION_SEND:
-                //case EditorInfo.IME_ACTION_DONE: //this broke when we want \n??
                 case EditorInfo.IME_ACTION_NEXT:
                 case EditorInfo.IME_ACTION_PREVIOUS:
                     this.sendDefaultEditorAction(true);
@@ -244,32 +279,18 @@ import android.view.Window;
 
     @Override public void swipeUp() {
     }
-/*
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if (keyCode == HKHandleKeys.HKCapsKey) {
-            capsLockKeyDown = false;
-        }
-        return super.onKeyUp(keyCode, event);
-    }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == HKHandleKeys.HKCapsKey) {
-            capsLockKeyDown = true;
-        }
-        return super.onKeyUp(keyCode, event);
-    }
-*/
     private void nextKeyboard()
     {
         InputMethodManager imeManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imeManager.switchToNextInputMethod(getToken(this), false /* onlyCurrentIme */);
+        if (imeManager != null) {
+            imeManager.switchToNextInputMethod(getToken(), false /* onlyCurrentIme */);
+        }
     }
 
     //needed to get token to switch to next keyboard.
-    private IBinder getToken(InputMethodService ims) {
-        final Dialog dialog = ims.getWindow();
+    private IBinder getToken() {
+        final Dialog dialog = getWindow();
         if (dialog == null) {
             return null;
         }
