@@ -44,7 +44,7 @@ import androidx.core.content.ContextCompat;
 
 import java.util.List;
 
-/**
+/*
  * http://stackoverflow.com/questions/18224520/how-to-set-different-background-of-keys-for-android-custom-keyboard
  */
 public class HopliteKeyboardView extends KeyboardView {
@@ -105,7 +105,7 @@ public class HopliteKeyboardView extends KeyboardView {
         keyboardBGColor = typedValue.data;
     }
 
-    //http://stackoverflow.com/questions/3972445/how-to-put-text-in-a-drawable
+    @SuppressWarnings("deprecation")
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -120,9 +120,7 @@ public class HopliteKeyboardView extends KeyboardView {
             if (key.codes[0] == HKHandleKeys.HKEnterKey) {
                 Drawable dr;
                 if (key.pressed) {
-                    //https://stackoverflow.com/questions/29041027/android-getresources-getdrawable-deprecated-api-22
                     dr = ContextCompat.getDrawable(context, R.drawable.enterbuttondown);
-                    //dr = context.getResources().getDrawable(R.drawable.enterbuttondown);
                     dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                     paint.setColor(enterTextColorDown);
                 }
@@ -398,8 +396,8 @@ public class HopliteKeyboardView extends KeyboardView {
                     offset = 9;
                 }
                 offset = (int) (offset * scale + 0.5f); //convert dp to px
-                canvas.drawText(s, key.x + (key.width / 2),
-                        key.y + (key.height / 2) + offset, paint);
+                canvas.drawText(s, key.x + ((float) key.width / 2),
+                        key.y + ((float) key.height / 2) + offset, paint);
             } else {
                 key.icon.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 key.icon.draw(canvas);
@@ -445,9 +443,7 @@ public class HopliteKeyboardView extends KeyboardView {
     public void openKeyboard(View v, Runnable onComplete) {
         if (this.getVisibility() == View.GONE) {
 
-            Animation animation = AnimationUtils
-                    .loadAnimation(v.getContext(),
-                            R.anim.slide_in_bottom);
+            Animation animation = AnimationUtils.loadAnimation(v.getContext(), R.anim.slide_in_bottom);
             animation.setRepeatCount(Animation.INFINITE);
             animation.setRepeatMode(Animation.RESTART);
             animation.setInterpolator(new LinearInterpolator());
@@ -456,9 +452,8 @@ public class HopliteKeyboardView extends KeyboardView {
             this.setVisibility(View.VISIBLE);
 
             this.setEnabled(true);
-            if( v != null) {
-                ((InputMethodManager) v.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(v.getWindowToken(), 0);
-            }
+            ((InputMethodManager) v.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(v.getWindowToken(), 0);
+
             this.bringToFront();
         }
     }
