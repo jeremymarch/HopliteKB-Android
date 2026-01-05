@@ -66,6 +66,7 @@ public class HopliteKeyboardView extends KeyboardView {
     int specialTextColor = 0;
     int specialTextColorDown = 0;
     int spaceTextColor = 0;
+    int keyboardBGColor = 0;
 
     private final Paint mPaint;
     private final Typeface mKeyTypeface;
@@ -100,6 +101,8 @@ public class HopliteKeyboardView extends KeyboardView {
         specialTextColorDown = typedValue.data;
         theme.resolveAttribute(R.attr.spaceTextColor, typedValue, true);
         spaceTextColor = typedValue.data;
+        theme.resolveAttribute(R.attr.keyboardBgColor, typedValue, true);
+        keyboardBGColor = typedValue.data;
     }
 
     //http://stackoverflow.com/questions/3972445/how-to-put-text-in-a-drawable
@@ -112,11 +115,11 @@ public class HopliteKeyboardView extends KeyboardView {
         List<Keyboard.Key> keys = getKeyboard().getKeys();
         Typeface tf = mKeyTypeface;
 
+        canvas.drawColor(keyboardBGColor);
         for (Keyboard.Key key : keys) {
             if (key.codes[0] == HKHandleKeys.HKEnterKey) {
                 Drawable dr;
-                if (key.pressed)
-                {
+                if (key.pressed) {
                     //https://stackoverflow.com/questions/29041027/android-getresources-getdrawable-deprecated-api-22
                     dr = ContextCompat.getDrawable(context, R.drawable.enterbuttondown);
                     //dr = context.getResources().getDrawable(R.drawable.enterbuttondown);

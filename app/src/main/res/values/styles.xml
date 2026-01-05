@@ -43,7 +43,7 @@
         <item name="enterTextColorDown">@color/ButtonBlue</item>
 
         <item name="spaceTextColor">@color/KBGrey</item>
-        <item name="keyboardBgColor">#FFC8C8C8</item>
+        <item name="keyboardBgColor">#FF000000</item>
     </style>
     <style name="HKDark" parent="@style/Theme.AppCompat.DayNight.NoActionBar">
         <item name="windowNoTitle">true</item>
@@ -57,7 +57,7 @@
         <item name="diacriticTextColor">#FFFFFFFF</item>
         <item name="punctuationBgColor">#FF777778</item>
         <item name="punctuationTextColor">#FFFFFFFF</item>
-        <item name="specialBgColor">#ff676767</item>
+        <item name="specialBgColor">#FF676767</item>
         <item name="specialTextColor">#FF000000</item>
         <item name="enterBgColor">#FF333333</item>
         <item name="enterTextColor">#FFFFFFFF</item>
@@ -68,7 +68,7 @@
         <item name="diacriticTextColorDown">#FFFFFFFF</item>
         <item name="punctuationBgColorDown">#FF000000</item>
         <item name="punctuationTextColorDown">#FFFFFFFF</item>
-        <item name="specialBgColorDown">#ff787786</item>
+        <item name="specialBgColorDown">#FF787786</item>
         <item name="specialTextColorDown">#FFFFFFFF</item>
         <item name="enterBgColorDown">#FF666666</item>
         <item name="enterTextColorDown">#FFFFFFFF</item>
