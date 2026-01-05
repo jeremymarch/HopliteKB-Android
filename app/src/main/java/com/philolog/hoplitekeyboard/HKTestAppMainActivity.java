@@ -89,17 +89,17 @@ public class HKTestAppMainActivity extends AppCompatActivity {
         SharedPreferences.OnSharedPreferenceChangeListener prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
                 if (key != null) {
-                    if (key.equals("HKUnicodeMode")) {
-                        int uMode;
-                        String tempUMode = prefs.getString("HKUnicodeMode", "0");
-                        uMode = Integer.parseInt(tempUMode);
-                        mKeyboardView.unicodeMode = uMode;
-                    } else if (key.equals("HKSoundOn")) {
-                        mKeyboardView.soundOn = prefs.getBoolean(key, false);
-                    } else if (key.equals("HKVibrateOn")) {
-                        mKeyboardView.vibrateOn = prefs.getBoolean(key, false);
-                    } else if (key.equals("HKTheme")) {
-                        recreate();
+                    switch (key) {
+                        case "HKUnicodeMode" -> {
+                            int uMode;
+                            String tempUMode = prefs.getString("HKUnicodeMode", "0");
+                            uMode = Integer.parseInt(tempUMode);
+                            mKeyboardView.unicodeMode = uMode;
+                        }
+                        case "HKSoundOn" -> mKeyboardView.soundOn = prefs.getBoolean(key, false);
+                        case "HKVibrateOn" ->
+                                mKeyboardView.vibrateOn = prefs.getBoolean(key, false);
+                        case "HKTheme" -> recreate();
                     }
                 }
             }

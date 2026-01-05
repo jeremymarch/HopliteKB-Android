@@ -45,6 +45,6 @@ protected void onCreate(Bundle savedInstanceState) {
             "SETTINGS:<br>" +
             "• Precomposed will use precomposed unicode characters when possible, falling back to combining diacritics if a precomposed character doesn't exist.<br>" +
             "• Precomposed with PUA is like the above, but will also use precomposed characters from the Private Use Area when possible.  This is only supported by certain fonts and is not standard unicode.<br>" +
-            "• Combining only uses only combining diacritics.  This is only supported by certain fonts."));
+            "• Combining only uses only combining diacritics.  This is only supported by certain fonts.", Html.FROM_HTML_MODE_LEGACY));
     }
 }

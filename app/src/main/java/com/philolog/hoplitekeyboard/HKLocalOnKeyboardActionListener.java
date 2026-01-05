@@ -24,7 +24,6 @@ package com.philolog.hoplitekeyboard;
 import android.content.Context;
 import android.inputmethodservice.KeyboardView;
 import android.media.AudioManager;
-import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.KeyEvent;
@@ -42,13 +41,13 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
     public boolean extraKeysLock = false;
     //public int unicodeMode = 1;
 
-    public HKLocalOnKeyboardActionListener(InputConnection icon, HopliteKeyboardView kview, Context co)
-    {
+    public HKLocalOnKeyboardActionListener(InputConnection icon, HopliteKeyboardView kview, Context co) {
         ic = icon;
         kv = kview;
         c = co;
     }
 
+    @SuppressWarnings("deprecation")
     @Override public void onKey(int primaryCode, int[] keyCodes) {
         if (ic == null || kv == null || c == null) {
             return;
@@ -87,50 +86,64 @@ public class HKLocalOnKeyboardActionListener implements KeyboardView.OnKeyboardA
     {
         if (baseContext != null && kv != null) {
             Keyboard keyboard;
-            if (capsLock && !extraKeysLock) {
-                keyboard = new Keyboard(baseContext, R.xml.hoplitekeyboardupper);
-            } else if (capsLock && extraKeysLock) {
-                keyboard = new Keyboard(baseContext, R.xml.hoplitekeyboardmiscupper);
-            } else if (!capsLock && extraKeysLock) {
-                keyboard = new Keyboard(baseContext, R.xml.hoplitekeyboardmisc);
-            } else {
-                keyboard = new Keyboard(baseContext, R.xml.hoplitekeyboard);
+            int keyboard_type;
+            if (capsLock) {
+                if (extraKeysLock) {
+                    keyboard_type = R.xml.hoplitekeyboardmiscupper;
+                }
+                else {
+                    keyboard_type = R.xml.hoplitekeyboardupper;
+                }
             }
+            else {
+                if (extraKeysLock) {
+                    keyboard_type = R.xml.hoplitekeyboardmisc;
+                }
+                else {
+                    keyboard_type = R.xml.hoplitekeyboard;
+                }
+            }
+            keyboard = new Keyboard(baseContext, keyboard_type);
             kv.setKeyboard(keyboard);
             kv.setOnKeyboardActionListener(this);
             kv.invalidateAllKeys();
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override public void onPress(int arg0) {
         //this removes the yellow preview when key is pressed.
         kv.setPreviewEnabled(false);
     }
 
+    @SuppressWarnings("deprecation")
     @Override public void onRelease(int primaryCode) {
     }
 
+    @SuppressWarnings("deprecation")
     @Override public void onText(CharSequence text) {
     }
 
+    @SuppressWarnings("deprecation")
     @Override public void swipeDown() {
     }
 
+    @SuppressWarnings("deprecation")
     @Override public void swipeLeft() {
     }
 
+    @SuppressWarnings("deprecation")
     @Override public void swipeRight() {
     }
 
+    @SuppressWarnings("deprecation")
     @Override public void swipeUp() {
     }
 
     private void vibrate() {
-
-        if (Build.VERSION.SDK_INT >= 26) {
-            ((Vibrator) c.getSystemService(c.VIBRATOR_SERVICE)).vibrate(VibrationEffect.createOneShot(20, VibrationEffect.DEFAULT_AMPLITUDE));
-        } else {
-            ((Vibrator) c.getSystemService(c.VIBRATOR_SERVICE)).vibrate(20);
+        Vibrator v = (Vibrator) c.getSystemService(Context.VIBRATOR_SERVICE);
+        if (v != null) {
+            v.vibrate(VibrationEffect.createOneShot(20, VibrationEffect.DEFAULT_AMPLITUDE));
         }
     }
 

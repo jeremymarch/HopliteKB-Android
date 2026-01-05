@@ -49,6 +49,6 @@ public class InstallationActivity extends AppCompatActivity {
                 "5) Enable 'Hoplite Polytonic Greek Keyboard'<br>" +
                 "6) Now the Hoplite Keyboard can be selected from the list of keyboards<br>" +
                 "<br>" +
-                "For best results, install a polytonic Greek font such as New Athena Unicode."));
+                "For best results, install a polytonic Greek font such as New Athena Unicode.", Html.FROM_HTML_MODE_LEGACY));
     }
 }
