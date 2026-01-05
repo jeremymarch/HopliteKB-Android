@@ -184,15 +184,24 @@ import androidx.preference.PreferenceManager;
     public void setKeys(Context baseContext, KeyboardView kv) {
         if (baseContext != null && kv != null) {
             Keyboard keyboard;
-            if (capsLock && !extraKeysLock) {
-                keyboard = new Keyboard(baseContext, R.xml.hoplitekeyboardupper);
-            } else if (capsLock && extraKeysLock) {
-                keyboard = new Keyboard(baseContext, R.xml.hoplitekeyboardmiscupper);
-            } else if (!capsLock && extraKeysLock) {
-                keyboard = new Keyboard(baseContext, R.xml.hoplitekeyboardmisc);
-            } else {
-                keyboard = new Keyboard(baseContext, R.xml.hoplitekeyboard);
+            int keyboard_type;
+            if (capsLock) {
+                if (extraKeysLock) {
+                    keyboard_type = R.xml.hoplitekeyboardmiscupper;
+                }
+                else {
+                    keyboard_type = R.xml.hoplitekeyboardupper;
+                }
             }
+            else {
+                if (extraKeysLock) {
+                    keyboard_type = R.xml.hoplitekeyboardmisc;
+                }
+                else {
+                    keyboard_type = R.xml.hoplitekeyboard;
+                }
+            }
+            keyboard = new Keyboard(baseContext, keyboard_type);
             kv.setKeyboard(keyboard);
             kv.setOnKeyboardActionListener(this);
             kv.invalidateAllKeys();
@@ -304,10 +313,9 @@ import androidx.preference.PreferenceManager;
     }
 
     private void vibrate() {
-        if (Build.VERSION.SDK_INT >= 26) {
-            ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(VibrationEffect.createOneShot(20, VibrationEffect.DEFAULT_AMPLITUDE));
-        } else {
-            ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(20);
+        Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        if (v != null) {
+            v.vibrate(VibrationEffect.createOneShot(20, VibrationEffect.DEFAULT_AMPLITUDE));
         }
     }
 
