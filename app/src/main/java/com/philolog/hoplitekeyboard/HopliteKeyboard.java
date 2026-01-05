@@ -24,7 +24,6 @@ package com.philolog.hoplitekeyboard;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
@@ -45,6 +44,7 @@ import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
+import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -62,7 +62,7 @@ import androidx.preference.PreferenceManager;
 //http://stackoverflow.com/questions/15825081/error-default-activity-not-found
  //https://code.tutsplus.com/tutorials/create-a-custom-keyboard-on-android--cms-22615
 */
- @SuppressWarnings("deprecation")
+
  public class HopliteKeyboard extends InputMethodService implements OnKeyboardActionListener {
 
     public HopliteKeyboardView kv;
@@ -106,21 +106,20 @@ import androidx.preference.PreferenceManager;
         String themeName = sharedPref.getString("HKTheme", "HKDayNight");
 
         int themeResId;
-        int layoutResId;
-        switch (themeName) {
-            case "HKDark":
+        int layoutResId = switch (themeName) {
+            case "HKDark" -> {
                 themeResId = R.style.HKDark;
-                layoutResId = R.layout.keyboard_dark;
-                break;
-            case "HKLight":
+                yield R.layout.keyboard_dark;
+            }
+            case "HKLight" -> {
                 themeResId = R.style.HKLight;
-                layoutResId = R.layout.keyboard_light;
-                break;
-            default:
+                yield R.layout.keyboard_light;
+            }
+            default -> {
                 themeResId = R.style.HKDayNight;
-                layoutResId = R.layout.keyboard_daynight;
-                break;
-        }
+                yield R.layout.keyboard_daynight;
+            }
+        };
 
         final Context themedContext = new ContextThemeWrapper(this, themeResId);
         LayoutInflater inflater = LayoutInflater.from(themedContext);
@@ -171,12 +170,12 @@ import androidx.preference.PreferenceManager;
 
         container.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
             @Override
-            public void onViewAttachedToWindow(View v) {
+            public void onViewAttachedToWindow(@NonNull View v) {
                 ViewCompat.requestApplyInsets(v);
             }
 
             @Override
-            public void onViewDetachedFromWindow(View v) {
+            public void onViewDetachedFromWindow(@NonNull View v) {
                 // No-op
             }
         });
@@ -184,8 +183,7 @@ import androidx.preference.PreferenceManager;
         return container;
     }
 
-    public void setKeys(Context baseContext, KeyboardView kv)
-    {
+    public void setKeys(Context baseContext, KeyboardView kv) {
         if (baseContext != null && kv != null) {
             Keyboard keyboard;
             if (capsLock && !extraKeysLock) {
@@ -211,9 +209,8 @@ import androidx.preference.PreferenceManager;
         }
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String tempUMode = sharedPref.getString("HKUnicodeMode", "0");
-        if (tempUMode != null) {
-            unicodeMode = Integer.parseInt(tempUMode);
-        }
+        unicodeMode = Integer.parseInt(tempUMode);
+
         boolean soundOn = sharedPref.getBoolean("HKSoundOn", false);
         boolean vibrateOn = sharedPref.getBoolean("HKVibrateOn", false);
 
@@ -280,8 +277,7 @@ import androidx.preference.PreferenceManager;
     @Override public void swipeUp() {
     }
 
-    private void nextKeyboard()
-    {
+    private void nextKeyboard() {
         InputMethodManager imeManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imeManager != null) {
             imeManager.switchToNextInputMethod(getToken(), false /* onlyCurrentIme */);
@@ -309,7 +305,7 @@ import androidx.preference.PreferenceManager;
         }
     }
 
-    private void playClick(int keyCode){
+    private void playClick(int keyCode) {
         AudioManager am = (AudioManager)getSystemService(AUDIO_SERVICE);
         if (am != null) {
             switch (keyCode) {
@@ -327,5 +323,4 @@ import androidx.preference.PreferenceManager;
             }
         }
     }
-
 }

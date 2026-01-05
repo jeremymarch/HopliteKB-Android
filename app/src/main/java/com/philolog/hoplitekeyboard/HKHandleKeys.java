@@ -105,7 +105,7 @@ public class HKHandleKeys {
             int offset = 101;
             String let = letters[primaryCode - offset];
 
-            if (!let.equals("")) {
+            if (!let.isEmpty()) {
                 ic.commitText(let, 1);
             }
         } else if (primaryCode == HKDeleteKey) {
@@ -163,8 +163,7 @@ public class HKHandleKeys {
         }
     }
 
-    public static void localAccentLetter(InputConnection ic, int start, int acc, int unicodeMode)
-    {
+    public static void localAccentLetter(InputConnection ic, int start, int acc, int unicodeMode) {
         //GreekVerb gv1 = new GreekVerb();
 
         ExtractedText et = ic.getExtractedText(new ExtractedTextRequest(), 0);
@@ -182,25 +181,24 @@ public class HKHandleKeys {
         String strBefore = charsBefore.toString();
 
         int strBeforeLen = strBefore.length();
-        if (strBeforeLen < 1) {
-            //return;
-        }
+//        if (strBeforeLen < 1) {
+//            //return;
+//        }
 
         int cc = numCombiningChars(strBefore);
 
         //Log.e("abc", "NUM: " + cc + ", " + (strBeforeLen - cc - 1) + ", " + (strBeforeLen) + ", " + strBefore.substring(strBeforeLen - cc - 1, strBeforeLen));
-        String accentedLetter = "";
+        String accentedLetter;
         //Log.e("abc", "unicode mode: " + unicodeMode);
 
-        if (strBeforeLen < 1)
-        {
+        if (strBeforeLen < 1) {
             accentedLetter = GreekVerb.addAccent(acc, unicodeMode, "");
         }
         else {
             accentedLetter = GreekVerb.addAccent(acc, unicodeMode, strBefore.substring(strBeforeLen - cc - 1, strBeforeLen));
         }
 
-        if (!accentedLetter.equals("")) {
+        if (!accentedLetter.isEmpty()) {
             ic.setComposingRegion(selectionStart - (1+cc), selectionEnd);
             ic.setComposingText(accentedLetter, 1);
             ic.finishComposingText();
@@ -208,8 +206,7 @@ public class HKHandleKeys {
         }
     }
 
-    public static int numCombiningChars(String s)
-    {
+    public static int numCombiningChars(String s) {
         int combiningChars = 0;
         int sLen = s.length();
         for (int i = sLen; i > 0; i--)
@@ -226,8 +223,7 @@ public class HKHandleKeys {
         return combiningChars;
     }
 
-    public static int numCombiningCharsAfter(String s)
-    {
+    public static int numCombiningCharsAfter(String s) {
         int combiningChars = 0;
         int sLen = s.length();
         for (int i = 0; i < sLen; i++)
@@ -271,8 +267,7 @@ public class HKHandleKeys {
         return start;
     }
 */
-    public static boolean isCombiningCharacter(char s)
-    {
+    public static boolean isCombiningCharacter(char s) {
         return (s == COMBINING_GRAVE ||
                 s == COMBINING_ACUTE ||
                 s == COMBINING_CIRCUMFLEX ||
@@ -285,8 +280,7 @@ public class HKHandleKeys {
                 s == COMBINING_UNDERDOT);
     }
 
-    public static boolean isDiacriticKey(int code)
-    {
+    public static boolean isDiacriticKey(int code) {
         return (code == HKRoughBreathingKey ||
         code == HKSmoothBreathingKey ||
         code == HKAcuteKey ||
@@ -299,8 +293,7 @@ public class HKHandleKeys {
         code == HKDiaeresisKey);
     }
 
-    public static boolean isPunctuationKey(int code)
-    {
+    public static boolean isPunctuationKey(int code) {
         return (code ==  HKPeriodKey ||
         code ==  HKCommaKey ||
         code ==  HKMiddleDotKey ||
@@ -327,5 +320,4 @@ public class HKHandleKeys {
         code ==  HKOpenCurlyBKey ||
         code ==  HKCloseCurlyBKey);
     }
-
 }

@@ -39,19 +39,12 @@ public class HKMainMenu extends AppCompatActivity {
     public HCGreekEditText mTextView;
     public View menuView;
     public HopliteKeyboardView mKeyboardView;
-    private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
 
-    public void localSetTheme()
-    {
+    public void localSetTheme() {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String themeName = sharedPref.getString("HKTheme", "HKDayNight");
-        if (themeName == null)
-        {
-            themeName = "HKDayNight";
-        }
 
-        switch(themeName)
-        {
+        switch(themeName) {
             case "HKDark":
                 setTheme(R.style.HKDark);
                 break;
@@ -95,7 +88,7 @@ public class HKMainMenu extends AppCompatActivity {
         InputConnection ic = mTextView.onCreateInputConnection(new EditorInfo());
         mKeyboardView.setOnKeyboardActionListener(new HKLocalOnKeyboardActionListener(ic, mKeyboardView, getBaseContext()));
 
-        prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+        SharedPreferences.OnSharedPreferenceChangeListener prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
                 if (key.equals("HKUnicodeMode")) {
                     int uMode = 0;
@@ -111,7 +104,9 @@ public class HKMainMenu extends AppCompatActivity {
                 } else if (key.equals("HKTheme")) {
                     recreate();
                 }
-            };
+            }
+
+            ;
         };
         sharedPref.registerOnSharedPreferenceChangeListener(prefListener);
 

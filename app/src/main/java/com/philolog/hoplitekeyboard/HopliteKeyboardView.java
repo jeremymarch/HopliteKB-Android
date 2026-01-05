@@ -70,8 +70,7 @@ public class HopliteKeyboardView extends KeyboardView {
     private final Paint mPaint;
     private final Typeface mKeyTypeface;
 
-    public HopliteKeyboardView(Context context, AttributeSet attrs)
-    {
+    public HopliteKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         mPaint = new Paint();
@@ -137,8 +136,7 @@ public class HopliteKeyboardView extends KeyboardView {
                     dr = ContextCompat.getDrawable(context, R.drawable.accentbuttondown);
                     paint.setColor(diacriticTextColorDown);
                 }
-                else
-                {
+                else {
                     dr = ContextCompat.getDrawable(context, R.drawable.accentbutton);
                     paint.setColor(diacriticTextColor);
                 }
@@ -158,10 +156,12 @@ public class HopliteKeyboardView extends KeyboardView {
                 }
 
                 //make top row punctuation key height shorter just like the diacritics
-                if (key.codes[0] == HKHandleKeys.HKCommaKey || key.codes[0] == HKHandleKeys.HKMiddleDotKey || key.codes[0] == HKHandleKeys.HKApostropheKey || key.codes[0] == HKHandleKeys.HKEMDashKey)
+                if (key.codes[0] == HKHandleKeys.HKCommaKey || key.codes[0] == HKHandleKeys.HKMiddleDotKey || key.codes[0] == HKHandleKeys.HKApostropheKey || key.codes[0] == HKHandleKeys.HKEMDashKey) {
                     dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
-                else
+                }
+                else {
                     dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+                }
 
                 dr.draw(canvas);
             }
@@ -182,21 +182,18 @@ public class HopliteKeyboardView extends KeyboardView {
                     dr = ContextCompat.getDrawable(context, R.drawable.capslockicond);
                     paint.setColor(specialTextColorDown); //?
                 }
-                else
-                {
+                else {
                     dr = ContextCompat.getDrawable(context, R.drawable.capslockicon);
                     paint.setColor(specialTextColorDown); //?
                 }
                 //Log.e("abc", key.width + " " + key.height);
                 double a = ((key.width < key.height) ? key.width : key.height) * 0.75;
-                if (key.width < key.height)
-                {
+                if (key.width < key.height) {
                     double y = key.y + ((key.height - a) / 2);
                     double x = key.x + ((key.width - a) / 2);
                     dr.setBounds((int)x, (int) y, (int)(x + a), (int) (y + a));
                 }
-                else
-                {
+                else {
                     double y = key.y + ((key.height - a) / 2);
                     double x = key.x + ((key.width - a) / 2);
 
@@ -222,21 +219,18 @@ public class HopliteKeyboardView extends KeyboardView {
                     dr = ContextCompat.getDrawable(context, R.drawable.globeicond);
                     paint.setColor(specialTextColorDown); //?
                 }
-                else
-                {
+                else {
                     dr = ContextCompat.getDrawable(context, R.drawable.globeicon);
                     paint.setColor(specialTextColorDown); //?
                 }
                 //Log.e("abc", key.width + " " + key.height);
                 double a = ((key.width < key.height) ? key.width : key.height) * 0.55;
-                if (key.width < key.height)
-                {
+                if (key.width < key.height) {
                     double y = key.y + ((key.height - a) / 2);
                     double x = key.x + ((key.width - a) / 2);
                     dr.setBounds((int)x, (int) y, (int)(x + a), (int) (y + a));
                 }
-                else
-                {
+                else {
                     double y = key.y + ((key.height - a) / 2);
                     double x = key.x + ((key.width - a) / 2);
 
@@ -262,8 +256,7 @@ public class HopliteKeyboardView extends KeyboardView {
                     dr = ContextCompat.getDrawable(context, R.drawable.deleteicond);
                     paint.setColor(specialTextColorDown); //?
                 }
-                else
-                {
+                else {
                     dr = ContextCompat.getDrawable(context, R.drawable.deleteicon);
                     paint.setColor(specialTextColorDown); //?
                 }
@@ -275,8 +268,7 @@ public class HopliteKeyboardView extends KeyboardView {
                     double x = key.x + ((key.width - a) / 2);
                     dr.setBounds((int)x, (int) y, (int)(x + a), (int) (y + a));
                 }
-                else
-                {
+                else {
                     double y = key.y + ((key.height - a) / 2);
                     double x = key.x + ((key.width - a) / 2);
 
@@ -319,38 +311,31 @@ public class HopliteKeyboardView extends KeyboardView {
                 FONT_SIZE = 38.0f; //or 26.0?
                 paint.setTypeface(tf);
             }
-            else if (key.codes[0] == HKHandleKeys.HKAcuteKey || key.codes[0] == HKHandleKeys.HKGraveKey)
-            {
+            else if (key.codes[0] == HKHandleKeys.HKAcuteKey || key.codes[0] == HKHandleKeys.HKGraveKey) {
                 FONT_SIZE = 44.0f; //or 26.0?
                 paint.setTypeface(tf);
             }
-            else if (key.codes[0] == HKHandleKeys.HKIotaSubscriptKey)
-            {
+            else if (key.codes[0] == HKHandleKeys.HKIotaSubscriptKey) {
                 FONT_SIZE = 23.0f; //or 26.0?
                 paint.setTypeface(Typeface.DEFAULT);
                 //paint.setTypeface(tf);
             }
-            else if (key.codes[0] == HKHandleKeys.HKMultipleFormsKey && mMFPressed)
-            {
+            else if (key.codes[0] == HKHandleKeys.HKMultipleFormsKey && mMFPressed) {
                 FONT_SIZE = 32.0f; //or 26.0?
                 paint.setTypeface(tf);
             }
-            else if (key.codes[0] == HKHandleKeys.HKEnterKey)
-            {
+            else if (key.codes[0] == HKHandleKeys.HKEnterKey) {
                 FONT_SIZE = 23.0f; //or 26.0?
             }
-            else if (key.codes[0] == HKHandleKeys.HKDiaeresisKey || key.codes[0] == HKHandleKeys.HKBreveKey)
-            {
+            else if (key.codes[0] == HKHandleKeys.HKDiaeresisKey || key.codes[0] == HKHandleKeys.HKBreveKey) {
                 FONT_SIZE = 32.0f; //or 26.0?
             }
-            else
-            {
+            else {
                 FONT_SIZE = 23.0f; //or 26.0?
                 paint.setTypeface(Typeface.DEFAULT);
             }
 
-            if (key.codes[0] == HKHandleKeys.HKSpaceKey)
-            {
+            if (key.codes[0] == HKHandleKeys.HKSpaceKey) {
                 paint.setColor(spaceTextColor);
             }
 
@@ -419,14 +404,12 @@ public class HopliteKeyboardView extends KeyboardView {
         }
     }
 
-    public int getUnicodeMode()
-    {
+    public int getUnicodeMode() {
         int uMode = 0;
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
         String tempUMode = sharedPref.getString("HKUnicodeMode", "0");
-        if (tempUMode != null) {
-            uMode = Integer.parseInt(tempUMode);
-        }
+        uMode = Integer.parseInt(tempUMode);
+
         return uMode;
     }
 
@@ -456,8 +439,7 @@ public class HopliteKeyboardView extends KeyboardView {
 
     }
 
-    public void openKeyboard(View v, Runnable onComplete)
-    {
+    public void openKeyboard(View v, Runnable onComplete) {
         if (this.getVisibility() == View.GONE) {
 
             Animation animation = AnimationUtils
@@ -471,17 +453,15 @@ public class HopliteKeyboardView extends KeyboardView {
             this.setVisibility(View.VISIBLE);
 
             this.setEnabled(true);
-            if( v!=null) {
+            if( v != null) {
                 ((InputMethodManager) v.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(v.getWindowToken(), 0);
             }
             this.bringToFront();
         }
     }
 
-    public void hideKeyboard()
-    {
+    public void hideKeyboard() {
         if (this.getVisibility() != View.GONE) {
-
             this.setVisibility(View.GONE);
         }
     }

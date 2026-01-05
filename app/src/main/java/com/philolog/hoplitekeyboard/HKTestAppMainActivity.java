@@ -37,23 +37,18 @@ import android.view.View;
 import android.view.MotionEvent;
 import android.view.WindowManager;
 
+import java.util.Objects;
+
 public class HKTestAppMainActivity extends AppCompatActivity {
     public HCGreekEditText mTextView;
     public TextView mCodePointTextView, mModeView;
     public HopliteKeyboardView mKeyboardView;
-    private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
 
-    public void localSetTheme()
-    {
+    public void localSetTheme() {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String themeName = sharedPref.getString("HKTheme", "HKDayNight");
-        if (themeName == null)
-        {
-            themeName = "HKDayNight";
-        }
 
-        switch(themeName)
-        {
+        switch(themeName) {
             case "HKDark":
                 setTheme(R.style.HKDark);
                 break;
@@ -91,23 +86,25 @@ public class HKTestAppMainActivity extends AppCompatActivity {
         InputConnection ic = mTextView.onCreateInputConnection(new EditorInfo());
         mKeyboardView.setOnKeyboardActionListener(new HKLocalOnKeyboardActionListener(ic, mKeyboardView, getBaseContext()));
 
-        prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+        SharedPreferences.OnSharedPreferenceChangeListener prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-                if (key.equals("HKUnicodeMode")) {
-                    int uMode = 0;
-                    String tempUMode = prefs.getString("HKUnicodeMode", "0");
-                    if (tempUMode != null) {
+                if (key != null) {
+                    if (key.equals("HKUnicodeMode")) {
+                        int uMode;
+                        String tempUMode = prefs.getString("HKUnicodeMode", "0");
                         uMode = Integer.parseInt(tempUMode);
+                        mKeyboardView.unicodeMode = uMode;
+                    } else if (key.equals("HKSoundOn")) {
+                        mKeyboardView.soundOn = prefs.getBoolean(key, false);
+                    } else if (key.equals("HKVibrateOn")) {
+                        mKeyboardView.vibrateOn = prefs.getBoolean(key, false);
+                    } else if (key.equals("HKTheme")) {
+                        recreate();
                     }
-                    mKeyboardView.unicodeMode = uMode;
-                } else if (key.equals("HKSoundOn")) {
-                    mKeyboardView.soundOn = prefs.getBoolean(key, false);
-                } else if (key.equals("HKVibrateOn")) {
-                    mKeyboardView.vibrateOn = prefs.getBoolean(key, false);
-                } else if (key.equals("HKTheme")) {
-                    recreate();
                 }
-            };
+            }
+
+            ;
         };
         sharedPref.registerOnSharedPreferenceChangeListener(prefListener);
 
@@ -122,22 +119,12 @@ public class HKTestAppMainActivity extends AppCompatActivity {
         });
 
         mKeyboardView.unicodeMode = mKeyboardView.getUnicodeMode();
-        String mode = "";
-        switch (mKeyboardView.unicodeMode)
-        {
-            case 0:
-                mode = "Precomposed";
-                break;
-            case 1:
-                mode = "Precomposed with PUA";
-                break;
-            case 2:
-                mode = "Combining Only";
-                break;
-            default:
-                mode = "Unknown";
-                break;
-        }
+        String mode = switch (mKeyboardView.unicodeMode) {
+            case 0 -> "Precomposed";
+            case 1 -> "Precomposed with PUA";
+            case 2 -> "Combining Only";
+            default -> "Unknown";
+        };
         mModeView.setText("Unicode mode: " + mode);
 
         mTextView.addTextChangedListener(new TextWatcher() {
@@ -154,21 +141,21 @@ public class HKTestAppMainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
 
-                String str = mTextView.getText().toString();
-                String res = "";
+                String str = Objects.requireNonNull(mTextView.getText()).toString();
+                StringBuilder res = new StringBuilder();
 
                 final int length = str.length();
                 for (int offset = 0; offset < length; ) {
                     final int codepoint = str.codePointAt(offset);
-                    res = res + String.format("%04X", codepoint) + " - ";
+                    res.append(String.format("%04X", codepoint)).append(" - ");
 
                     offset += Character.charCount(codepoint);
                 }
-                if (res.endsWith(" - ")) {
-                    res = res.substring(0, res.length() - 3);
+                if (res.toString().endsWith(" - ")) {
+                    res = new StringBuilder(res.substring(0, res.length() - 3));
                 }
 
-                mCodePointTextView.setText(res);
+                mCodePointTextView.setText(res.toString());
             }
         });
     }
