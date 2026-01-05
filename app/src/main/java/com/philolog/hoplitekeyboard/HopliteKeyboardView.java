@@ -301,7 +301,13 @@ public class HopliteKeyboardView extends KeyboardView {
                     dr = ContextCompat.getDrawable(context, R.drawable.normalbutton);
                     paint.setColor(keyTextColor);
                 }
-                dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+                //make top row punctuation key height shorter just like the diacritics
+                if ((key.codes[0] > 194 && key.codes[0] < 205) || (key.codes[0] > 159 && key.codes[0] < 170) ) {
+                    dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
+                }
+                else {
+                    dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+                }
                 dr.draw(canvas);
             }
 
