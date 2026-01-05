@@ -50,8 +50,8 @@ import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.preference.PreferenceManager;
 
-/**
-
+@SuppressWarnings("urls")
+/*
 //examples:
  http://www.fampennings.nl/maarten/android/09keyboard/
 
@@ -67,8 +67,6 @@ import androidx.preference.PreferenceManager;
 
     public HopliteKeyboardView kv;
     public Keyboard keyboard;
-
-    private int unicodeMode = 0;
 
     public boolean capsLock = false;
     public boolean extraKeysLock = false;
@@ -201,6 +199,7 @@ import androidx.preference.PreferenceManager;
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override public void onKey(int primaryCode, int[] keyCodes) {
         InputConnection ic = getCurrentInputConnection();
         if (ic == null)
@@ -209,7 +208,7 @@ import androidx.preference.PreferenceManager;
         }
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String tempUMode = sharedPref.getString("HKUnicodeMode", "0");
-        unicodeMode = Integer.parseInt(tempUMode);
+        int unicodeMode = Integer.parseInt(tempUMode);
 
         boolean soundOn = sharedPref.getBoolean("HKSoundOn", false);
         boolean vibrateOn = sharedPref.getBoolean("HKVibrateOn", false);
@@ -254,26 +253,33 @@ import androidx.preference.PreferenceManager;
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override public void onPress(int arg0) {
         //this removes the yellow preview when key is pressed.
         kv.setPreviewEnabled(false);
     }
 
+    @SuppressWarnings("deprecation")
     @Override public void onRelease(int primaryCode) {
     }
 
+    @SuppressWarnings("deprecation")
     @Override public void onText(CharSequence text) {
     }
 
+    @SuppressWarnings("deprecation")
     @Override public void swipeDown() {
     }
 
+    @SuppressWarnings("deprecation")
     @Override public void swipeLeft() {
     }
 
+    @SuppressWarnings("deprecation")
     @Override public void swipeRight() {
     }
 
+    @SuppressWarnings("deprecation")
     @Override public void swipeUp() {
     }
 

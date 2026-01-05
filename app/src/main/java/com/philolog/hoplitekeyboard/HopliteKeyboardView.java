@@ -71,6 +71,7 @@ public class HopliteKeyboardView extends KeyboardView {
     private final Paint mPaint;
     private final Typeface mKeyTypeface;
 
+    @SuppressWarnings("deprecation")
     public HopliteKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
