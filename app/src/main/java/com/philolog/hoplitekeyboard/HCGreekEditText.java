@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.view.inputmethod.EditorInfo;
 
 public class HCGreekEditText extends androidx.appcompat.widget.AppCompatEditText {
-    //HopliteKeyboardView kv;
 
     public HCGreekEditText(Context context, AttributeSet attrs) {
         super(context, attrs);

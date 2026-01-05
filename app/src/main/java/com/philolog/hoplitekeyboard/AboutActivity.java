@@ -33,7 +33,7 @@ protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.about);
 
-    tv = (TextView) findViewById(R.id.aboutTextView);
+    tv = findViewById(R.id.aboutTextView);
 
     tv.setText(Html.fromHtml("USE:<br>" +
             "• Type the letter first, then add diacritics.<br>" +

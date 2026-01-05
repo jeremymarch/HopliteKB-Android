@@ -37,7 +37,7 @@ public class InstallationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.installation);
 
-        iv = (TextView) findViewById(R.id.installationTextView);
+        iv = findViewById(R.id.installationTextView);
 
         iv.setText(Html.fromHtml("INSTALLATION<br>" +
                 "<br>" +

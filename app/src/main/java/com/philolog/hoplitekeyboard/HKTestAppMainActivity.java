@@ -33,8 +33,6 @@ import android.text.TextWatcher;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.widget.TextView;
-import android.view.View;
-import android.view.MotionEvent;
 import android.view.WindowManager;
 
 import java.util.Objects;
@@ -68,13 +66,13 @@ public class HKTestAppMainActivity extends AppCompatActivity {
         setContentView(R.layout.hk_testing_activity);
 
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/newathu5.ttf");
-        mTextView = (HCGreekEditText) findViewById(R.id.mTextView);
-        mModeView = (TextView) findViewById(R.id.modeView);
-        mCodePointTextView = (TextView) findViewById(R.id.mCodePointTextView);
+        mTextView = findViewById(R.id.mTextView);
+        mModeView = findViewById(R.id.modeView);
+        mCodePointTextView = findViewById(R.id.mCodePointTextView);
         mTextView.setTypeface(type);
 
         Keyboard mKeyboard= new Keyboard(this,R.xml.hoplitekeyboard);
-        mKeyboardView = (HopliteKeyboardView)findViewById(R.id.keyboardview);
+        mKeyboardView = findViewById(R.id.keyboardview);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         mKeyboardView.soundOn = sharedPref.getBoolean("HKSoundOn", false);
@@ -86,36 +84,28 @@ public class HKTestAppMainActivity extends AppCompatActivity {
         InputConnection ic = mTextView.onCreateInputConnection(new EditorInfo());
         mKeyboardView.setOnKeyboardActionListener(new HKLocalOnKeyboardActionListener(ic, mKeyboardView, getBaseContext()));
 
-        SharedPreferences.OnSharedPreferenceChangeListener prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-                if (key != null) {
-                    switch (key) {
-                        case "HKUnicodeMode" -> {
-                            int uMode;
-                            String tempUMode = prefs.getString("HKUnicodeMode", "0");
-                            uMode = Integer.parseInt(tempUMode);
-                            mKeyboardView.unicodeMode = uMode;
-                        }
-                        case "HKSoundOn" -> mKeyboardView.soundOn = prefs.getBoolean(key, false);
-                        case "HKVibrateOn" ->
-                                mKeyboardView.vibrateOn = prefs.getBoolean(key, false);
-                        case "HKTheme" -> recreate();
+        SharedPreferences.OnSharedPreferenceChangeListener prefListener = (prefs, key) -> {
+            if (key != null) {
+                switch (key) {
+                    case "HKUnicodeMode" -> {
+                        String tempUMode = prefs.getString("HKUnicodeMode", "0");
+                        mKeyboardView.unicodeMode = Integer.parseInt(tempUMode);
                     }
+                    case "HKSoundOn" -> mKeyboardView.soundOn = prefs.getBoolean(key, false);
+                    case "HKVibrateOn" ->
+                            mKeyboardView.vibrateOn = prefs.getBoolean(key, false);
+                    case "HKTheme" -> recreate();
                 }
             }
-
-            ;
         };
         sharedPref.registerOnSharedPreferenceChangeListener(prefListener);
 
-        mTextView.setOnTouchListener(new View.OnTouchListener(){
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-                mKeyboardView.openKeyboard(view, null);
-                mTextView.setCursorVisible(true);
-                mTextView.requestFocus();
-                return false; //true blocks copy/paste, but also prevents normal keyboard from appearing
-            }
+        mTextView.setOnTouchListener((view, motionEvent) -> {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+            mKeyboardView.openKeyboard(view, null);
+            mTextView.setCursorVisible(true);
+            mTextView.requestFocus();
+            return false; //true blocks copy/paste, but also prevents normal keyboard from appearing
         });
 
         mKeyboardView.unicodeMode = mKeyboardView.getUnicodeMode();
@@ -192,7 +182,7 @@ public class HKTestAppMainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/newathu5.ttf");
-        mTextView = (HCGreekEditText) findViewById(R.id.mTextView);
+        mTextView = findViewById(R.id.mTextView);
         mTextView.setTypeface(type);
         //Log.e("abc", "resumed");
     }

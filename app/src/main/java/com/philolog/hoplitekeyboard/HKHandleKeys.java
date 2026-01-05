@@ -63,8 +63,8 @@ public class HKHandleKeys {
     public final static int HKLowLineKey    = 158;
     public final static int HKExclamationKey    = 159;
 
-    public final static int HKZeroKey    = 160;
-    public final static int HKNineKey    = 169;
+//    public final static int HKZeroKey    = 160;
+//    public final static int HKNineKey    = 169;
     public final static int HKLunateSigmaKey    = 169;
 
     public final static int HKForwardSlashKey = 187;
@@ -164,8 +164,6 @@ public class HKHandleKeys {
     }
 
     public static void localAccentLetter(InputConnection ic, int start, int acc, int unicodeMode) {
-        //GreekVerb gv1 = new GreekVerb();
-
         ExtractedText et = ic.getExtractedText(new ExtractedTextRequest(), 0);
         if (et == null) {
             return;
