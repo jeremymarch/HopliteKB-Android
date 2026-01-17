@@ -52,14 +52,14 @@ apply plugin: 'com.android.application'
         android.buildTypes {
             release {
                 minifyEnabled = true
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
                 signingConfig
                 debuggable = false
             }
             debug {
                 debuggable = true
-                minifyEnabled = true
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                //minifyEnabled = true
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             }
         }
 
